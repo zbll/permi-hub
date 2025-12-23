@@ -1,0 +1,19 @@
+{
+  "name": "@packages/hub-connection.server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build-rollup": "rollup -c",
+    "build": "pnpm build-rollup && deno run build"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.26.0",
+  "dependencies": {
+    "@packages/hooks": "workspace:^",
+    "@packages/types": "workspace:^"
+  }
+}

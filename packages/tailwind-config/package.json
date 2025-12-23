@@ -1,0 +1,12 @@
+{
+  "name": "@packages/tailwind-config",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "description": "Tailwind CSS config",
+  "packageManager": "pnpm@10.26.0",
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}

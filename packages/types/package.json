@@ -1,0 +1,8 @@
+{
+  "name": "@packages/types",
+  "version": "1.0.0",
+  "description": "typescript公共类型定义",
+  "main": "index.ts",
+  "type": "module",
+  "packageManager": "pnpm@10.26.0"
+}
