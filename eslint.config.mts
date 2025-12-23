@@ -35,4 +35,7 @@ export default defineConfig([
     extends: ["css/recommended"],
   },
   eslintPluginPrettierRecommended,
+  {
+    ignores: ["**/dist/*"],
+  },
 ]);
