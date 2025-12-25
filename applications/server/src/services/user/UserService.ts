@@ -1,0 +1,194 @@
+// 导入数据库连接和实体类
+import { AppDataSource } from "~data-source";
+import { Permission, User } from "~entity/User.ts";
+
+// 导入 Redis 客户端用于 token 管理
+import { redisClient } from "~redis";
+
+// 导入工具函数
+import { usePatience } from "@packages/hooks";
+import { createToken } from "@packages/token";
+import { RequestError } from "@packages/middlewares";
+import type { Context } from "hono";
+import { env } from "~env";
+import { i18n } from "~locale";
+
+/**
+ * 用户服务类
+ * 提供用户相关的业务逻辑操作，包括登录、注册、信息查询等
+ */
+export class UserService {
+  /**
+   * 根据邮箱和密码获取用户信息（私有方法）
+   *
+   * @param email 用户邮箱
+   * @param password 用户密码
+   * @returns 用户实体对象
+   */
+  private static getUserByEmail(email: string, password: string) {
+    return AppDataSource.manager.findOneOrFail(User, {
+      where: {
+        email,
+        password,
+      },
+    });
+  }
+
+  /**
+   * 检查邮箱是否已存在（私有方法）
+   *
+   * @param email 要检查的邮箱地址
+   * @returns 用户实体对象（如果存在）
+   */
+  private static has(email: string) {
+    return AppDataSource.manager.findOneOrFail(User, {
+      where: {
+        email,
+      },
+    });
+  }
+
+  /**
+   * 更新用户 IP 地址（私有方法）
+   *
+   * @param id 用户ID
+   * @param ip 新的IP地址
+   * @returns 数据库更新操作结果
+   */
+  private static updateIp(id: string, ip: string) {
+    return AppDataSource.manager.update(
+      User,
+      {
+        ip,
+      },
+      {
+        id,
+      },
+    );
+  }
+
+  /**
+   * 根据 token 获取用户信息
+   *
+   * @param token 用户认证令牌
+   * @returns 用户实体对象
+   * @throws 如果 token 无效则抛出错误
+   */
+  static async fromToken(token: string) {
+    // 从 Redis 中获取用户ID
+    const id = await redisClient.get(token);
+    if (!id) throw new RequestError(i18n.t("token.invalid"));
+
+    // 根据用户ID查询用户信息
+    return AppDataSource.manager.findOneOrFail(User, {
+      where: {
+        id,
+      },
+      relations: {
+        permissions: true,
+      },
+    });
+  }
+
+  /**
+   * 用户登录
+   *
+   * @param ip 用户IP地址（可选）
+   * @param email 用户邮箱
+   * @param password 用户密码
+   * @returns 包含 token 和用户ID的对象
+   * @throws 如果邮箱或密码错误则抛出异常
+   */
+  static async login(ip: string | undefined, email: string, password: string) {
+    // 验证邮箱和密码
+    const [success, user] = await usePatience(
+      this.getUserByEmail(email, password),
+    );
+    if (!success) throw new RequestError(i18n.t("user.login.error"));
+
+    // 如果提供了IP地址，则更新用户IP
+    if (ip) {
+      this.updateIp(user.id, ip);
+    }
+
+    // 生成并返回认证令牌
+    return { token: await createToken(user.id), id: user.id };
+  }
+
+  /**
+   * 用户注册
+   *
+   * @param ip 用户IP地址
+   * @param nickname 用户昵称
+   * @param email 用户邮箱
+   * @param password 用户密码
+   * @returns 注册成功返回 true
+   * @throws 如果邮箱已被注册则抛出异常
+   */
+  static async register(
+    ip: string,
+    nickname: string,
+    email: string,
+    password: string,
+  ) {
+    // 检查邮箱是否已存在
+    const [, check] = await usePatience(this.has(email));
+    if (check) throw new RequestError(i18n.t("user.register.email.exists"));
+
+    // 生成用户ID并创建用户对象
+    const user = new User();
+    user.nickname = nickname;
+    user.email = email;
+    user.password = password;
+    user.ip = ip;
+    user.permissions = [];
+
+    // 保存用户到数据库
+    await AppDataSource.manager.save(user);
+
+    // 注册成功
+    return true;
+  }
+
+  /**
+   * 获取用户公开信息
+   * 过滤敏感信息，只返回可公开的用户数据
+   *
+   * @param user 用户实体对象
+   * @returns 包含用户公开信息的对象
+   */
+  static getInfo(user: User) {
+    return {
+      nickname: user.nickname,
+      email: user.email,
+      createAt: user.createAt,
+    };
+  }
+
+  /**
+   * 改变用户权限
+   *
+   * @param user 用户实体对象
+   * @param list 新的权限列表
+   * @returns 操作成功返回 true
+   */
+  static async changePermission(user: User, list: string[]) {
+    const promises: Promise<Permission>[] = [];
+    for (const item of list) {
+      const permission = new Permission();
+      permission.permission = item;
+      promises.push(AppDataSource.manager.save(permission));
+    }
+    user.permissions = await Promise.all(promises);
+    await AppDataSource.manager.save(user);
+    return true;
+  }
+
+  static getToken(ctx: Context): string | undefined {
+    const token = ctx.req.header(env.AUTH_HEADER_NAME);
+    if (token) {
+      return token.split(" ")[1];
+    }
+    return undefined;
+  }
+}

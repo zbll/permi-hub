@@ -1,19 +1,20 @@
 import { DataSource } from "typeorm";
 import { createConnection } from "mysql2";
 import { env } from "../load-env.ts";
-import { User } from "./entity/User.ts";
+import { User, Permission } from "./entity/User.ts";
 import Console from "@packages/console";
+import { Log } from "~entity/Log.ts";
 
-const AppDataSource = new DataSource({
+export const AppDataSource = new DataSource({
   type: "mysql",
   host: env.DATABASE_HOST,
   port: env.DATABASE_PORT,
   username: env.DATABASE_USER,
   password: env.DATABASE_PASSWORD,
   database: env.DATABASE_NAME,
-  entities: [User],
+  entities: [User, Log, Permission],
   synchronize: env.DEVELOPMENT,
-  logging: env.DEVELOPMENT,
+  logging: false, //env.DEVELOPMENT,
   driver: createConnection,
 });
 

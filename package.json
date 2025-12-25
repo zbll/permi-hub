@@ -4,19 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pack-build": "pnpm lerna run build --ignore @applications/client --ignore @applications/server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.26.0",
   "dependencies": {
+    "@packages/token": "workspace:^",
     "typeorm": "^0.3.28"
   },
   "devDependencies": {
     "@eslint/css": "^0.14.1",
     "@eslint/js": "^9.39.2",
     "@eslint/json": "^0.14.0",
+    "@packages/console": "workspace:^",
     "@packages/types": "workspace:^",
     "@rollup/plugin-typescript": "^12.3.0",
     "eslint": "^9.39.2",
@@ -27,6 +29,7 @@
     "lerna": "^9.0.3",
     "prettier": "^3.7.4",
     "rollup": "^4.54.0",
+    "rollup-plugin-dts": "^6.3.0",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.0"

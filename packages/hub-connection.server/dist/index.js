@@ -47,7 +47,7 @@ function useValidate() {
     try {
       JSON.parse(value);
       return true;
-    } catch (e) {
+    } catch (_) {
       return false;
     }
   };
@@ -60,6 +60,9 @@ function useValidate() {
   const isChinese = (value) => Regexs.chinese.test(value);
   const isEmail = (value) => Regexs.email.test(value);
   const isInternetUrl = (value) => Regexs.internetUrl.test(value);
+  const isValidDate = (dateString) => {
+    return !isNaN(Date.parse(dateString));
+  };
   return {
     getInstance,
     isObject,
@@ -73,6 +76,7 @@ function useValidate() {
     isChinese,
     isEmail,
     isInternetUrl,
+    isValidDate,
     Regexs
   };
 }

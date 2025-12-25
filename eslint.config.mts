@@ -37,5 +37,8 @@ export default defineConfig([
   eslintPluginPrettierRecommended,
   {
     ignores: ["**/dist/*"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
   },
 ]);

@@ -16,7 +16,10 @@ import { type Payload } from "@zaubrik/djwt";
  * @example
  * const token = await createToken({ userId: "123", role: "admin" });
  */
-export declare function createToken<T = unknown>(data: T, lifeTime?: number): Promise<string>;
+export declare function createToken<T = unknown>(
+  data: T,
+  lifeTime?: number,
+): Promise<string>;
 /**
  * 验证JWT令牌
  *
@@ -32,4 +35,6 @@ export declare function createToken<T = unknown>(data: T, lifeTime?: number): Pr
  *   console.error('令牌验证失败:', error);
  * }
  */
-export declare function verifyToken<T extends Payload>(token: string): Promise<T>;
+export declare function verifyToken<T extends Payload>(
+  token: string,
+): Promise<T>;

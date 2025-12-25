@@ -1,11 +1,26 @@
 import { ResultCode } from "@packages/types";
-import { Response } from "@oak/oak/response";
+import { type Context } from "hono";
+
+export type StatusCode = Parameters<Context["status"]>[0];
+
+export type ResultLike = {
+  code: unknown;
+  message: string;
+  data: unknown;
+};
 
 /**
  * 响应结果类，用于统一 API 响应格式
  * @template T 数据类型
  */
 export class Result<T = unknown> extends Error {
+  constructor(code: ResultCode, message: string, data: T | null) {
+    super(message);
+    this.name = code;
+    this.code = code;
+    this.data = data;
+  }
+
   /**
    * 响应数据
    */
@@ -25,7 +40,7 @@ export class Result<T = unknown> extends Error {
   /**
    * HTTP 状态码
    */
-  private _statusCode = 200;
+  private _statusCode: StatusCode = 200;
   /**
    * 获取结果代码
    */
@@ -37,7 +52,23 @@ export class Result<T = unknown> extends Error {
    */
   public set code(value: ResultCode) {
     this._code = value;
-    this._statusCode = this.getStatusCode();
+    switch (this.code) {
+      case ResultCode.Ok:
+        this._statusCode = 200;
+        break;
+      case ResultCode.RequestError:
+        this._statusCode = 400;
+        break;
+      case ResultCode.AuthError:
+        this._statusCode = 401;
+        break;
+      case ResultCode.PermissionError:
+        this._statusCode = 403;
+        break;
+      default:
+        this._statusCode = 500;
+        break;
+    }
   }
 
   /**
@@ -48,55 +79,63 @@ export class Result<T = unknown> extends Error {
   }
 
   /**
-   * 设置响应消息
-   */
-  public setMessage(message: string) {
-    this.message = message;
-    return this;
-  }
-
-  /**
-   * 设置结果代码
-   */
-  public setCode(code: ResultCode) {
-    this.code = code;
-    return this;
-  }
-
-  /**
-   * 根据结果代码获取对应的 HTTP 状态码
-   */
-  private getStatusCode() {
-    switch (this.code) {
-      case ResultCode.Ok:
-        return 200;
-      case ResultCode.ParamError:
-        return 400;
-      case ResultCode.AuthError:
-        return 401;
-      default:
-        return 500;
-    }
-  }
-
-  /**
    * 转换为响应体格式
    */
-  public toBody() {
-    return {
+  public toJson(safe = true) {
+    const json = {
       code: this.code,
       message: this.message,
       data: this.data,
+      stack: this.stack,
     };
+    if (safe) delete json.stack;
+    return json;
   }
 
   /**
-   * 渲染响应
+   * 将结果转换为 JSON 字符串
    */
-  public render(response: Response) {
-    response.status = this.statusCode;
-    response.body = JSON.stringify(this.toBody());
-    return this.toBody();
+  public toJsonString(safe = true) {
+    return JSON.stringify(this.toJson(safe));
+  }
+
+  /**
+   * 生成详细的错误原因字符串
+   *
+   * 该方法将结果对象的详细信息格式化为可读的字符串，包含：
+   * - 错误代码 (Code)
+   * - HTTP 状态码 (StatusCode)
+   * - 错误消息 (Message)
+   * - 响应数据 (Data)
+   * - 调用堆栈 (Stack)
+   *
+   * 主要用于调试和日志记录，便于开发人员快速定位问题
+   *
+   * @returns {string} 格式化的错误原因字符串
+   *
+   * @example
+   * ```typescript
+   * const result = new Result();
+   * result.code = ResultCode.ServerError;
+   * result.message = "数据库连接失败";
+   * result.data = { host: "localhost", port: 3306 };
+   *
+   * console.log(result.toReason());
+   * // 输出:
+   * // Code: server_error,
+   * // StatusCode: 500,
+   * // Message: 数据库连接失败,
+   * // Data: {"host":"localhost","port":3306}
+   * // Stack: Error: 数据库连接失败
+   * //     at ...
+   * ```
+   */
+  public toReason(): string {
+    return `Code: ${this.code},
+StatusCode: ${this.statusCode},
+Message: ${this.message},
+Data: ${JSON.stringify(this.data)}
+Stack: ${this.stack}`;
   }
 
   /**
@@ -112,57 +151,57 @@ export class Result<T = unknown> extends Error {
     }
     return false;
   }
-}
 
-/**
- * 成功结果类，用于表示成功的 API 响应
- * @template T 数据类型
- */
-export class OkResult<T = undefined> extends Result<T> {
-  /**
-   * 创建成功结果
-   * @param data 响应数据
-   */
-  constructor(data: T) {
-    super();
-    this.code = ResultCode.Ok;
-    this.data = data;
+  static fromError(error: Error) {
+    switch (error.name) {
+      case ResultCode.RequestError:
+      case ResultCode.AuthError:
+      case ResultCode.PermissionError:
+        return new Result(error.name, error.message, null);
+      default:
+        return new Result(ResultCode.ServerError, error.message, null);
+    }
+  }
+
+  static fromLikeResult<T = unknown>(value: ResultLike) {
+    return new Result(
+      value.code as ResultCode,
+      value.message,
+      value.data as T | null,
+    );
   }
 }
 
-/**
- * 基础错误结果实例
- */
-const baseError = new Result();
-
-/**
- * 创建参数错误结果
- * @param message 错误消息
- */
-export function paramErrorResult(message: string) {
-  return baseError.setMessage(message).setCode(ResultCode.ParamError).toBody();
+export class OkResult<T = undefined> extends Result<T> {
+  constructor(data: T) {
+    super(ResultCode.Ok, ResultCode.Ok, data);
+  }
 }
 
-/**
- * 创建服务器错误结果
- * @param message 错误消息
- */
-export function serverErrorResult(message: string) {
-  return baseError.setMessage(message).setCode(ResultCode.ServerError).toBody();
+export class ServerError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = ResultCode.ServerError;
+  }
 }
 
-/**
- * 创建认证错误结果
- * @param message 错误消息
- */
-export function authErrorResult(message: string) {
-  return baseError.setMessage(message).setCode(ResultCode.AuthError).toBody();
+export class AuthError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = ResultCode.AuthError;
+  }
 }
 
-/**
- * 创建成功结果
- * @param data 响应数据
- */
-export function okResult<T = unknown>(data: T) {
-  return new OkResult<T>(data).toBody();
+export class PermissionError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = ResultCode.PermissionError;
+  }
+}
+
+export class RequestError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = ResultCode.RequestError;
+  }
 }

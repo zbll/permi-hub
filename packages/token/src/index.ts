@@ -22,7 +22,7 @@ const TOKEN_KEY: CryptoKey = await crypto.subtle.generateKey(
  *
  * @template T - 要存储在令牌中的数据类型
  * @param {T} data - 要存储在令牌中的数据
- * @param {number} [lifeTime=7 * 24 * 60 * 60] - 令牌的有效期（秒），默认为7天
+ * @param {number} [lifeTime=1 * 24 * 60 * 60] - 令牌的有效期（秒），默认为1天
  * @returns {Promise<string>} - 生成的JWT令牌字符串
  *
  * @example
@@ -30,7 +30,7 @@ const TOKEN_KEY: CryptoKey = await crypto.subtle.generateKey(
  */
 export function createToken<T = unknown>(
   data: T,
-  lifeTime: number = 7 * 24 * 60 * 60,
+  lifeTime: number = 1 * 24 * 60 * 60,
 ): Promise<string> {
   return create(
     {

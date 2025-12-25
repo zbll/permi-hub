@@ -19,7 +19,9 @@
     "@packages/middlewares": "workspace:^",
     "@packages/token": "workspace:^",
     "@types/node": "^24.2.0",
+    "hono": "^4.11.1",
     "mysql2": "^3.16.0",
+    "redis": "^5.10.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.28"
   }
