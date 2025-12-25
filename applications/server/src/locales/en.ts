@@ -15,6 +15,7 @@ export default {
   "validator.string.minMaxLength":
     "The {{field}} field must be between {{min}} and {{max}} characters long.",
   "token.invalid": "Invalid token.",
+  "permission.invalid": "Insufficient permissions, Required: {{permissions}}.",
   "user.register.field.empty": "Nickname, email, and password must be strings.",
   "user.login.error": "Email or password is incorrect.",
   "user.register.email.exists": "Email already exists.",

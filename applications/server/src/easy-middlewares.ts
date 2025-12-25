@@ -7,6 +7,8 @@ import { cache } from "hono/cache";
 import { usePatience } from "@packages/hooks";
 import { verifyToken } from "@packages/token";
 import { i18n } from "~locale";
+import type { MiddlewareHandler } from "hono";
+import { Permissions } from "~permission";
 
 export type AuthVar = {
   user: User;
@@ -33,4 +35,48 @@ export function useCache() {
     cacheControl: "max-age=60",
     wait: true,
   });
+}
+
+/**
+ * 检查用户是否有足够的权限
+ * @param aPermission 用户权限
+ * @param bPermission 需要的权限
+ * @returns 是否有足够的权限
+ * @example
+ * checkPermission("admin", "admin") // true
+ * checkPermission("user", "admin") // false
+ * checkPermission("user", "user:read") // true
+ * checkPermission("user:read", "user:write") // false
+ * checkPermission("user:permission", "user:permission:read") // true
+ */
+function checkPermission(aPermission: string, bPermission: string): boolean {
+  return aPermission === bPermission || aPermission.startsWith(bPermission);
+}
+
+/**
+ * 检查用户是否有足够的权限
+ * @param needPermissions 需要的权限列表
+ * @returns 中间件处理函数
+ */
+export function usePermission(needPermissions: string[]): MiddlewareHandler {
+  return async (ctx: Context<{ Variables: AuthVar }>, next) => {
+    const user = ctx.var.user;
+    const { permissions } = user;
+    if (permissions.some((u) => u.permission === Permissions.Admin))
+      return await next();
+    const list = permissions.map((u) => u.permission);
+    if (!needPermissions.some((u) => list.some((p) => checkPermission(p, u)))) {
+      throw new AuthError(
+        i18n.t("permission.invalid", {
+          permissions:
+            "[" +
+            needPermissions
+              .filter((u) => !list.some((p) => checkPermission(p, u)))
+              .join(", ") +
+            "]",
+        }),
+      );
+    }
+    await next();
+  };
 }

@@ -5,7 +5,7 @@ import { User } from "~entity/User.ts";
 import { UserService } from "../../services/user/UserService.ts";
 import { type ConnectInfoVar } from "@packages/middlewares";
 import { env } from "~env";
-import { useAuth, useCache, type AuthVar } from "../../easy-middlewares.ts";
+import { useAuth, useCache, usePermission, type AuthVar } from "../../easy-middlewares.ts";
 import { redisClient } from "~redis";
 import { md5 } from "@packages/encryption";
 import { validator } from "hono/validator";
@@ -104,6 +104,7 @@ router.get("/info", useAuth(), (ctx) => {
 router.post(
   "/permission/change",
   useAuth(),
+  usePermission(["permission:edit"]),
   validator("json", (value) => {
     const { required } = useRequestValidator(value, createValidatorOptions);
     const permissions = required("permissions").isArray().toValue<string[]>();

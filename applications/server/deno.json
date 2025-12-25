@@ -15,6 +15,7 @@
     "~data-source": "./src/connect/data-source.ts",
     "~env": "./src/load-env.ts",
     "~redis": "./src/redis/redis-client.ts",
-    "~locale": "./src/locale/index.ts"
+    "~locale": "./src/locale/index.ts",
+    "~permission": "./src/permission/index.ts"
   }
 }

@@ -11,6 +11,7 @@ export default {
   "validator.string.minMaxLength":
     "{{field}}字段长度必须在{{min}}到{{max}}个字符之间",
   "token.invalid": "无效的令牌",
+  "permission.invalid": "权限不足，需要{{permissions}}",
   "user.register.field.empty": "昵称、邮箱和密码必须是字符串",
   "user.login.error": "邮箱或密码错误",
   "user.register.email.exists": "邮箱已存在",
