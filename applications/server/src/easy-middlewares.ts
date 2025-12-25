@@ -50,7 +50,7 @@ export function useCache() {
  * checkPermission("user:permission", "user:permission:read") // true
  */
 function checkPermission(aPermission: string, bPermission: string): boolean {
-  return aPermission === bPermission || aPermission.startsWith(bPermission);
+  return aPermission === bPermission || bPermission.startsWith(aPermission);
 }
 
 /**

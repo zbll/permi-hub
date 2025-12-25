@@ -11,6 +11,7 @@ import { md5 } from "@packages/encryption";
 import { validator } from "hono/validator";
 import { useRequestValidator } from "@packages/hooks";
 import { createValidatorOptions, i18n } from "~locale";
+import { Permissions } from "~permission";
 
 // 创建用户路由实例，定义变量类型
 const router = new Hono<{
@@ -104,7 +105,7 @@ router.get("/info", useAuth(), (ctx) => {
 router.post(
   "/permission/change",
   useAuth(),
-  usePermission(["permission:edit"]),
+  usePermission([Permissions.PermissionEdit]),
   validator("json", (value) => {
     const { required } = useRequestValidator(value, createValidatorOptions);
     const permissions = required("permissions").isArray().toValue<string[]>();
