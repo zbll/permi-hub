@@ -3,15 +3,19 @@ import { Outlet } from "react-router";
 import { BrandTable } from "~/components/shared/brand-table";
 import { useLogPage } from "~/hooks/query/use-log-page";
 import { BrandPagination } from "~/components/shared/brand-pagination";
-import { useLogColumns } from "~/hooks/use-log-columns";
+import { useLogColumns } from "~/hooks/columns/use-log-columns";
 import { useDefineTable } from "~/hooks/use-define-table";
-import { queryClient } from "~/lib/query-client";
+import { Input } from "~/components/ui/input";
+import { Locale } from "~/locale/declaration";
+import { useTranslation } from "react-i18next";
+import { BrandButton } from "~/components/shared/brand-button";
 
 export interface LogPageProps {
   matches: any[];
 }
 
 export default function LogScreen({ matches }: LogPageProps) {
+  const { t } = useTranslation();
   const { cur, setCur, total, setTotal, showView, setShowView } =
     useDefineTable();
   const { columns, sortDirection } = useLogColumns();
@@ -33,7 +37,16 @@ export default function LogScreen({ matches }: LogPageProps) {
   return (
     <>
       {!showView && (
-        <div>
+        <>
+          <div className="flex justify-between pb-2">
+            <Input
+              placeholder={t(Locale.Log$Table$Filter$Url$Placeholder)}
+              className="max-w-sm"
+            />
+            <BrandButton variant="outline" size="default">
+              {t(Locale.Text$Filter)}
+            </BrandButton>
+          </div>
           <BrandTable
             columns={columns}
             data={data?.list}
@@ -47,7 +60,7 @@ export default function LogScreen({ matches }: LogPageProps) {
               onPageChange={(e) => setCur(e)}
             />
           </div>
-        </div>
+        </>
       )}
       {showView && <Outlet />}
     </>

@@ -16,6 +16,7 @@ export enum Locale {
   Text$NeedPermission = "text.need-permission",
   Text$NeedPermission$Description = "text.need-permission.description",
   Text$Refresh = "text.refresh",
+  Text$Filter = "text.filter",
   Route$Root$Name = "route.root.name",
   Route$Routes$Log$Name = "route.routes/log.name",
   Route$Routes$LogView$Name = "route.routes/log-view.name",
@@ -27,6 +28,7 @@ export enum Locale {
   Log$Table$IsSuccess$True = "log.table.isSuccess.true",
   Log$Table$IsSuccess$False = "log.table.isSuccess.false",
   Log$Table$CreateAt = "log.table.createAt",
+  Log$Table$Filter$Url$Placeholder = "log.table.filter.url.placeholder",
   Log$View$Method = "log.view.method",
   Log$View$Language = "log.view.language",
   Log$View$RequestIp = "log.view.requestIp",
@@ -40,4 +42,5 @@ export enum Locale {
   Log$View$Params = "log.view.params",
   Log$View$Response = "log.view.response",
   Role$Nav$Name = "role.nav.name",
+  Role$Nav$List$Name = "role.nav.list.name",
 }

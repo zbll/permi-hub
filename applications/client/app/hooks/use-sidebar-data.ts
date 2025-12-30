@@ -46,7 +46,13 @@ export function useSidebarData() {
       url: "/role",
       icon: IdCardLanyard,
       isActive: false,
-    })
+      items: [
+        {
+          title: t(Locale.Role$Nav$List$Name),
+          url: "/role",
+        },
+      ],
+    });
   }
 
   const teams = [

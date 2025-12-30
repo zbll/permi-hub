@@ -1,6 +1,7 @@
 export * from "./user.ts";
 export * from "./result.ts";
 export * from "./log.ts";
+export * from "./role.ts";
 
 export enum ResultCode {
   Ok = "ok",

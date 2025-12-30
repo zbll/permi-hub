@@ -13,6 +13,9 @@ import "~locale/i18n";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/query-client";
 import { Toaster } from "~ui/sonner";
+import { UserTheme, useUserStore } from "./stores/user-store";
+import React from "react";
+import { useIsDark } from "./hooks/use-is-dark";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -47,9 +50,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const userStore = useUserStore();
+  const isDark = useIsDark();
+
+  React.useEffect(() => {
+    userStore.setTheme(isDark ? "dark" : "light");
+  }, [isDark]);
+
+  React.useEffect(() => {
+    document.documentElement.classList.remove("light", "dark");
+    document.documentElement.classList.add(userStore.theme);
+  }, [userStore.theme]);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <UserTheme.Provider value={userStore.theme}>
+        <Outlet />
+      </UserTheme.Provider>
     </QueryClientProvider>
   );
 }

@@ -16,6 +16,7 @@
   "text.need-permission": "You need permission [{{permissions}}] to access this page",
   "text.need-permission.description": "Please contact the administrator to get the permission.",
   "text.refresh": "Refresh",
+  "text.filter": "Filter",
   "route.root.name": "Home",
   "route.routes/log.name": "Log",
   "route.routes/log-view.name": "Log View",
@@ -27,6 +28,7 @@
   "log.table.isSuccess.true": "Success",
   "log.table.isSuccess.false": "Failed",
   "log.table.createAt": "Create At",
+  "log.table.filter.url.placeholder": "Filter by URL",
   "log.view.method": "Method",
   "log.view.language": "Language",
   "log.view.requestIp": "Request IP",
@@ -39,5 +41,6 @@
   "log.view.details": "Details",
   "log.view.params": "Params",
   "log.view.response": "Response",
-  "role.nav.name": "Role"
+  "role.nav.name": "Role",
+  "role.nav.list.name": "List"
 }

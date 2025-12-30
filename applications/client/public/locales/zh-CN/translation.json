@@ -16,6 +16,7 @@
   "text.need-permission": "您需要 [{{permissions}}] 权限才能访问此页面",
   "text.need-permission.description": "请联系管理员获取权限。",
   "text.refresh": "刷新",
+  "text.filter": "过滤",
   "route.root.name": "首页",
   "route.routes/log.name": "日志",
   "route.routes/log-view.name": "日志详情",
@@ -27,6 +28,7 @@
   "log.table.isSuccess.true": "成功",
   "log.table.isSuccess.false": "失败",
   "log.table.createAt": "创建时间",
+  "log.table.filter.url.placeholder": "按 URL 过滤",
   "log.view.method": "方法",
   "log.view.language": "语言",
   "log.view.requestIp": "请求 IP",
@@ -39,5 +41,6 @@
   "log.view.details": "详情",
   "log.view.params": "参数",
   "log.view.response": "响应",
-  "role.nav.name": "角色"
+  "role.nav.name": "角色",
+  "role.nav.list.name": "角色列表"
 }
