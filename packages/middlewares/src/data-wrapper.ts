@@ -1,11 +1,13 @@
 import type { Context, MiddlewareHandler, Next } from "hono";
-import type { ConnectInfoVar } from "./connect-info.ts";
-import { OkResult, Result } from "./result.ts";
-import { ResultCode } from "@packages/types";
+import { getConnInfo } from "hono/deno";
+import { OkResult, Result } from "@packages/types";
+import {
+  ResultCode,
+  type ConnectInfoVar,
+  type DataWrapperVar,
+} from "@packages/types";
 
-export type DataWrapperVar = {
-  dataResult?: unknown;
-};
+type ConnInfo = ReturnType<typeof getConnInfo>;
 
 /**
  * 数据包装器中间件
@@ -19,10 +21,10 @@ export type DataWrapperVar = {
  * @returns Hono中间件处理器
  */
 export function dataWrapper(): MiddlewareHandler<{
-  Variables: ConnectInfoVar;
+  Variables: ConnectInfoVar<ConnInfo>;
 }> {
   return async (
-    ctx: Context<{ Variables: ConnectInfoVar & DataWrapperVar }>,
+    ctx: Context<{ Variables: ConnectInfoVar<ConnInfo> & DataWrapperVar }>,
     next: Next,
   ) => {
     // 执行下一个中间件或路由处理函数

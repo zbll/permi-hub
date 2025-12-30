@@ -577,7 +577,6 @@
       "jsr:@std/assert@1",
       "jsr:@std/dotenv@~0.225.5",
       "jsr:@zaubrik/djwt@^3.0.2",
-      "npm:mysql2@^3.16.0",
       "npm:reflect-metadata@~0.2.2",
       "npm:typeorm@~0.3.28"
     ],

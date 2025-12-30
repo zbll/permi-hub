@@ -1,6 +1,6 @@
 // 导入数据库连接和实体类
 import { AppDataSource } from "~data-source";
-import { Permission, User } from "~entity/User.ts";
+import { User } from "~entity/User.ts";
 
 // 导入 Redis 客户端用于 token 管理
 import { redisClient } from "~redis";
@@ -8,10 +8,14 @@ import { redisClient } from "~redis";
 // 导入工具函数
 import { usePatience } from "@packages/hooks";
 import { createToken } from "@packages/token";
-import { RequestError } from "@packages/middlewares";
 import type { Context } from "hono";
 import { env } from "~env";
 import { i18n } from "~locale";
+import { checkUserToken, setUserToken } from "../../utils.ts";
+import { type UserInfoApi, RequestError, Permissions } from "@packages/types";
+import Console from "@packages/console";
+import { RoleService } from "../role/RoleService.ts";
+import { md5 } from "@packages/encryption";
 
 /**
  * 用户服务类
@@ -59,10 +63,10 @@ export class UserService {
     return AppDataSource.manager.update(
       User,
       {
-        ip,
+        id,
       },
       {
-        id,
+        ip,
       },
     );
   }
@@ -78,6 +82,8 @@ export class UserService {
     // 从 Redis 中获取用户ID
     const id = await redisClient.get(token);
     if (!id) throw new RequestError(i18n.t("token.invalid"));
+    const hasToken = await checkUserToken(id, token);
+    if (!hasToken) throw new RequestError(i18n.t("token.invalid"));
 
     // 根据用户ID查询用户信息
     return AppDataSource.manager.findOneOrFail(User, {
@@ -85,9 +91,23 @@ export class UserService {
         id,
       },
       relations: {
-        permissions: true,
+        roles: {
+          permissions: true,
+        },
       },
     });
+  }
+
+  /**
+   * 检查用户IP是否中途已变更
+   *
+   * @param user 用户实体对象
+   * @param currentIP 当前请求IP地址
+   * @returns 如果IP已变更则返回 true，否则返回 false
+   */
+  static isChangeIp(user: User, currentIP: string | undefined) {
+    if (user.ip !== currentIP) return true;
+    return false;
   }
 
   /**
@@ -108,11 +128,16 @@ export class UserService {
 
     // 如果提供了IP地址，则更新用户IP
     if (ip) {
-      this.updateIp(user.id, ip);
+      await this.updateIp(user.id, ip);
     }
 
-    // 生成并返回认证令牌
-    return { token: await createToken(user.id), id: user.id };
+    const token = await createToken(user.id);
+
+    // 存储用户 token 到 Redis
+    await setUserToken(user.id, token);
+
+    // 返回认证令牌
+    return token;
   }
 
   /**
@@ -141,7 +166,7 @@ export class UserService {
     user.email = email;
     user.password = password;
     user.ip = ip;
-    user.permissions = [];
+    user.roles = [];
 
     // 保存用户到数据库
     await AppDataSource.manager.save(user);
@@ -157,31 +182,12 @@ export class UserService {
    * @param user 用户实体对象
    * @returns 包含用户公开信息的对象
    */
-  static getInfo(user: User) {
+  static getInfo(user: User): UserInfoApi {
     return {
       nickname: user.nickname,
       email: user.email,
       createAt: user.createAt,
     };
-  }
-
-  /**
-   * 改变用户权限
-   *
-   * @param user 用户实体对象
-   * @param list 新的权限列表
-   * @returns 操作成功返回 true
-   */
-  static async changePermission(user: User, list: string[]) {
-    const promises: Promise<Permission>[] = [];
-    for (const item of list) {
-      const permission = new Permission();
-      permission.permission = item;
-      promises.push(AppDataSource.manager.save(permission));
-    }
-    user.permissions = await Promise.all(promises);
-    await AppDataSource.manager.save(user);
-    return true;
   }
 
   static getToken(ctx: Context): string | undefined {
@@ -190,5 +196,43 @@ export class UserService {
       return token.split(" ")[1];
     }
     return undefined;
+  }
+
+  static #isInit = false;
+  static #Admin = new User();
+
+  static async init() {
+    if (this.#isInit) return;
+    this.#isInit = true;
+    Console.info("初始化Admin用户中...");
+    await RoleService.init();
+    const user = await AppDataSource.manager.findOne(User, {
+      where: {
+        email: env.ADMIN_EMAIL,
+      },
+    });
+    if (user === null) {
+      Console.info("Admin用户不存在, 创建中...");
+      const admin = new User();
+      admin.email = env.ADMIN_EMAIL;
+      admin.password = md5(env.ADMIN_PASSWORD);
+      admin.nickname = Permissions.Admin;
+      admin.roles = [RoleService.getAdmin()];
+      admin.ip = "";
+      const newAdmin = await AppDataSource.manager.save(admin);
+      Console.info(
+        `Admin用户创建成功, ID: ${newAdmin.id}, 邮箱: ${newAdmin.email}, 密码: ${newAdmin.password}`,
+      );
+      this.#Admin = newAdmin;
+    } else {
+      this.#Admin = user;
+      Console.info(
+        `Admin用户已存在, ID: ${user.id}, 邮箱: ${user.email}, 密码: ${user.password}`,
+      );
+    }
+  }
+
+  static getAdmin() {
+    return this.#Admin;
   }
 }

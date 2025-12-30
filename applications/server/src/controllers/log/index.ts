@@ -1,15 +1,18 @@
 import { Hono } from "hono";
-import { LogService } from "../../services/log/LogService.ts";
-import { ServiceUtils } from "../../services/ServiceUtils.ts";
-import { useAuth, usePermission } from "../../easy-middlewares.ts";
-import { Permissions } from "~permission";
+import { validator } from "hono/validator";
+import { LogService } from "~services/log/LogService.ts";
+import { ServiceUtils } from "~services/ServiceUtils.ts";
+import { useAuth, useCache, useCheckPermission } from "~/easy-middlewares.ts";
+import { Permissions, RequestError } from "@packages/types";
+import { useRequestValidator } from "@packages/hooks";
+import { i18n, validatorOptions } from "~locale";
 
 const router = new Hono();
 
 router.get(
   "/list",
   useAuth(),
-  usePermission([Permissions.LoggerGet]),
+  useCheckPermission([Permissions.LoggerGet]),
   async (ctx) => {
     const sort_createAt = ctx.req.query("sort_createAt");
     const createAtSort = ServiceUtils.getSortParam(sort_createAt);
@@ -20,14 +23,50 @@ router.get(
 );
 
 router.get(
+  "/page",
+  useAuth(),
+  useCheckPermission([Permissions.LoggerGet]),
+  validator("query", (value) => {
+    const { required, optional, fromSort } = useRequestValidator(
+      value,
+      validatorOptions,
+    );
+    const current = required("cur").type("string").toNumber();
+    const size = optional("size").type("string").toNumberWithDefault(10);
+    const createAtSort = fromSort("time", "DESC");
+    return {
+      current,
+      size,
+      createAtSort,
+    };
+  }),
+  async (ctx) => {
+    const { current, size, createAtSort } = ctx.req.valid("query");
+    const [success, data, error] = await LogService.page(
+      current,
+      size,
+      createAtSort,
+    );
+    if (!success) throw error;
+    const [logs, total] = data;
+    return ctx.json({
+      list: logs,
+      count: total,
+    });
+  },
+);
+
+router.get(
   "/:id",
   useAuth(),
-  usePermission([Permissions.LoggerGet]),
+  useCache(),
+  useCheckPermission([Permissions.LoggerGet]),
   async (ctx) => {
     const id = ctx.req.param("id");
-    if (!id) throw new Error("没有日志ID");
+    if (!id) throw new RequestError(i18n.t("log.view.field.id.empty"));
     const [success, log] = await LogService.get(id);
-    return ctx.json(success ? log : null);
+    if (!success) throw new RequestError(i18n.t("log.view.error.not.exists"));
+    return ctx.json(log);
   },
 );
 

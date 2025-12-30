@@ -5,7 +5,7 @@
  *   - 当操作成功时: [true, data, null]
  *   - 当操作失败时: [false, null, error]
  */
-export type Patience<T = unknown> = [true, T, null] | [false, null, unknown];
+export type Patience<T = unknown> = [true, T, null] | [false, null, Error];
 
 /**
  * 将Promise包装成具有统一返回格式的异步结果

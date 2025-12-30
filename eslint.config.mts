@@ -17,6 +17,12 @@ export default defineConfig([
   tseslint.configs.recommended,
   pluginReact.configs.flat.recommended,
   {
+    rules: {
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
+    },
+  },
+  {
     files: ["**/*.json"],
     plugins: { json },
     language: "json/json",

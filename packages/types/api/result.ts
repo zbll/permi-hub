@@ -1,7 +1,4 @@
-import { ResultCode } from "@packages/types";
-import { type Context } from "hono";
-
-export type StatusCode = Parameters<Context["status"]>[0];
+import { ResultCode } from "./index.ts";
 
 export type ResultLike = {
   code: unknown;
@@ -40,7 +37,7 @@ export class Result<T = unknown> extends Error {
   /**
    * HTTP 状态码
    */
-  private _statusCode: StatusCode = 200;
+  private _statusCode = 200;
   /**
    * 获取结果代码
    */
@@ -52,23 +49,7 @@ export class Result<T = unknown> extends Error {
    */
   public set code(value: ResultCode) {
     this._code = value;
-    switch (this.code) {
-      case ResultCode.Ok:
-        this._statusCode = 200;
-        break;
-      case ResultCode.RequestError:
-        this._statusCode = 400;
-        break;
-      case ResultCode.AuthError:
-        this._statusCode = 401;
-        break;
-      case ResultCode.PermissionError:
-        this._statusCode = 403;
-        break;
-      default:
-        this._statusCode = 500;
-        break;
-    }
+    this._statusCode = Result.getStatusCode(value);
   }
 
   /**
@@ -170,6 +151,21 @@ Stack: ${this.stack}`;
       value.data as T | null,
     );
   }
+
+  static getStatusCode(code: ResultCode) {
+    switch (code) {
+      case ResultCode.Ok:
+        return 200;
+      case ResultCode.RequestError:
+        return 400;
+      case ResultCode.AuthError:
+        return 401;
+      case ResultCode.PermissionError:
+        return 403;
+      default:
+        return 500;
+    }
+  }
 }
 
 export class OkResult<T = undefined> extends Result<T> {
@@ -178,28 +174,39 @@ export class OkResult<T = undefined> extends Result<T> {
   }
 }
 
-export class ServerError extends Error {
+class ProjectError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+
+  withStack(stack?: string) {
+    this.stack = stack;
+    return this;
+  }
+}
+
+export class ServerError extends ProjectError {
   constructor(message: string) {
     super(message);
     this.name = ResultCode.ServerError;
   }
 }
 
-export class AuthError extends Error {
+export class AuthError extends ProjectError {
   constructor(message: string) {
     super(message);
     this.name = ResultCode.AuthError;
   }
 }
 
-export class PermissionError extends Error {
+export class PermissionError extends ProjectError {
   constructor(message: string) {
     super(message);
     this.name = ResultCode.PermissionError;
   }
 }
 
-export class RequestError extends Error {
+export class RequestError extends ProjectError {
   constructor(message: string) {
     super(message);
     this.name = ResultCode.RequestError;

@@ -7,13 +7,29 @@
   ],
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "types": ["node", "vite/client"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES2022"
+    ],
+    "types": [
+      "node",
+      "vite/client"
+    ],
     "jsx": "react-jsx",
-    "rootDirs": [".", "./.react-router/types"],
+    "rootDirs": [
+      ".",
+      "./.react-router/types"
+    ],
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./app/*"]
-    },
+      "~/*": [
+        "./app/*"
+      ],
+      "~locale/*": ["./app/locale/*"],
+      "~ui/*": ["./app/components/ui/*"],
+      "~api/*": ["./app/api/*"],
+      "~components/*": ["./app/components/*"]
+    }
   }
 }

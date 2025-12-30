@@ -42,5 +42,5 @@ export class Log {
   reason: string;
 
   @Column({ comment: "创建时间" })
-  createdAt: Date = new Date();
+  createAt: Date = new Date();
 }

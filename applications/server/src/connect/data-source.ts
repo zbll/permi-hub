@@ -1,9 +1,11 @@
 import { DataSource } from "typeorm";
 import { createConnection } from "mysql2";
-import { env } from "../load-env.ts";
-import { User, Permission } from "./entity/User.ts";
+import { env } from "~env";
+import { User } from "~entity/User.ts";
 import Console from "@packages/console";
 import { Log } from "~entity/Log.ts";
+import { Role } from "~entity/Role.ts";
+import { Permission } from "~entity/Permission.ts";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -12,10 +14,11 @@ export const AppDataSource = new DataSource({
   username: env.DATABASE_USER,
   password: env.DATABASE_PASSWORD,
   database: env.DATABASE_NAME,
-  entities: [User, Log, Permission],
+  entities: [User, Log, Role, Permission],
   synchronize: env.DEVELOPMENT,
-  logging: false, //env.DEVELOPMENT,
+  logging: false, // env.DEVELOPMENT,
   driver: createConnection,
+  connectorPackage: "mysql",
 });
 
 /**

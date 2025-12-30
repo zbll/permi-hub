@@ -10,12 +10,12 @@
     "@zaubrik/djwt": "jsr:@zaubrik/djwt@^3.0.2",
     "reflect-metadata": "npm:reflect-metadata@^0.2.2",
     "typeorm": "npm:typeorm@^0.3.28",
-    "mysql2": "npm:mysql2@^3.16.0",
+    "~/": "./src/",
     "~entity/": "./src/connect/entity/",
     "~data-source": "./src/connect/data-source.ts",
     "~env": "./src/load-env.ts",
     "~redis": "./src/redis/redis-client.ts",
     "~locale": "./src/locale/index.ts",
-    "~permission": "./src/permission/index.ts"
+    "~services/": "./src/services/"
   }
 }

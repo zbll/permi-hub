@@ -1,4 +1,5 @@
-import { RequestError } from "@packages/middlewares";
+import { RequestError } from "@packages/types";
+import type { FindOptionsOrderValue } from "typeorm";
 
 type ValueType =
   | "string"
@@ -138,6 +139,27 @@ class KeyRequiredFilter extends KeyFilter {
   toValue<T = any>() {
     return this.value as T;
   }
+
+  toNumber(): number {
+    return Number(this.value);
+  }
+
+  toString(): string {
+    return String(this.value);
+  }
+
+  toBoolean(): boolean {
+    if (typeof this.value === "string") {
+      return this.value === "true";
+    }
+    if (typeof this.value === "number") {
+      return this.value === 1;
+    }
+    if (typeof this.value === "boolean") {
+      return this.value;
+    }
+    return Boolean(this.value);
+  }
 }
 
 class KeyOptionalFilter extends KeyFilter {
@@ -193,6 +215,54 @@ class KeyOptionalFilter extends KeyFilter {
   toValue<T = any>() {
     return this.value as T | undefined;
   }
+
+  toNumber(): number | undefined {
+    return this.value !== undefined ? Number(this.value) : undefined;
+  }
+
+  toNumberWithDefault(defaultValue: number): number {
+    return this.value !== undefined ? Number(this.value) : defaultValue;
+  }
+
+  toString(): string | undefined {
+    return this.value !== undefined ? String(this.value) : undefined;
+  }
+
+  toStringWithDefault(defaultValue: string): string {
+    return this.value !== undefined ? String(this.value) : defaultValue;
+  }
+
+  toBoolean(): boolean | undefined {
+    if (this.value === undefined) {
+      return undefined;
+    }
+    if (typeof this.value === "string") {
+      return this.value === "true";
+    }
+    if (typeof this.value === "number") {
+      return this.value === 1;
+    }
+    if (typeof this.value === "boolean") {
+      return this.value;
+    }
+    return Boolean(this.value);
+  }
+
+  toBooleanWithDefault(defaultValue: boolean): boolean {
+    if (this.value === undefined) {
+      return defaultValue;
+    }
+    if (typeof this.value === "string") {
+      return this.value === "true";
+    }
+    if (typeof this.value === "number") {
+      return this.value === 1;
+    }
+    if (typeof this.value === "boolean") {
+      return this.value;
+    }
+    return Boolean(this.value);
+  }
 }
 
 export function useRequestValidator(
@@ -210,8 +280,19 @@ export function useRequestValidator(
     return new KeyOptionalFilter(value, key, options);
   };
 
+  const fromSort = (sortKey: string, defaultSort?: FindOptionsOrderValue) => {
+    if (value[sortKey] === undefined) return defaultSort;
+    const sortValue = value[sortKey].toUpperCase();
+    if (sortValue === "ASC") return "ASC";
+    if (sortValue === "DESC") return "DESC";
+    if (sortValue === "1") return "ASC";
+    if (sortValue === "-1") return "DESC";
+    return defaultSort;
+  };
+
   return {
     required,
     optional,
+    fromSort,
   };
 }

@@ -28,6 +28,9 @@ interface Env {
   DATABASE_NAME: string;
   AUTH_PREFIX: string;
   AUTH_HEADER_NAME: string;
+  MAX_USER_LOGIN_COUNT: number;
+  ADMIN_EMAIL: string;
+  ADMIN_PASSWORD: string;
 }
 
 const env: Env = {
@@ -39,6 +42,9 @@ const env: Env = {
   DATABASE_NAME: "",
   AUTH_PREFIX: "",
   AUTH_HEADER_NAME: "",
+  MAX_USER_LOGIN_COUNT: 0,
+  ADMIN_EMAIL: "",
+  ADMIN_PASSWORD: "",
 };
 
 function setEnv(development: boolean, runEnv: Record<string, string>) {
@@ -50,6 +56,9 @@ function setEnv(development: boolean, runEnv: Record<string, string>) {
   env.DATABASE_NAME = runEnv.DATABASE_NAME || "";
   env.AUTH_PREFIX = runEnv.AUTH_PREFIX || "Bearer";
   env.AUTH_HEADER_NAME = runEnv.AUTH_HEADER_NAME || "Authorization";
+  env.MAX_USER_LOGIN_COUNT = Number(runEnv.MAX_USER_LOGIN_COUNT || "1");
+  env.ADMIN_EMAIL = runEnv.ADMIN_EMAIL || "";
+  env.ADMIN_PASSWORD = runEnv.ADMIN_PASSWORD || "";
 }
 
 await loadEnv();

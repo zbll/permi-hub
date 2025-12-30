@@ -2,7 +2,7 @@ import type { Context } from "hono";
 import { Log } from "~entity/Log.ts";
 import { AppDataSource } from "~data-source";
 import { usePatience, type Patience } from "@packages/hooks";
-import { Result, type ConnectInfoVar } from "@packages/middlewares";
+import { Result, type ConnectInfoVar } from "@packages/types";
 import { ResultCode } from "@packages/types";
 import type { FindOptionsOrderValue } from "typeorm";
 
@@ -13,7 +13,8 @@ export class LogService {
       case "GET":
       case "DELETE": {
         const params: Record<string, string> = {};
-        const searchParams = new URLSearchParams(ctx.req.url);
+        const url = new URL(ctx.req.url);
+        const searchParams = new URLSearchParams(url.search);
         searchParams.forEach((value, key) => {
           params[key] = value;
         });
@@ -24,14 +25,16 @@ export class LogService {
         Object.keys(headers).forEach((key) => {
           headers[key.toLowerCase()] = headers[key];
         });
-        if (headers["content-type"] === "application/json") {
+        const contentType = headers["content-type"];
+        if (contentType === "application/json") {
           const body = await ctx.req.json();
           return JSON.stringify(body);
         } else if (
-          headers["content-type"] === "application/x-www-form-urlencoded"
+          contentType.includes("application/x-www-form-urlencoded") ||
+          contentType.includes("multipart/form-data")
         ) {
           const body = await ctx.req.formData();
-          return JSON.stringify(Object.fromEntries(body));
+          return JSON.stringify(Object.fromEntries(body.entries()));
         } else {
           return await ctx.req.text();
         }
@@ -98,7 +101,19 @@ export class LogService {
     return await usePatience(
       AppDataSource.manager.find(Log, {
         order: {
-          createdAt: time,
+          createAt: time,
+        },
+      }),
+    );
+  }
+
+  static page(cur: number, size: number, time?: FindOptionsOrderValue) {
+    return usePatience(
+      AppDataSource.manager.findAndCount(Log, {
+        skip: (cur - 1) * size,
+        take: size,
+        order: {
+          createAt: time,
         },
       }),
     );

@@ -16,8 +16,6 @@ import { cors } from "hono/cors";
 import {
   dataWrapper, // 数据包装器，统一响应格式
   autoRegisterController, // 自动注册控制器
-  connectInfo, // 连接信息中间件
-  type ConnectInfoVar, // 连接信息变量类型
   logger, // 日志中间件
   verifyValueFromKey,
   errorHandle, // 验证值从键中间件
@@ -31,11 +29,15 @@ import "~env";
 import "~redis";
 
 // 导入数据库连接和配置
-import { connectDB } from "./connect/data-source.ts";
+import { connectDB } from "~data-source";
 
 // 导入错误捕获处理器
 import { AllowCatch } from "./allow-catch.ts";
 import "@packages/encryption";
+import { i18n } from "~locale";
+import { connectInfo } from "./easy-middlewares.ts";
+import { type ConnectInfoVar } from "@packages/types";
+import { UserService } from "~services/user/UserService.ts";
 
 /**
  * 初始化数据库连接
@@ -57,7 +59,7 @@ const app = new Hono<{
  */
 app.use(
   cors({
-    origin: "http://localhost:*",
+    origin: "http://localhost:5173",
   }),
 );
 
@@ -83,7 +85,11 @@ app.use(connectInfo());
  * 添加日志中间件
  * 使用自定义的错误捕获处理器记录请求日志
  */
-app.use(logger(new AllowCatch()));
+app.use(
+  logger(new AllowCatch(), {
+    ignore: [/\/log\/.*/],
+  }),
+);
 
 /**
  * 添加数据包装器中间件
@@ -98,7 +104,7 @@ app.use(dataWrapper());
 app.use(
   languageDetector({
     order: ["header", "querystring", "cookie"],
-    supportedLanguages: ["en", "zh"],
+    supportedLanguages: ["en", "zh-CN"],
     fallbackLanguage: "en",
   }),
 );
@@ -111,7 +117,7 @@ app.use(
  * @param ctx Hono 上下文对象
  * @returns 统一的错误响应
  */
-app.onError(errorHandle());
+app.onError(errorHandle(() => i18n.t("token.invalid")));
 
 /**
  * 自动注册控制器
@@ -125,3 +131,5 @@ autoRegisterController(app);
  */
 Console.success("Server is running on host: http://localhost:8080");
 Deno.serve({ port: 8080 }, app.fetch);
+
+UserService.init();

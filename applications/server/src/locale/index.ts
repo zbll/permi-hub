@@ -1,13 +1,13 @@
 import en from "../locales/en.ts";
-import zh from "../locales/zh.ts";
+import zh from "../locales/zh-CN.ts";
 import { I18nService } from "./I18nService.ts";
 
 const i18n = new I18nService<Record<keyof typeof en, string>>();
 
 i18n.loadLocale("en", en);
-i18n.loadLocale("zh", zh);
+i18n.loadLocale("zh-CN", zh);
 
-export const createValidatorOptions = {
+export const validatorOptions = {
   validatorRequired: (field: string) => i18n.t("validator.required", { field }),
   validatorType: (field: string, type: string) =>
     i18n.t("validator.type", { field, type }),
