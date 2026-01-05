@@ -15,6 +15,22 @@ export class PermissionService {
     );
   }
 
+  static creates(permissions: string[]) {
+    const proms = permissions.map((permission) => {
+      const entity = new Permission();
+      entity.permission = permission;
+      return AppDataSource.manager.save(entity);
+    });
+    return usePatience(Promise.all(proms));
+  }
+
+  static deletes(permissions: Permission[]) {
+    const proms = permissions.map((permission) =>
+      AppDataSource.manager.remove(permission),
+    );
+    return usePatience(Promise.all(proms));
+  }
+
   static list() {
     return usePatience(
       AppDataSource.manager.find(Permission, {

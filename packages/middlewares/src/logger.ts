@@ -1,6 +1,5 @@
 import type { Context, MiddlewareHandler, Next } from "hono";
-import { Result, type ResultLike } from "@packages/types";
-import type { DataWrapperVar } from "./data-wrapper.ts";
+import { Result, type ResultLike, type DataWrapperVar } from "@packages/types";
 import type { ErrorHandleVar } from "./error-handle.ts";
 
 export interface Logger {

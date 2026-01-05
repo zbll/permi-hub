@@ -25,6 +25,9 @@ export function useDefineTable() {
   // 总页数状态，初始值为0
   const [total, setTotal] = useState(0);
 
+  // 每页显示的项目数状态，初始值为10
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   // 视图显示状态，控制某些视图元素的显示/隐藏
   const [showView, setShowView] = useState(false);
 
@@ -33,6 +36,8 @@ export function useDefineTable() {
     setCur, // 设置当前页码的函数
     total, // 总页数
     setTotal, // 设置总页数的函数
+    rowsPerPage, // 每页显示的项目数
+    setRowsPerPage, // 设置每页显示的项目数的函数
     showView, // 视图显示状态
     setShowView, // 设置视图显示状态的函数
   };

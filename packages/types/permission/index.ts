@@ -9,4 +9,9 @@ export enum Permissions {
   RoleDelete = "role:delete",
   Permission = "permission",
   PermissionGet = "permission:get",
+  User = "user",
+  UserGet = "user:get",
+  UserAdd = "user:add",
+  UserEdit = "user:edit",
+  UserDelete = "user:delete",
 }

@@ -10,11 +10,15 @@ import {
 } from "~ui/card";
 import { Locale } from "~/locale/declaration";
 import { Button } from "~ui/button";
-import { Label } from "@radix-ui/react-label";
 import { Input } from "~ui/input";
 import { LanguageSelect } from "~components/features/language-select";
 import { BrandButton } from "~components/shared/brand-button";
 import { useLogin } from "~/hooks/mutation/use-login";
+import z from "zod";
+import { useForm } from "@tanstack/react-form";
+import { Field, FieldError, FieldLabel } from "~/components/ui/field";
+import { setAuthToken } from "~/lib/utils";
+import { queryClient } from "~/lib/query-client";
 
 export interface LoginProps {
   onLogined: () => void;
@@ -23,17 +27,42 @@ export interface LoginProps {
 export function Login({ onLogined }: LoginProps) {
   const { t } = useTranslation();
 
+  const formSchema = z.object({
+    email: z.email(),
+    password: z.string().min(6, { error: () => t(Locale.Login$PasswordEmpty) }),
+  });
+
   const { isPending, mutate } = useLogin();
+
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    validators: {
+      onBlur: formSchema,
+    },
+    onSubmit: async ({ value }) => {
+      const formData = new FormData();
+      formData.append("email", value.email);
+      formData.append("password", value.password);
+      mutate(formData, {
+        onSuccess: (data) => {
+          setAuthToken(data).then(() => {
+            queryClient.invalidateQueries();
+            onLogined();
+          });
+        },
+        onError: (e) => {
+          console.log(e);
+        },
+      });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    mutate(formData, {
-      onSuccess: onLogined,
-      onError: (e) => {
-        console.log(e);
-      },
-    });
+    form.handleSubmit();
   };
 
   return (
@@ -49,39 +78,67 @@ export function Login({ onLogined }: LoginProps) {
           </CardAction>
         </CardHeader>
         <CardContent>
-          <Label>
-            <div className="mb-2 text-sm">{t(Locale.Text$Email)}</div>
-            <Input
-              placeholder="m@example.com"
-              type="email"
-              required
-              className="text-sm"
-              name="email"
-              tabIndex={1}
-            />
-          </Label>
-          <div className="mt-6">
-            <Label>
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm">{t(Locale.Text$Password)}</span>
-                <Button
-                  variant="link"
-                  size="sm"
-                  className="h-6 cursor-pointer"
-                  tabIndex={3}
-                >
-                  {t(Locale.Login$ForgotPassword)}
-                </Button>
-              </div>
-              <Input
-                type="password"
-                required
-                className="text-sm"
-                name="password"
-                tabIndex={2}
-              />
-            </Label>
-          </div>
+          <form.Field name="email">
+            {(field) => {
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid}>
+                  <FieldLabel htmlFor={field.name}>
+                    {t(Locale.Text$Email)}
+                  </FieldLabel>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                    placeholder="m@example.com"
+                    tabIndex={1}
+                    autoComplete="email"
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          </form.Field>
+          <form.Field name="password">
+            {(field) => {
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field data-invalid={isInvalid} className="mt-4">
+                  <FieldLabel
+                    htmlFor={field.name}
+                    className="flex justify-between items-center mb-2"
+                  >
+                    <span className="text-sm">{t(Locale.Text$Password)}</span>
+                    <Button
+                      variant="link"
+                      size="sm"
+                      className="h-6 cursor-pointer"
+                      tabIndex={3}
+                    >
+                      {t(Locale.Login$ForgotPassword)}
+                    </Button>
+                  </FieldLabel>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    aria-invalid={isInvalid}
+                    type="password"
+                    tabIndex={2}
+                    autoComplete="password"
+                  />
+                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                </Field>
+              );
+            }}
+          </form.Field>
         </CardContent>
         <CardFooter className="flex-col">
           <BrandButton type="submit" className="w-full" isLoading={isPending}>

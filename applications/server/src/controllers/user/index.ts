@@ -1,30 +1,62 @@
-// 用户控制器模块 - 处理用户相关的HTTP请求
+// 导入必要的模块
 import { Hono } from "hono";
-import { AppDataSource } from "~data-source";
-import { User } from "~entity/User.ts";
 import { UserService } from "../../services/user/UserService.ts";
+import { EmailCodeService } from "../../services/user/EmailCodeService.ts";
 import { env } from "~env";
-import { useAuth, type AuthVar } from "../../easy-middlewares.ts";
+import {
+  useAuth,
+  type AuthVar,
+  type ConnInfo,
+} from "../../easy-middlewares.ts";
 
 import { md5 } from "@packages/encryption";
 import { validator } from "hono/validator";
 import { useRequestValidator } from "@packages/hooks";
 import { validatorOptions, i18n } from "~locale";
-import { type ConnectInfoVar } from "@packages/types";
-import { removeUserToken } from "../../utils.ts";
+import { removeUserToken } from "../../utils/utils.ts";
+
+import {
+  Permissions,
+  type ConnectInfoVar,
+  ServerError,
+  RequestError,
+} from "@packages/types";
+import { useCheckPermission } from "../../easy-middlewares.ts";
 
 // 创建用户路由实例，定义变量类型
 const router = new Hono<{
-  Variables: ConnectInfoVar & AuthVar;
+  Variables: ConnectInfoVar<ConnInfo> & AuthVar;
 }>();
 
+// 发送邮箱验证码接口
+router.post(
+  "/send-code",
+  validator("form", (value) => {
+    const { required } = useRequestValidator(value, validatorOptions);
+    const email = required("email").type("string").toValue<string>();
+    return { email };
+  }),
+  async (ctx) => {
+    const { email } = ctx.req.valid("form");
+    const result = await EmailCodeService.send(email);
+    if (!result)
+      throw new ServerError(i18n.t("user.register.mail.send.failed"));
+    return ctx.json(true);
+  },
+);
+
 // 获取用户列表接口
-router.get("/list", async (ctx) => {
-  // 从数据库获取所有用户
-  const list = await AppDataSource.manager.find(User);
-  // 返回JSON格式的用户列表
-  return ctx.json(list);
-});
+router.get(
+  "/list",
+  useAuth(),
+  useCheckPermission([Permissions.UserGet]),
+  async (ctx) => {
+    // 从数据库获取所有用户
+    const list = await UserService.list();
+    // 返回JSON格式的用户列表
+    return ctx.json(list);
+  },
+);
 
 // 用户登录接口
 router.post(
@@ -60,23 +92,33 @@ router.post(
     const nickname = required("nickname").type("string").toValue<string>();
     const email = required("email").type("string").toValue<string>();
     const password = required("password").type("string").toValue<string>();
+    const emailCode = required("emailCode").type("string").toValue<string>();
     return {
       nickname,
       email,
       password,
+      emailCode,
     };
   }),
   async (ctx) => {
-    // 从表单数据中获取昵称、邮箱和密码
-    const { nickname, email, password } = ctx.req.valid("form");
+    // 从表单数据中获取昵称、邮箱、密码和验证码
+    const { nickname, email, password, emailCode } = ctx.req.valid("form");
     // 验证参数类型
     if (
       typeof nickname !== "string" ||
       typeof email !== "string" ||
-      typeof password !== "string"
+      typeof password !== "string" ||
+      typeof emailCode !== "string"
     ) {
       throw new Error(i18n.t("user.register.field.empty"));
     }
+
+    // 验证邮箱验证码
+    const isCodeValid = await EmailCodeService.verify(email, emailCode);
+    if (!isCodeValid) {
+      throw new RequestError(i18n.t("user.register.code.invalid"));
+    }
+
     // 获取客户端IP地址
     const ip = ctx.var.connectInfo?.remote.address || "";
     // 调用用户服务进行注册

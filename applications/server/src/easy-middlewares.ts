@@ -15,7 +15,7 @@ import { i18n } from "~locale";
 import type { MiddlewareHandler } from "hono";
 import { getConnInfo } from "hono/deno";
 
-type ConnInfo = ReturnType<typeof getConnInfo>;
+export type ConnInfo = ReturnType<typeof getConnInfo>;
 
 export function connectInfo(): MiddlewareHandler<{
   Variables: ConnectInfoVar<ConnInfo>;

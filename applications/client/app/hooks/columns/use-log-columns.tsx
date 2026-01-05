@@ -66,7 +66,7 @@ export function useLogColumns() {
               }
             }}
           >
-            {t(Locale.Log$Table$CreateAt)}
+            {t(Locale.Text$CreateAt)}
             {sortDirection === SortDirection.Desc ? <ArrowDown /> : <ArrowUp />}
           </Button>
         ),
@@ -81,14 +81,14 @@ export function useLogColumns() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost">
-                  <span className="sr-only">Open menu</span>
+                  <span className="sr-only">{t(Locale.Text$OpenMenu)}</span>
                   <MoreHorizontal />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuLabel>{t(Locale.Text$Actions)}</DropdownMenuLabel>
                 <DropdownMenuItem onClick={() => moveToView(row.original.id)}>
-                  View
+                  {t(Locale.Text$View)}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

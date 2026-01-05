@@ -1,9 +1,10 @@
 import { AppDataSource } from "~data-source";
 import { Role } from "~entity/Role.ts";
 import { Permission } from "~entity/Permission.ts";
-import { usePatience } from "@packages/hooks";
+import { usePatience, type Patience } from "@packages/hooks";
 import { Permissions } from "@packages/types";
 import { PermissionService } from "../permission/PermissionService.ts";
+import { Not } from "typeorm";
 
 export class RoleService {
   static add(role: string, permissions: Permission[], desc: string) {
@@ -16,7 +17,10 @@ export class RoleService {
 
   static get(id: number) {
     return usePatience(
-      AppDataSource.manager.findOneOrFail(Role, { where: { id } }),
+      AppDataSource.manager.findOneOrFail(Role, {
+        where: { id },
+        relations: { permissions: true },
+      }),
     );
   }
 
@@ -26,6 +30,27 @@ export class RoleService {
 
   static edit(role: Role) {
     return usePatience(AppDataSource.manager.save(role));
+  }
+
+  static list() {
+    return usePatience(
+      AppDataSource.manager.find(Role, {
+        where: {
+          id: Not(this.#Admin.id),
+        },
+        relations: {
+          permissions: true,
+        },
+      }),
+    );
+  }
+
+  static async getWithPermissions(
+    id: number,
+  ): Promise<Patience<{ data: Role; permissions: Permission[] }>> {
+    const [success, data, error] = await this.get(id);
+    if (!success) return [success, null, error];
+    return [true, { data, permissions: data.permissions }, null];
   }
 
   static #isInit = false;

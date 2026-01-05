@@ -5,5 +5,6 @@ export function useUserPermissions() {
   return useQuery({
     queryKey: ["user", "permissions"],
     queryFn: UserService.permission,
+    staleTime: Infinity,
   });
 }

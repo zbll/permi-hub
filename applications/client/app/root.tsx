@@ -16,6 +16,9 @@ import { Toaster } from "~ui/sonner";
 import { UserTheme, useUserStore } from "./stores/user-store";
 import React from "react";
 import { useIsDark } from "./hooks/use-is-dark";
+import { useTranslation } from "react-i18next";
+import { en, zhCN } from "zod/locales";
+import z from "zod";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -52,10 +55,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const userStore = useUserStore();
   const isDark = useIsDark();
+  const { i18n } = useTranslation();
 
   React.useEffect(() => {
     userStore.setTheme(isDark ? "dark" : "light");
   }, [isDark]);
+
+  React.useEffect(() => {
+    if (i18n.language === "zh-CN") {
+      z.config(zhCN());
+    } else {
+      z.config(en());
+    }
+  }, [i18n]);
 
   React.useEffect(() => {
     document.documentElement.classList.remove("light", "dark");

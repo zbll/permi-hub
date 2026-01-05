@@ -34,17 +34,20 @@ router.get(
     const current = required("cur").type("string").toNumber();
     const size = optional("size").type("string").toNumberWithDefault(10);
     const createAtSort = fromSort("time", "DESC");
+    const filter = optional("filter").type("string").toStringWithDefault("");
     return {
       current,
       size,
       createAtSort,
+      filter,
     };
   }),
   async (ctx) => {
-    const { current, size, createAtSort } = ctx.req.valid("query");
+    const { current, size, createAtSort, filter } = ctx.req.valid("query");
     const [success, data, error] = await LogService.page(
       current,
       size,
+      filter,
       createAtSort,
     );
     if (!success) throw error;

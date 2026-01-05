@@ -35,11 +35,11 @@ export function BrandButton({
   return (
     <Button
       type={type}
-      className={cn(className, "cursor-pointer", isLoading && "cursor-default")}
+      className={cn(className, "cursor-pointer")}
       variant={variant}
       size={size}
       onClick={handleClick}
-      disabled={isDisabled}
+      disabled={isDisabled || isLoading}
     >
       {isLoading && <Spinner />}
       {children}

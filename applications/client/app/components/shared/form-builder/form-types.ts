@@ -1,0 +1,25 @@
+import type { useForm } from "@tanstack/react-form";
+
+export type RenderText = string | (() => string);
+
+export type BaseFormField = {
+  required?: boolean;
+  error?: RenderText;
+  label: RenderText;
+  placeholder?: RenderText;
+  tabIndex?: number;
+  description?: RenderText;
+};
+
+export type FormType = ReturnType<typeof useForm>;
+
+export type FieldType = Parameters<
+  Parameters<ReturnType<typeof useForm>["Field"]>[0]["children"]
+>[0];
+
+export function doRenderText(text?: RenderText): string {
+  if (typeof text === "function") {
+    return text();
+  }
+  return text || "";
+}

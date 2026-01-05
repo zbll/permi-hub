@@ -1,6 +1,5 @@
 import type { Permissions } from "@packages/types";
 import { useUserPermissions } from "~/hooks/query/use-user-permissions";
-import { Spinner } from "../ui/spinner";
 import { useTranslation } from "react-i18next";
 import { Locale } from "~/locale/declaration";
 import { usePermission } from "@packages/hooks";

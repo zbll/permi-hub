@@ -7,6 +7,7 @@ import {
   PieChart,
   Map,
   IdCardLanyard,
+  User,
 } from "lucide-react";
 import { useUserInfo } from "./query/use-user-info";
 import { usePermission } from "@packages/hooks";
@@ -50,6 +51,29 @@ export function useSidebarData() {
         {
           title: t(Locale.Role$Nav$List$Name),
           url: "/role",
+        },
+        {
+          title: t(Locale.Role$Nav$Add$Name),
+          url: "/role/add",
+        },
+      ],
+    });
+  }
+
+  if (checkPermissions([Permissions.UserGet], userPermissions)) {
+    navMain.push({
+      title: t(Locale.User$Nav$Name),
+      url: "/user",
+      icon: User,
+      isActive: false,
+      items: [
+        {
+          title: t(Locale.User$Nav$List$Name),
+          url: "/user",
+        },
+        {
+          title: t(Locale.User$Nav$Add$Name),
+          url: "/user/add",
         },
       ],
     });

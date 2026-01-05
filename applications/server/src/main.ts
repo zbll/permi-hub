@@ -21,11 +21,8 @@ import {
   errorHandle, // 验证值从键中间件
 } from "@packages/middlewares";
 
-// 导入控制台输出工具
-import Console from "@packages/console";
-
 // 导入环境变量配置
-import "~env";
+import { env } from "~env";
 import "~redis";
 
 // 导入数据库连接和配置
@@ -38,6 +35,7 @@ import { i18n } from "~locale";
 import { connectInfo } from "./easy-middlewares.ts";
 import { type ConnectInfoVar } from "@packages/types";
 import { UserService } from "~services/user/UserService.ts";
+import { Logger } from "~logger";
 
 /**
  * 初始化数据库连接
@@ -95,7 +93,7 @@ app.use(
  * 添加数据包装器中间件
  * 统一 API 响应格式，处理成功和错误响应
  */
-app.use(dataWrapper());
+app.use(dataWrapper(Logger));
 
 /**
  * 添加语言检测器中间件
@@ -123,13 +121,13 @@ app.onError(errorHandle(() => i18n.t("token.invalid")));
  * 自动注册控制器
  * 扫描并注册所有控制器路由
  */
-autoRegisterController(app);
+autoRegisterController(app, Logger);
 
 /**
  * 启动服务器
  * 在控制台输出启动信息并监听 8080 端口
  */
-Console.success("Server is running on host: http://localhost:8080");
-Deno.serve({ port: 8080 }, app.fetch);
+Logger.info("Server is running on host: http://localhost:8080");
+Deno.serve({ port: env.PORT }, app.fetch);
 
 UserService.init();

@@ -1,22 +1,32 @@
-import { removeAuthToken, setAuthToken } from "~/lib/utils";
+import type { UserItemApi, UserInfoApi } from "@packages/types";
 import { requestClient } from "../request-client";
-import type { UserInfoApi } from "@packages/types/api/user";
 
 export class UserService {
-  static async login(formData: FormData) {
-    const response = await requestClient.post<string>("/user/login", formData);
-    const token = response.data;
-    setAuthToken(token);
-    return token;
-  }
-
-  static async isAuth() {
-    const response = await requestClient.get<true>("/user/logged");
+  static async list() {
+    const response = await requestClient.get<UserItemApi[]>("/user/list");
     return response.data;
   }
 
-  static async permission() {
-    const response = await requestClient.get<string[]>("/user/permissions");
+  static async add(formData: FormData) {
+    const response = await requestClient.post<UserItemApi>(
+      "/user/add",
+      formData,
+    );
+    return response.data;
+  }
+
+  static async isAuth() {
+    const response = await requestClient.get<boolean>("/user/authenticate");
+    return response.data;
+  }
+
+  static async login(formData: FormData) {
+    const response = await requestClient.post<string>("/user/login", formData);
+    return response.data;
+  }
+
+  static async logout() {
+    const response = await requestClient.get<boolean>("/user/logout");
     return response.data;
   }
 
@@ -25,9 +35,8 @@ export class UserService {
     return response.data;
   }
 
-  static async logout() {
-    const response = await requestClient.get<true>("/user/logout");
-    removeAuthToken();
+  static async permission() {
+    const response = await requestClient.get<string[]>("/user/permissions");
     return response.data;
   }
 }

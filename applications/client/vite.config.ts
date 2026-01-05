@@ -8,9 +8,15 @@ import babel from "vite-plugin-babel";
 export default defineConfig({
   plugins: [
     reactRouter(),
+    babel({
+      filter: /\.[jt]sx?$/,
+      babelConfig: {
+        presets: ["@babel/preset-typescript"],
+        plugins: [["babel-plugin-react-compiler", {}]],
+      },
+    }),
     tsconfigPaths(),
     tailwindcss(),
-    babel({ babelConfig: { plugins: ["babel-plugin-react-compiler"] } }),
   ],
   resolve: {
     alias: {

@@ -1,4 +1,4 @@
-import Console from "@packages/console";
+import type { LoggerImpl } from "@packages/console";
 import type { Hono } from "hono";
 
 export type AutoRegisterOptions = {
@@ -8,6 +8,7 @@ export type AutoRegisterOptions = {
 
 export async function autoRegisterController(
   app: Hono | unknown,
+  logger: LoggerImpl,
   options?: AutoRegisterOptions,
 ) {
   const controllerDir =
@@ -25,6 +26,6 @@ export async function autoRegisterController(
     const router = module.default;
     options?.routerUse?.(router);
     (app as Hono).route(`/${controller.name}`, router);
-    Console.success(`已注册路由 ${controller.name}`);
+    logger.success(`已注册路由 ${controller.name}`);
   }
 }

@@ -8,3 +8,23 @@ export interface UserInfoApi {
   email: string;
   createAt: Date;
 }
+
+export interface UserItemApi {
+  id: string;
+  nickname: string;
+  email: string;
+  ip: string;
+  roles: Array<{
+    id: string;
+    role: string;
+  }>;
+  createAt: Date;
+}
+
+export interface UserAddApi {
+  nickname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  emailCode: string;
+}

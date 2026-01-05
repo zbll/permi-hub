@@ -11,11 +11,11 @@ import { createToken } from "@packages/token";
 import type { Context } from "hono";
 import { env } from "~env";
 import { i18n } from "~locale";
-import { checkUserToken, setUserToken } from "../../utils.ts";
+import { checkUserToken, setUserToken } from "../../utils/utils.ts";
 import { type UserInfoApi, RequestError, Permissions } from "@packages/types";
-import Console from "@packages/console";
 import { RoleService } from "../role/RoleService.ts";
 import { md5 } from "@packages/encryption";
+import { Logger } from "~logger";
 
 /**
  * 用户服务类
@@ -204,7 +204,7 @@ export class UserService {
   static async init() {
     if (this.#isInit) return;
     this.#isInit = true;
-    Console.info("初始化Admin用户中...");
+    Logger.info("初始化Admin用户中...");
     await RoleService.init();
     const user = await AppDataSource.manager.findOne(User, {
       where: {
@@ -212,7 +212,7 @@ export class UserService {
       },
     });
     if (user === null) {
-      Console.info("Admin用户不存在, 创建中...");
+      Logger.info("Admin用户不存在, 创建中...");
       const admin = new User();
       admin.email = env.ADMIN_EMAIL;
       admin.password = md5(env.ADMIN_PASSWORD);
@@ -220,13 +220,17 @@ export class UserService {
       admin.roles = [RoleService.getAdmin()];
       admin.ip = "";
       const newAdmin = await AppDataSource.manager.save(admin);
-      Console.info(
+      Logger.info(
         `Admin用户创建成功, ID: ${newAdmin.id}, 邮箱: ${newAdmin.email}, 密码: ${newAdmin.password}`,
       );
       this.#Admin = newAdmin;
     } else {
+      if (user.password !== md5(env.ADMIN_PASSWORD)) {
+        user.password = md5(env.ADMIN_PASSWORD);
+        await AppDataSource.manager.save(user);
+      }
       this.#Admin = user;
-      Console.info(
+      Logger.info(
         `Admin用户已存在, ID: ${user.id}, 邮箱: ${user.email}, 密码: ${user.password}`,
       );
     }
@@ -234,5 +238,19 @@ export class UserService {
 
   static getAdmin() {
     return this.#Admin;
+  }
+
+  /**
+   * 获取用户列表
+   *
+   * @returns 用户列表
+   */
+  static async list() {
+    const users = await AppDataSource.manager.find(User, {
+      relations: {
+        roles: true,
+      },
+    });
+    return users;
   }
 }

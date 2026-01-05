@@ -1,11 +1,9 @@
+import type { PermissionItemApi } from "./permission";
+
 export interface RoleItemApi {
+  id: number;
   role: string;
   description: string;
-  permissions: string[];
+  permissions: PermissionItemApi[];
   createAt: Date;
-}
-
-export interface RolePageApi {
-  list: RoleItemApi[];
-  count: number;
 }

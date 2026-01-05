@@ -4,7 +4,6 @@ import { ResultCodeStatus } from "@packages/types";
 import { Result } from "@packages/types";
 import { toast } from "sonner";
 import { getAuthToken } from "~/lib/utils";
-import { queryClient } from "~/lib/query-client";
 
 export const requestClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -12,7 +11,7 @@ export const requestClient = axios.create({
 
 requestClient.interceptors.request.use(async (config) => {
   config.headers.set("Accept-Language", i18next.language);
-  config.headers.set("Authorization", `Bearer ${getAuthToken()}`);
+  config.headers.set("Authorization", `Bearer ${await getAuthToken()}`);
   return config;
 });
 

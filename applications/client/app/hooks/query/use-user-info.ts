@@ -5,5 +5,6 @@ export function useUserInfo() {
   return useQuery({
     queryKey: ["user", "info"],
     queryFn: UserService.info,
+    staleTime: Infinity,
   });
 }

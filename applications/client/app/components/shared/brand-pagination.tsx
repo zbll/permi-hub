@@ -9,6 +9,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "../ui/pagination";
+import { Label } from "../ui/label";
+import {
+  Select,
+  SelectItem,
+  SelectTrigger,
+  SelectContent,
+  SelectValue,
+} from "../ui/select";
 
 // 分页组件的属性接口
 export interface BrandPaginationProps {
@@ -16,7 +24,7 @@ export interface BrandPaginationProps {
   page: number; // 每页显示的项目数
   total: number; // 总项目数
   maxView?: number; // 最多显示的页码数量，默认为5
-  onPageChange?: (page: number) => void; // 页码改变时的回调函数
+  onPageChange?: (current: number, page: number) => void; // 页码改变时的回调函数
 }
 
 export function BrandPagination({
@@ -35,7 +43,7 @@ export function BrandPagination({
     e.preventDefault();
     e.stopPropagation();
     if (current === 1) return; // 如果已经是第一页，则不执行操作
-    onPageChange?.(current - 1);
+    onPageChange?.(current - 1, page);
   };
 
   // 下一页处理函数
@@ -43,7 +51,7 @@ export function BrandPagination({
     e.preventDefault();
     e.stopPropagation();
     if (current === Math.ceil(total / page)) return; // 如果已经是最后一页，则不执行操作
-    onPageChange?.(current + 1);
+    onPageChange?.(current + 1, page);
   };
 
   // 计算总页数
@@ -93,57 +101,81 @@ export function BrandPagination({
     viewData.length > 0 && viewData[viewData.length - 1] < maxPage;
 
   return (
-    <Pagination>
-      <PaginationContent>
-        {/* 如果不是第一页，显示上一页按钮 */}
-        {isFirstPage ? null : (
-          <PaginationItem>
-            <PaginationPrevious href="#" onClick={handlePrev}>
-              {previousPage}
-            </PaginationPrevious>
-          </PaginationItem>
-        )}
+    <>
+      <div className="hidden lg:flex items-center gap-2">
+        <Label htmlFor="rows-per-page" className="text-sm font-medium">
+          {t(Locale.Text$RowsPerPage)}
+        </Label>
+        <Select
+          value={page.toString()}
+          onValueChange={(value) => {
+            onPageChange?.(1, Number(value));
+          }}
+        >
+          <SelectTrigger size="sm" className="w-20">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent side="top">
+            {[10, 20, 30, 40, 50].map((size) => (
+              <SelectItem key={size} value={size.toString()}>
+                {size}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <Pagination className="justify-end w-auto mx-0">
+        <PaginationContent>
+          {/* 如果不是第一页，显示上一页按钮 */}
+          {isFirstPage ? null : (
+            <PaginationItem>
+              <PaginationPrevious href="#" onClick={handlePrev}>
+                {previousPage}
+              </PaginationPrevious>
+            </PaginationItem>
+          )}
 
-        {/* 如果需要，显示前省略号 */}
-        {showPrevEllipsis && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
+          {/* 如果需要，显示前省略号 */}
+          {showPrevEllipsis && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
 
-        {/* 渲染页码 */}
-        {viewData.map((pageNum) => (
-          <PaginationItem key={pageNum}>
-            <PaginationLink
-              isActive={current === pageNum} // 当前页码高亮显示
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onPageChange?.(pageNum);
-              }}
-              href="#"
-            >
-              {pageNum}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
+          {/* 渲染页码 */}
+          {viewData.map((pageNum) => (
+            <PaginationItem key={pageNum}>
+              <PaginationLink
+                isActive={current === pageNum} // 当前页码高亮显示
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onPageChange?.(pageNum, page);
+                }}
+                href="#"
+              >
+                {pageNum}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
 
-        {/* 如果需要，显示后省略号 */}
-        {showNextEllipsis && (
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-        )}
+          {/* 如果需要，显示后省略号 */}
+          {showNextEllipsis && (
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+          )}
 
-        {/* 如果不是最后一页，显示下一页按钮 */}
-        {isEndPage ? null : (
-          <PaginationItem>
-            <PaginationNext href="#" onClick={handleNext}>
-              {nextPage}
-            </PaginationNext>
-          </PaginationItem>
-        )}
-      </PaginationContent>
-    </Pagination>
+          {/* 如果不是最后一页，显示下一页按钮 */}
+          {isEndPage ? null : (
+            <PaginationItem>
+              <PaginationNext href="#" onClick={handleNext}>
+                {nextPage}
+              </PaginationNext>
+            </PaginationItem>
+          )}
+        </PaginationContent>
+      </Pagination>
+    </>
   );
 }

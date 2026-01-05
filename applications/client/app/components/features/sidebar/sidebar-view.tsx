@@ -84,7 +84,7 @@ export function SidebarView({ match }: SidebarViewProps) {
         </header>
         <div
           className={cn(
-            "flex flex-1 flex-col gap-4 p-4 pt-0 pb-0",
+            "flex flex-1 flex-col gap-4 p-4 pt-0",
             // "before:absolute before:z-10 before:h-4 before:w-full before:left-0",
             // "before:bg-gradient-to-b before:from-white before:to-[rgba(0,0,0,0)]",
             // "after:absolute after:z-10 after:h-4 after:w-full after:left-0 after:bottom-0",

@@ -6,5 +6,6 @@ export function useLogView(id: string) {
     queryKey: ["log", "view", id],
     queryFn: () => LogService.view(id),
     retry: false,
+    staleTime: Infinity,
   });
 }

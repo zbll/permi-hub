@@ -1,11 +1,8 @@
 import type { Context, MiddlewareHandler, Next } from "hono";
 import { getConnInfo } from "hono/deno";
-import { OkResult, Result } from "@packages/types";
-import {
-  ResultCode,
-  type ConnectInfoVar,
-  type DataWrapperVar,
-} from "@packages/types";
+import { OkResult, Result, ResultCode } from "@packages/types";
+import type { ConnectInfoVar, DataWrapperVar } from "@packages/types";
+import type { LoggerImpl } from "@packages/console";
 
 type ConnInfo = ReturnType<typeof getConnInfo>;
 
@@ -20,14 +17,15 @@ type ConnInfo = ReturnType<typeof getConnInfo>;
  *
  * @returns Hono中间件处理器
  */
-export function dataWrapper(): MiddlewareHandler<{
+export function dataWrapper(logger: LoggerImpl): MiddlewareHandler<{
   Variables: ConnectInfoVar<ConnInfo>;
 }> {
   return async (
     ctx: Context<{ Variables: ConnectInfoVar<ConnInfo> & DataWrapperVar }>,
     next: Next,
   ) => {
-    // 执行下一个中间件或路由处理函数
+    const url = ctx.req.url;
+    const method = ctx.req.method;
     await next();
     const status = ctx.res.status;
     let response: Response | null = null;
@@ -58,6 +56,7 @@ export function dataWrapper(): MiddlewareHandler<{
       }
     }
     if (response) ctx.res = response;
+    logger.info(`${url} ${method} -> ${status}`);
   };
 }
 

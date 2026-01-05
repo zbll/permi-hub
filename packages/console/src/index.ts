@@ -1,29 +1,64 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// deno-lint-ignore-file no-explicit-any
-export default class Console {
-  private static slog(style: string, ...message: any[]) {
-    console.log(`%c${message.join(" ")}`, style);
-  }
-  private static serr(style: string, ...message: any[]) {
-    console.error(`%c${message.join(" ")}`, style);
-  }
-  private static swarn(style: string, ...message: any[]) {
-    console.warn(`%c${message.join(" ")}`, style);
-  }
+import winston, { type LeveledLogMethod } from "winston";
+import "winston-daily-rotate-file";
 
-  static danger(...message: any[]) {
-    this.serr("color: red;", ...message);
-  }
+export const LoggerLevels = {
+  levels: {
+    danger: 0,
+    warn: 1,
+    success: 2,
+    info: 3,
+  },
+  colors: {
+    danger: "red",
+    warn: "yellow",
+    success: "green",
+    info: "blue",
+  },
+};
 
-  static warn(...message: any[]) {
-    this.swarn("color: yellow;", ...message);
-  }
+export type LoggerImpl = {
+  danger: LeveledLogMethod;
+  warn: LeveledLogMethod;
+  success: LeveledLogMethod;
+  info: LeveledLogMethod;
+};
 
-  static success(...message: any[]) {
-    this.slog("color: green;", ...message);
+export function createLogger(product = true): LoggerImpl {
+  const logger = winston.createLogger({
+    levels: LoggerLevels.levels,
+    format: winston.format.combine(
+      winston.format.timestamp(),
+      winston.format.json(),
+    ),
+    transports: [
+      new winston.transports.Console({
+        format: winston.format.combine(
+          winston.format.colorize(),
+          winston.format.simple(),
+        ),
+      }),
+      new winston.transports.DailyRotateFile({
+        level: "error",
+        dirname: "logs",
+        filename: "error-%DATE%.log",
+        datePattern: "YYYY-MM-DD",
+        maxSize: "5m",
+      }),
+      new winston.transports.DailyRotateFile({
+        dirname: "logs",
+        filename: "combined-%DATE%.log",
+        datePattern: "YYYY-MM-DD",
+        maxSize: "5m",
+      }),
+    ],
+  });
+  winston.addColors(LoggerLevels.colors);
+  if (product) {
+    logger.add(
+      new winston.transports.Console({
+        format: winston.format.simple(),
+      }),
+    );
   }
-
-  static info(...message: any[]) {
-    this.slog("color: gray;", ...message);
-  }
+  return logger as unknown as LoggerImpl;
 }

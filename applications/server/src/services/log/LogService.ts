@@ -4,7 +4,7 @@ import { AppDataSource } from "~data-source";
 import { usePatience, type Patience } from "@packages/hooks";
 import { Result, type ConnectInfoVar } from "@packages/types";
 import { ResultCode } from "@packages/types";
-import type { FindOptionsOrderValue } from "typeorm";
+import { Like, type FindOptionsOrderValue } from "typeorm";
 
 export class LogService {
   private static async getParams(ctx: Context): Promise<string> {
@@ -107,11 +107,19 @@ export class LogService {
     );
   }
 
-  static page(cur: number, size: number, time?: FindOptionsOrderValue) {
+  static page(
+    cur: number,
+    size: number,
+    filter: string,
+    time?: FindOptionsOrderValue,
+  ) {
     return usePatience(
       AppDataSource.manager.findAndCount(Log, {
         skip: (cur - 1) * size,
         take: size,
+        where: {
+          url: Like(`%${filter}%`),
+        },
         order: {
           createAt: time,
         },
