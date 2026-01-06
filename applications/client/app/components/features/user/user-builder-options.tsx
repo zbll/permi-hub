@@ -1,5 +1,7 @@
 import type { BuilderOptions } from "~/components/shared/form-builder/brand-form-builder";
 import { Locale } from "~/locale/declaration";
+import { MailService } from "~/api/mail-service/mail-service.api";
+import { toast } from "sonner";
 
 export type UserBuilderOptionsProps = {
   nickname?: string;
@@ -31,17 +33,29 @@ export function createUserBuilderOptions(
       type: "code",
       required: true,
       defaultValue: "",
+      length: {
+        value: 6,
+        error: () => t(Locale.User$Add$Form$EmailCode$Empty),
+      },
       action: {
         text: "发送验证码",
-        onClick: () => {
-          // 测试方法：模拟发送验证码
-          return new Promise((resolve) => {
-            console.log("验证码已发送");
-            setTimeout(resolve, 1000);
-          });
+        onClick: async (formValues) => {
+          if (!formValues.email) {
+            toast.error(t(Locale.User$Add$Form$Email$Empty), {
+              position: "top-center",
+            });
+            throw new Error("邮箱地址不能为空");
+          }
+          try {
+            await MailService.sendCode(formValues.email);
+          } catch (error) {
+            console.error("发送验证码失败:", error);
+            throw error;
+          }
         },
-        countdown: 5,
+        countdown: 60,
       },
+      getEmail: (form) => form.getFieldValue("email") as string,
       error: () => t(Locale.User$Add$Form$EmailCode$Empty),
       label: () => t(Locale.User$Add$Form$EmailCode),
     },

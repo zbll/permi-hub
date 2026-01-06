@@ -14,6 +14,7 @@ export default {
     "The {{field}} field must be at most {{max}} characters long",
   "validator.string.minMaxLength":
     "The {{field}} field must be between {{min}} and {{max}} characters long",
+  "validator.email": "The {{field}} field must be a valid email address",
   "token.invalid": "Invalid token",
   "token.ip.exception": "Address exception",
   "permission.invalid": "Insufficient permissions, Required: {{permissions}}",

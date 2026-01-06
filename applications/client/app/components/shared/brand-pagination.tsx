@@ -113,7 +113,7 @@ export function BrandPagination({
           }}
         >
           <SelectTrigger size="sm" className="w-20">
-            <SelectValue />
+            <SelectValue id="rows-per-page" />
           </SelectTrigger>
           <SelectContent side="top">
             {[10, 20, 30, 40, 50].map((size) => (

@@ -3,6 +3,7 @@ import type { BuilderOptions } from "./brand-form-builder";
 import type { RenderText } from "./form-types";
 import type { TextField } from "./text-form-builder";
 import type { TextareaField } from "./textarea-form-builder";
+import type { CodeField } from "./code-form-builder";
 
 // 定义长度验证配置类型
 export type LengthSchema = {
@@ -25,20 +26,24 @@ export function getFormSchema<
     const value = options[key];
     // 跳过提交按钮类型
     if (value.type === "submit") continue;
+    if (value.schema) {
+      schema[key] = value.schema();
+      continue;
+    }
     // 处理文本字段
     if (value.type === "text" || value.type === "password") {
       schema[key] = getTextSchema(value);
     }
+    if (value.type === "code") {
+      schema[key] = getCodeSchema(value);
+    }
+    // 处理邮箱字段
     if (value.type === "email") {
       schema[key] = getEmailSchema();
     }
     // 处理文本域字段
     if (value.type === "textarea") {
       schema[key] = getTextareaSchema(value);
-    }
-    // 处理自定义字段
-    if (value.type === "custom") {
-      schema[key] = value.schema();
     }
   }
   // 返回 Zod 对象 schema
@@ -76,6 +81,16 @@ function getTextSchema(value: TextField) {
 
 function getEmailSchema() {
   return z.email();
+}
+
+function getCodeSchema(value: CodeField) {
+  let result = z.string().trim();
+  if (value.length?.value) {
+    result = result.length(value.length.value, {
+      error: value.length.error,
+    });
+  }
+  return result;
 }
 
 /**

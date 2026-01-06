@@ -17,7 +17,7 @@ router.post(
   "/send-code",
   validator("json", (value) => {
     const { required } = useRequestValidator(value, validatorOptions);
-    const email = required("email").type("string").toValue<string>();
+    const email = required("email").email().string().toValue<string>();
     return { email };
   }),
   async (ctx) => {

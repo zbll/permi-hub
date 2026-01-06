@@ -1,18 +1,16 @@
 import { useForm } from "@tanstack/react-form";
-import { TextFormBuilder, type TextField } from "./text-form-builder";
-import { CodeFormBuilder, type CodeField } from "./code-form-builder";
+import { type TextField } from "./text-form-builder";
+import { type CodeField } from "./code-form-builder";
 import { SubmitFieldBuilder, type SubmitField } from "./submit-button-builder";
 import { getFormSchema } from "./form-schma-builder";
-import {
-  TextareaFormBuilder,
-  type TextareaField,
-} from "./textarea-form-builder";
-import { CustomFormBuilder, type CustomField } from "./custom-form-builder";
-import { useState } from "react";
-import {
-  PasswordFormBuilder,
-  type PasswordField,
-} from "./password-form-builder";
+import { type TextareaField } from "./textarea-form-builder";
+import { type CustomField } from "./custom-form-builder";
+import { type PasswordField } from "./password-form-builder";
+import { BrandFormTemplate } from "./brand-form-template";
+import { Field } from "~/components/ui/field";
+import { cn } from "~/lib/utils";
+import { BaseLabel } from "./base-label";
+import { BaseFormFooter } from "./base-form-footer";
 
 type TDV = Record<string, any>;
 
@@ -56,16 +54,14 @@ export function BrandFormBuilder<TData extends TDV = TDV>({
   onCancel,
 }: BrandFormBuilderProps<TData>) {
   const formSchema = getFormSchema(options);
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     defaultValues: getDefaultValues(options),
     validators: {
-      onBlur: formSchema,
+      onChange: formSchema,
     },
-    onSubmit: ({ value }) => {
-      setIsLoading(true);
-      onSubmit?.(value).finally(() => setIsLoading(false));
+    onSubmit: async ({ value }) => {
+      onSubmit?.(value);
     },
   });
 
@@ -77,66 +73,51 @@ export function BrandFormBuilder<TData extends TDV = TDV>({
   return (
     <form onSubmit={handleSubmit}>
       {Object.keys(options).map((key, index) => {
-        const isFirst = index === 0;
         const value = options[key];
         if (value.type === "submit") {
           return (
             <SubmitFieldBuilder
               key={key}
+              form={form as any}
               field={value}
-              isLoading={isLoading}
               onCancel={onCancel}
             />
           );
         }
-        if (value.type === "text" || value.type === "email") {
-          return (
-            <TextFormBuilder
-              form={form as any}
-              config={value}
-              key={key}
-              name={key}
-              isFrist={isFirst}
-            />
-          );
-        }
-        if (value.type === "password") {
-          return (
-            <PasswordFormBuilder
-              key={key}
-              form={form as any}
-              name={key}
-              config={value}
-              isFrist={isFirst}
-            />
-          );
-        }
-        if (value.type === "textarea") {
-          return (
-            <TextareaFormBuilder
-              key={key}
-              form={form as any}
-              name={key}
-              config={value}
-              isFrist={isFirst}
-            />
-          );
-        }
-        if (value.type === "code") {
-          return (
-            <CodeFormBuilder
-              key={key}
-              form={form as any}
-              name={key}
-              config={value}
-              isFirst={isFirst}
-            />
-          );
-        }
-        if (value.type === "custom") {
-          return CustomFormBuilder(form as any, key, value, isFirst);
-        }
-        return <div key={key}>123</div>;
+        const isFirst = index === 0;
+        return (
+          <form.Field
+            key={key}
+            name={key}
+            validators={{
+              onChangeAsyncDebounceMs: 500,
+              onChangeAsync: value.validator,
+            }}
+          >
+            {(field) => {
+              const isInvalid =
+                field.state.meta.isTouched && !field.state.meta.isValid;
+              return (
+                <Field
+                  data-invalid={isInvalid}
+                  className={cn(!isFirst && "mt-4")}
+                >
+                  <BaseLabel required={value.required} label={value.label} />
+                  <BrandFormTemplate
+                    value={value}
+                    form={form as any}
+                    field={field}
+                    isInvalid={isInvalid}
+                  />
+                  <BaseFormFooter
+                    description={value.description}
+                    field={field}
+                  />
+                </Field>
+              );
+            }}
+          </form.Field>
+        );
       })}
     </form>
   );

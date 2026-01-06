@@ -25,6 +25,7 @@ export type ValidatorOptions = {
     min: number,
     max: number,
   ) => string;
+  validatorEmail: (field: string) => string;
 };
 
 abstract class KeyFilter {
@@ -93,11 +94,39 @@ abstract class KeyFilter {
       );
     }
   }
+
+  protected email() {
+    const regex =
+      /^(?!\.)(?!.*\.\.)([a-z0-9_'+\-.]*)[a-z0-9_+-]@([a-z0-9][a-z0-9-]*\.)+[a-z]{2,}$/i;
+    if (!regex.test(this.value)) {
+      throw new RequestError(this.options.validatorEmail(this.key));
+    }
+  }
 }
 
 class KeyRequiredFilter extends KeyFilter {
   type(value: ValueType) {
     super.checkType(value);
+    return this;
+  }
+
+  string() {
+    super.checkType("string");
+    return this;
+  }
+
+  number() {
+    super.checkType("number");
+    return this;
+  }
+
+  boolean() {
+    super.checkType("boolean");
+    return this;
+  }
+
+  obj() {
+    super.checkType("object");
     return this;
   }
 
@@ -136,6 +165,11 @@ class KeyRequiredFilter extends KeyFilter {
     return this;
   }
 
+  email() {
+    super.email();
+    return this;
+  }
+
   toValue<T = any>() {
     return this.value as T;
   }
@@ -166,6 +200,30 @@ class KeyOptionalFilter extends KeyFilter {
   type(value: ValueType) {
     if (this.value !== undefined) {
       this.checkType(value);
+    }
+    return this;
+  }
+  string() {
+    if (this.value !== undefined) {
+      this.checkType("string");
+    }
+    return this;
+  }
+  number() {
+    if (this.value !== undefined) {
+      this.checkType("number");
+    }
+    return this;
+  }
+  boolean() {
+    if (this.value !== undefined) {
+      this.checkType("boolean");
+    }
+    return this;
+  }
+  obj() {
+    if (this.value !== undefined) {
+      this.checkType("object");
     }
     return this;
   }
@@ -208,6 +266,12 @@ class KeyOptionalFilter extends KeyFilter {
   minMaxLength(min: number, max: number) {
     if (this.value !== undefined) {
       super.minMaxLength(min, max);
+    }
+    return this;
+  }
+  email() {
+    if (this.value !== undefined) {
+      super.email();
     }
     return this;
   }

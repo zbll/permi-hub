@@ -38,10 +38,10 @@ export function LogTable() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex justify-between pb-2">
+      <form onSubmit={handleSubmit} className="flex justify-between">
         <Input
           placeholder={t(Locale.Log$Table$Filter$Url$Placeholder)}
-          className="max-w-sm"
+          className="max-w-sm mr-4"
           name="urlFilter"
         />
         <BrandButton

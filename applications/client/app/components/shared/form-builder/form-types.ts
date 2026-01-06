@@ -9,6 +9,11 @@ export type BaseFormField = {
   placeholder?: RenderText;
   tabIndex?: number;
   description?: RenderText;
+  schema?: () => any;
+  validator?: (data: {
+    value: any;
+    fieldApi: any;
+  }) => Promise<string | undefined>;
 };
 
 export type FormType = ReturnType<typeof useForm>;

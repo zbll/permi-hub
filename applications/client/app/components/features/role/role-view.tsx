@@ -16,7 +16,7 @@ export function RoleView({ id }: { id: number }) {
   return (
     <div className="flex gap-4 items-start">
       {!isFetching && (
-        <Item variant="outline" className="w-100">
+        <Item variant="outline" className="w-[40vw]">
           <ItemContent>
             <ItemTitle>{data?.role}</ItemTitle>
             {data && (

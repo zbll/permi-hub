@@ -127,12 +127,12 @@ export class EmailCodeService {
     try {
       // 4. 保存验证码
       await emailCodeRepository.delete({ email }); // 删除旧验证码
-      emailCode = await emailCodeRepository.save({
-        email,
-        code,
-        expireAt,
-        status: EmailCodeStatus.Pending,
-      });
+      const mail = new EmailCode();
+      mail.email = email;
+      mail.code = code;
+      mail.expireAt = expireAt;
+      mail.status = EmailCodeStatus.Pending;
+      emailCode = await emailCodeRepository.save(mail);
       Logger.info(`验证码已生成：${email} -> ${code}`);
 
       // 5. 发送邮件

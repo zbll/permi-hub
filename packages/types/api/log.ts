@@ -18,3 +18,9 @@ export interface LogPageApi {
   list: LogItemApi[];
   count: number;
 }
+
+export interface LocalLogItem {
+  level: string;
+  message: string;
+  timestamp: string;
+}

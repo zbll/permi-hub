@@ -1,4 +1,9 @@
-import type { LogItemApi, LogPageApi, SortDirection } from "@packages/types";
+import type {
+  LocalLogItem,
+  LogItemApi,
+  LogPageApi,
+  SortDirection,
+} from "@packages/types";
 import { requestClient } from "../request-client";
 
 export class LogService {
@@ -25,6 +30,14 @@ export class LogService {
         "X-Show-Spinner": "false",
       },
     });
+    return response.data;
+  }
+
+  static async getLocalLogs(cur = 1, size = 20) {
+    const response = await requestClient.get<{
+      list: LocalLogItem[];
+      count: number;
+    }>("/log/locale/logger/list", { params: { cur, size } });
     return response.data;
   }
 }

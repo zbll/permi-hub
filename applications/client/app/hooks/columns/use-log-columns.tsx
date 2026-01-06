@@ -24,7 +24,7 @@ export function useLogColumns() {
     SortDirection.Desc,
   );
   const moveToView = (id: string) => {
-    navigate(`/log/${id}`);
+    navigate(`/log/info/${id}`);
   };
   return {
     columns: [

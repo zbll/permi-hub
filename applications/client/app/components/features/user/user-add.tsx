@@ -3,6 +3,8 @@ import { useUserAdd } from "~/hooks/mutation/use-user-add";
 import { useNavigate } from "react-router";
 import { createUserBuilderOptions } from "./user-builder-options";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import { Locale } from "~/locale/declaration";
 
 export function UserAdd() {
   const { t } = useTranslation();
@@ -11,7 +13,13 @@ export function UserAdd() {
 
   const options = createUserBuilderOptions(t);
 
-  const onSubmit = async (value: Record<string, any>) => {
+  const onSubmit = async (value: any) => {
+    if (value.password !== value.confirmPassword) {
+      toast.error(t(Locale.User$Add$Password$Not$Match), {
+        position: "top-center",
+      });
+      return;
+    }
     return new Promise<void>((resolve, reject) => {
       const formData = new FormData();
       formData.append("nickname", value.nickname);
@@ -33,10 +41,12 @@ export function UserAdd() {
   };
 
   return (
-    <BrandFormBuilder
-      options={options}
-      onSubmit={onSubmit}
-      onCancel={() => navigate("/user")}
-    />
+    <>
+      <BrandFormBuilder
+        options={options}
+        onSubmit={onSubmit}
+        onCancel={() => navigate("/user")}
+      />
+    </>
   );
 }

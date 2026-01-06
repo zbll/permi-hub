@@ -1,7 +1,3 @@
-import { Field } from "~/components/ui/field";
-import { cn } from "~/lib/utils";
-import { BaseLabel } from "./base-label";
-import { BaseFormFooter } from "./base-form-footer";
 import {
   InputGroup,
   InputGroupAddon,
@@ -21,33 +17,28 @@ export type CodeField = {
   length?: LengthSchema;
   action: {
     text: RenderText;
-    onClick?: () => Promise<void>;
+    onClick?: (formValues: { email: string | undefined }) => Promise<void>;
     countdown?: number;
   };
+  getEmail: (form: FormType) => string | undefined;
 } & BaseFormField;
 
 export interface CodeFormBuilderProps {
   form: FormType;
-  name: string;
   config: CodeField;
-  isFirst: boolean;
+  field: any;
+  isInvalid: boolean;
+  getEmail: (form: FormType) => string | undefined;
 }
 
 export function CodeFormBuilder({
   form,
-  name,
   config,
-  isFirst,
+  field,
+  isInvalid,
+  getEmail,
 }: CodeFormBuilderProps) {
-  const {
-    length,
-    required,
-    label,
-    placeholder,
-    tabIndex,
-    description,
-    action,
-  } = config;
+  const { length, placeholder, tabIndex, action } = config;
 
   const [isLoading, setIsLoading] = useState(false);
   const [countdown, setCountdown] = useState(0);
@@ -55,11 +46,17 @@ export function CodeFormBuilder({
   const handleClick = async () => {
     if (!config.action.onClick || countdown > 0) return;
     setIsLoading(true);
-    await config.action.onClick();
-    setIsLoading(false);
-
-    // 开始60秒倒计时
-    setCountdown(action.countdown || 60);
+    // 获取表单中的邮箱值
+    const formValues = { email: getEmail(form) };
+    config.action
+      .onClick(formValues)
+      .then(() => {
+        // 开始60秒倒计时
+        setCountdown(action.countdown || 60);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   // 倒计时效果
@@ -84,55 +81,38 @@ export function CodeFormBuilder({
   }, [countdown]);
 
   return (
-    <form.Field name={name} key={name}>
-      {(field) => {
-        const isInvalid =
-          field.state.meta.isTouched && !field.state.meta.isValid;
-        return (
-          <Field data-invalid={isInvalid} className={cn(!isFirst && "mt-4")}>
-            <BaseLabel required={required} label={label} />
-            <InputGroup>
-              <InputGroupInput
-                id={field.name}
-                name={field.name}
-                type="text"
-                value={field.state.value as any}
-                onBlur={field.handleBlur}
-                onChange={(e) => {
-                  if (length?.value) {
-                    const value = e.target.value.slice(0, length.value);
-                    field.handleChange(value);
-                  } else {
-                    field.handleChange(e.target.value);
-                  }
-                }}
-                aria-invalid={isInvalid}
-                placeholder={doRenderText(placeholder)}
-                tabIndex={tabIndex}
-                maxLength={length?.value}
-              />
-              <InputGroupAddon align="inline-end">
-                <BrandInputGroupButton
-                  type="button"
-                  variant="outline"
-                  isLoading={isLoading}
-                  onClick={handleClick}
-                  disabled={countdown > 0}
-                >
-                  {countdown > 0
-                    ? `${countdown}s后重试`
-                    : doRenderText(action.text)}
-                </BrandInputGroupButton>
-              </InputGroupAddon>
-            </InputGroup>
-            <BaseFormFooter
-              description={description}
-              isInvalid={isInvalid}
-              errors={field.state.meta.errors}
-            />
-          </Field>
-        );
-      }}
-    </form.Field>
+    <InputGroup>
+      <InputGroupInput
+        id={field.name}
+        name={field.name}
+        type="text"
+        value={field.state.value as any}
+        onBlur={field.handleBlur}
+        onChange={(e) => {
+          if (length?.value) {
+            const value = e.target.value.slice(0, length.value);
+            field.handleChange(value);
+          } else {
+            field.handleChange(e.target.value);
+          }
+        }}
+        aria-invalid={isInvalid}
+        placeholder={doRenderText(placeholder)}
+        tabIndex={tabIndex}
+        maxLength={length?.value}
+        autoComplete="one-time-code"
+      />
+      <InputGroupAddon align="inline-end">
+        <BrandInputGroupButton
+          type="button"
+          variant="outline"
+          isLoading={isLoading}
+          onClick={handleClick}
+          isDisabled={countdown > 0}
+        >
+          {countdown > 0 ? `${countdown}s后重试` : doRenderText(action.text)}
+        </BrandInputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
   );
 }

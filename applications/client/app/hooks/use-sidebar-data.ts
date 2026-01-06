@@ -33,12 +33,27 @@ export function useSidebarData() {
   const navMain = [];
 
   if (checkPermissions([Permissions.LoggerGet], userPermissions)) {
-    navMain.push({
+    const logMenu = {
       title: t(Locale.Log$Nav$Name),
       url: "/log",
       icon: SquareTerminal,
       isActive: false,
-    });
+      items: [
+        {
+          title: t(Locale.Log$Nav$Name),
+          url: "/log",
+        },
+      ],
+    };
+
+    if (checkPermissions([Permissions.LocaleLogger], userPermissions)) {
+      logMenu.items.push({
+        title: t(Locale.Log$Locale$Nav$Name),
+        url: "/log/locale",
+      });
+    }
+
+    navMain.push(logMenu);
   }
 
   if (checkPermissions([Permissions.RoleGet], userPermissions)) {

@@ -33,6 +33,7 @@ export const validatorOptions = {
       min: min.toString(),
       max: max.toString(),
     }),
+  validatorEmail: (field: string) => i18n.t("validator.email", { field }),
 };
 
 export { i18n };

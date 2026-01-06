@@ -2,6 +2,8 @@ export enum Permissions {
   Admin = "admin",
   Logger = "logger",
   LoggerGet = "logger:get",
+  Locale = "locale",
+  LocaleLogger = "locale:logger",
   Role = "role",
   RoleGet = "role:get",
   RoleAdd = "role:add",

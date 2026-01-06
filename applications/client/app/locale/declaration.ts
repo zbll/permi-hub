@@ -106,4 +106,10 @@ export enum Locale {
   User$Add$Form$EmailCode$Empty = "user.add.form.emailCode.empty",
   User$Add$Password$Not$Match = "user.add.password.not.match",
   User$Add$Email$Exists = "user.add.email.exists",
+  Log$Locale$Nav$Name = "log.locale.nav.name",
+  Log$Locale$Error$FetchFailed = "log.locale.error.fetch-failed",
+  Log$Locale$Column$Level = "log.locale.column.level",
+  Log$Locale$Column$Message = "log.locale.column.message",
+  Log$Locale$Column$Timestamp = "log.locale.column.timestamp",
+  Log$Locale$Title = "log.locale.title",
 }

@@ -7,9 +7,9 @@ export class UserService {
     return response.data;
   }
 
-  static async add(formData: FormData) {
+  static async register(formData: FormData) {
     const response = await requestClient.post<UserItemApi>(
-      "/user/add",
+      "/user/register",
       formData,
     );
     return response.data;

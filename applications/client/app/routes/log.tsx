@@ -10,7 +10,10 @@ export default function LogScreen({ matches }: Route.ComponentProps) {
   const [showView, setShowView] = useState(false);
 
   React.useEffect(() => {
-    if (matches.length === 4 && matches[3]!.id === "routes/log-view") {
+    if (
+      matches.length === 4 &&
+      ["routes/log-view", "routes/locale-log"].includes(matches[3]!.id)
+    ) {
       setShowView(true);
     } else {
       setShowView(false);

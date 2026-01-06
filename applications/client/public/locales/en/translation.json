@@ -31,6 +31,7 @@
   "route.root.name": "Home",
   "route.routes/log.name": "Log",
   "route.routes/log-view.name": "Log View",
+  "route.routes/locale-log.name": "File Log",
   "route.routes/role.name": "Role",
   "route.routes/role-add.name": "Add Role",
   "route.routes/role-view.name": "View Role",
@@ -106,5 +107,11 @@
   "user.add.form.emailCode": "Email Code",
   "user.add.form.emailCode.empty": "Email Code cannot be empty",
   "user.add.password.not.match": "Two passwords do not match",
-  "user.add.email.exists": "This email has been registered"
+  "user.add.email.exists": "This email has been registered",
+  "log.locale.nav.name": "Locale Log",
+  "log.locale.error.fetch-failed": "Failed to fetch logs",
+  "log.locale.column.level": "Level",
+  "log.locale.column.message": "Message",
+  "log.locale.column.timestamp": "Timestamp",
+  "log.locale.title": "Local Logs"
 }

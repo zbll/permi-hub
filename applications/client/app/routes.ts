@@ -8,7 +8,10 @@ import {
 export default [
   layout("routes/root-layout.tsx", [
     index("routes/home.tsx"),
-    route("log", "routes/log.tsx", [route(":id", "routes/log-view.tsx")]),
+    route("log", "routes/log.tsx", [
+      route("info/:id", "routes/log-view.tsx"),
+      route("locale", "routes/locale-log.tsx"),
+    ]),
     route("role", "routes/role.tsx", [
       route("add", "routes/role-add.tsx"),
       route("view/:id", "routes/role-view.tsx"),

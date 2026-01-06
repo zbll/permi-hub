@@ -4,7 +4,7 @@ import { UserService } from "~/api/user-service/user-service.api";
 export function useUserAdd() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: UserService.add,
+    mutationFn: UserService.register,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user", "list"] });
     },

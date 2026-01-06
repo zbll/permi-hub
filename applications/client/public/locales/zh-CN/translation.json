@@ -31,6 +31,7 @@
   "route.root.name": "首页",
   "route.routes/log.name": "日志",
   "route.routes/log-view.name": "日志详情",
+  "route.routes/locale-log.name": "文件日志",
   "route.routes/role.name": "角色",
   "route.routes/role-add.name": "添加角色",
   "route.routes/role-view.name": "查看角色",
@@ -106,5 +107,11 @@
   "user.add.form.emailCode": "邮箱验证码",
   "user.add.form.emailCode.empty": "邮箱验证码不能为空",
   "user.add.password.not.match": "两次输入的密码不一致",
-  "user.add.email.exists": "该邮箱已被注册"
+  "user.add.email.exists": "该邮箱已被注册",
+  "log.locale.nav.name": "本地日志",
+  "log.locale.error.fetch-failed": "获取日志失败",
+  "log.locale.column.level": "日志级别",
+  "log.locale.column.message": "日志信息",
+  "log.locale.column.timestamp": "时间戳",
+  "log.locale.title": "本地日志"
 }

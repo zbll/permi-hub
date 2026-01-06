@@ -10,6 +10,7 @@ export default {
   "validator.string.maxLength": "{{field}}字段长度必须最多{{max}}个字符",
   "validator.string.minMaxLength":
     "{{field}}字段长度必须在{{min}}到{{max}}个字符之间",
+  "validator.email": "{{field}}字段必须是有效的邮箱地址",
   "token.invalid": "无效的令牌",
   "token.ip.exception": "地址异常",
   "permission.invalid": "权限不足，需要{{permissions}}",

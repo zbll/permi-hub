@@ -1,4 +1,4 @@
-import winston, { type LeveledLogMethod } from "winston";
+import winston, { type LeveledLogMethod, type QueryOptions } from "winston";
 import "winston-daily-rotate-file";
 
 export const LoggerLevels = {
@@ -21,6 +21,11 @@ export type LoggerImpl = {
   warn: LeveledLogMethod;
   success: LeveledLogMethod;
   info: LeveledLogMethod;
+  query: (
+    options?: QueryOptions,
+    // deno-lint-ignore no-explicit-any
+    callback?: (err: Error, results: any) => void,
+  ) => unknown;
 };
 
 export function createLogger(product = true): LoggerImpl {
@@ -43,12 +48,14 @@ export function createLogger(product = true): LoggerImpl {
         filename: "error-%DATE%.log",
         datePattern: "YYYY-MM-DD",
         maxSize: "5m",
+        json: true,
       }),
       new winston.transports.DailyRotateFile({
         dirname: "logs",
         filename: "combined-%DATE%.log",
         datePattern: "YYYY-MM-DD",
         maxSize: "5m",
+        json: true,
       }),
     ],
   });
