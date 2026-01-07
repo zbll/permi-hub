@@ -12,15 +12,12 @@ import { Skeleton } from "~/components/ui/skeleton";
 import { useUser } from "~/hooks/query/use-user";
 import { Locale } from "~/locale/declaration";
 import dayjs from "dayjs";
+import { useAvatarAlt } from "~/hooks/use-avatar-alt";
 
 export function UserView({ id }: { id: string }) {
   const { t } = useTranslation();
   const { isFetching, data } = useUser(id);
-
-  const getInitials = (name?: string) => {
-    if (!name) return "U";
-    return name.charAt(0).toUpperCase();
-  };
+  const avatarAlt = useAvatarAlt(data?.nickname);
 
   return (
     <div className="space-y-6">
@@ -34,7 +31,7 @@ export function UserView({ id }: { id: string }) {
               <Avatar className="h-20 w-20 border-2 border-primary/20">
                 <AvatarImage alt={data?.nickname} />
                 <AvatarFallback className="text-2xl">
-                  {getInitials(data?.nickname)}
+                  {avatarAlt}
                 </AvatarFallback>
               </Avatar>
             )}

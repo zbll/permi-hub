@@ -33,17 +33,13 @@ requestClient.interceptors.response.use(
         break;
       case ResultCodeStatus.PermissionError:
         // 权限错误
-        toast.error(error.response.data.message, {
-          position: "top-center",
-        });
+        toast.error(error.response.data.message);
         break;
       case ResultCodeStatus.RequestError:
       case ResultCodeStatus.ServerError:
         // 服务器错误
         // 请求错误
-        toast.error(error.response.data.message, {
-          position: "top-center",
-        });
+        toast.error(error.response.data.message);
         break;
     }
   },

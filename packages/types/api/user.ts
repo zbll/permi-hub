@@ -31,3 +31,8 @@ export interface UserAddApi {
   emailCode: string;
   roles: number[];
 }
+
+export interface CurrentUserEditApi {
+  nickname: string;
+  email: string;
+}

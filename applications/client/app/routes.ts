@@ -21,6 +21,7 @@ const router = [
       route("add", "routes/user-add.tsx"),
       route("view/:id", "routes/user-view.tsx"),
     ]),
+    route("account", "routes/account.tsx"),
   ]),
 ] satisfies RouteConfig;
 

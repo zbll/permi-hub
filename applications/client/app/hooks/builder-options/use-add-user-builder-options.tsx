@@ -1,37 +1,31 @@
-import type {
-  BuilderField,
-  BuilderOptions,
-} from "~/components/shared/form-builder/brand-form-builder";
-import { Locale } from "~/locale/declaration";
-import { MailService } from "~/api/mail-service/mail-service.api";
-import { toast } from "sonner";
 import type { UserAddApi } from "@packages/types";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+import { MailService } from "~/api/mail-service/mail-service.api";
+import type { BuilderWithSubmitOptions } from "~/components/shared/form-builder/brand-form-builder";
 import type { SelectFormOption } from "~/components/shared/form-builder/select-from-builder";
+import { Locale } from "~/locale/declaration";
 
 export type UserBuilderOptionsProps = {
-  nickname?: string;
-  email?: string;
-  password?: string;
-  roles?: SelectFormOption[];
   roleOptions: SelectFormOption[];
 };
 
-export function createUserBuilderOptions(
-  t: (key: string) => string,
-  options?: UserBuilderOptionsProps,
-): BuilderOptions<UserAddApi> & { submit: BuilderField } {
-  return {
+export function useAddUserBuilderOptions({
+  roleOptions,
+}: UserBuilderOptionsProps) {
+  const { t } = useTranslation();
+  const options: BuilderWithSubmitOptions<UserAddApi> = {
     nickname: {
       type: "text",
       required: true,
-      defaultValue: options?.nickname ?? "",
+      defaultValue: "",
       error: () => t(Locale.User$Add$Form$Nickname$Empty),
       label: () => t(Locale.User$Add$Form$Nickname),
     },
     email: {
       type: "email",
       required: true,
-      defaultValue: options?.email ?? "",
+      defaultValue: "",
       autoComplete: "email",
       error: () => t(Locale.User$Add$Form$Email$Empty),
       label: () => t(Locale.User$Add$Form$Email),
@@ -45,13 +39,11 @@ export function createUserBuilderOptions(
         error: () => t(Locale.User$Add$Form$EmailCode$Empty),
       },
       action: {
-        text: "发送验证码",
+        text: () => t(Locale.User$Add$Form$SendEmailCode),
         onClick: async (formValues) => {
           if (!formValues.email) {
-            toast.error(t(Locale.User$Add$Form$Email$Empty), {
-              position: "top-center",
-            });
-            throw new Error("邮箱地址不能为空");
+            toast.error(t(Locale.User$Add$Form$Email$Empty));
+            throw new Error(t(Locale.User$Add$Form$Email$Empty));
           }
           try {
             await MailService.sendCode(formValues.email);
@@ -69,22 +61,22 @@ export function createUserBuilderOptions(
     password: {
       type: "password",
       required: true,
-      defaultValue: options?.password ?? "",
+      defaultValue: "",
       error: () => t(Locale.User$Add$Form$Password$Empty),
       label: () => t(Locale.User$Add$Form$Password),
     },
     confirmPassword: {
       type: "password",
       required: true,
-      defaultValue: options?.password ?? "",
+      defaultValue: "",
       isNewPassword: true,
       error: () => t(Locale.User$Add$Form$ConfirmPassword$Empty),
       label: () => t(Locale.User$Add$Form$ConfirmPassword),
     },
     roles: {
       type: "select",
-      defaultValue: options?.roles ?? [],
-      options: options?.roleOptions ?? [],
+      defaultValue: [],
+      options: roleOptions ?? [],
       multiple: true,
       label: () => t(Locale.User$Add$Form$Roles),
     },
@@ -96,4 +88,5 @@ export function createUserBuilderOptions(
       },
     },
   };
+  return { options };
 }

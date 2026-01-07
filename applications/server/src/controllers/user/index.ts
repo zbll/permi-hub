@@ -288,5 +288,29 @@ router.delete(
   },
 );
 
+router.post(
+  "/edit",
+  useAuth(),
+  useCheckPermission([Permissions.UserEdit]),
+  validator("form", (value) => {
+    const { required } = useRequestValidator(value, validatorOptions);
+    const nickname = required("nickname").string().toString();
+    const email = required("email").string().email().toString();
+    return {
+      nickname,
+      email,
+    };
+  }),
+  async (ctx) => {
+    const { nickname, email } = ctx.req.valid("form");
+    const user = ctx.var.user;
+    user.nickname = nickname;
+    user.email = email;
+    const [success, data] = await UserService.edit(user);
+    if (!success) throw new RequestError(i18n.t("user.edit.error"));
+    return ctx.json(data);
+  },
+);
+
 // 导出路由实例
 export default router;

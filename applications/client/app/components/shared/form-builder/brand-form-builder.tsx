@@ -32,6 +32,11 @@ export type BuilderOptions<TData extends TDV = TDV> = Record<
   BuilderField
 >;
 
+export type BuilderWithSubmitOptions<
+  TData extends TDV = TDV,
+  TSubmitKey extends string = "submit",
+> = BuilderOptions<TData> & Record<TSubmitKey, BuilderField>;
+
 export interface BrandFormBuilderProps<TData extends TDV = TDV> {
   options: BuilderOptions<TData>;
   onSubmit?: (value: TData) => Promise<void>;

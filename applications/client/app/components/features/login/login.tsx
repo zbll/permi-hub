@@ -43,10 +43,7 @@ export function Login({ onLogined }: LoginProps) {
       onBlur: formSchema,
     },
     onSubmit: async ({ value }) => {
-      const formData = new FormData();
-      formData.append("email", value.email);
-      formData.append("password", value.password);
-      mutate(formData, {
+      mutate(value, {
         onSuccess: (data) => {
           setAuthToken(data).then(() => {
             queryClient.invalidateQueries();

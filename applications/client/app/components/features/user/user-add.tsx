@@ -1,12 +1,12 @@
 import { BrandFormBuilder } from "~/components/shared/form-builder/brand-form-builder";
 import { useUserAdd } from "~/hooks/mutation/use-user-add";
 import { useNavigate } from "react-router";
-import { createUserBuilderOptions } from "./user-builder-options";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { Locale } from "~/locale/declaration";
 import { useRoles } from "~/hooks/query/use-roles";
 import type { UserAddApi } from "@packages/types";
+import { useAddUserBuilderOptions } from "~/hooks/builder-options/use-add-user-builder-options";
 
 export function UserAdd() {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ export function UserAdd() {
   const { mutate } = useUserAdd();
   const { data: roleOptions } = useRoles();
 
-  const options = createUserBuilderOptions(t, {
+  const { options } = useAddUserBuilderOptions({
     roleOptions:
       roleOptions?.map((item) => ({
         value: item.id.toString(),
@@ -24,21 +24,11 @@ export function UserAdd() {
 
   const onSubmit = async (value: UserAddApi) => {
     if (value.password !== value.confirmPassword) {
-      toast.error(t(Locale.User$Add$Password$Not$Match), {
-        position: "top-center",
-      });
+      toast.error(t(Locale.User$Add$Password$Not$Match));
       return;
     }
     return new Promise<void>((resolve, reject) => {
-      const formData = new FormData();
-      formData.append("nickname", value.nickname);
-      formData.append("email", value.email);
-      formData.append("password", value.password);
-      formData.append("confirmPassword", value.confirmPassword);
-      formData.append("emailCode", value.emailCode);
-      console.log(value);
-      value.roles.map((role) => formData.append("role", role.toString()));
-      mutate(formData, {
+      mutate(value, {
         onSuccess: () => {
           navigate("/user");
           resolve();

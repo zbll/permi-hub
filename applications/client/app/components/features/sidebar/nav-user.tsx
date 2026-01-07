@@ -2,7 +2,6 @@ import i18next from "i18next";
 import {
   BadgeCheck,
   ChevronsUpDown,
-  CreditCard,
   Languages,
   LogOut,
   Sparkles,
@@ -10,7 +9,9 @@ import {
 import React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router";
 import { useLogout } from "~/hooks/mutation/use-logout";
+import { useAvatarAlt } from "~/hooks/use-avatar-alt";
 import { Locale } from "~/locale/declaration";
 import { SupportedLanguages } from "~/locale/i18n";
 import { Avatar, AvatarFallback, AvatarImage } from "~ui/avatar";
@@ -48,6 +49,8 @@ export function NavUser({
   const { isMobile } = useSidebar();
   const [currentLanguage, setCurrentLanguage] = useState("");
 
+  const avatarAlt = useAvatarAlt(user.name);
+
   React.useEffect(() => {
     setCurrentLanguage(i18next.language);
   }, [i18next.language]);
@@ -69,7 +72,9 @@ export function NavUser({
             >
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg">
+                  {avatarAlt}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
@@ -88,7 +93,9 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {avatarAlt}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -105,14 +112,12 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
+              <NavLink to="/account">
+                <DropdownMenuItem>
+                  <BadgeCheck />
+                  {t(Locale.Nav$Account)}
+                </DropdownMenuItem>
+              </NavLink>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   <Languages />
