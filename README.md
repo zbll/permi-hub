@@ -67,6 +67,7 @@ monorepo-demo/
 │   ├── hooks/           # 共享Hooks
 │   ├── middlewares/     # 中间件
 │   └── types/           # TypeScript类型定义
+├── LICENSE              # ISC许可证
 └── ...                  # 根目录配置文件
 ```
 
@@ -180,7 +181,7 @@ pnpm start
 
 ## 许可证
 
-ISC
+该项目采用 [ISC 许可证](LICENSE) 开源。
 
 ## 联系方式
 

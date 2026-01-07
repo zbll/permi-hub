@@ -20,7 +20,7 @@ var HubConnectionLogger = class {
   }
 };
 
-// ../hooks/dist/index.js
+// ../hooks/src/use-validate.ts
 var Regexs = Object.freeze({
   /** HTTP URL验证正则表达式 */
   http: /^http:\/\/(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(?::\d{1,5})?(?:\/[^\s]*)?$/,
