@@ -1,3 +1,5 @@
+import type { SortDirection } from ".";
+
 export interface LogItemApi {
   id: string;
   url: string;
@@ -12,6 +14,19 @@ export interface LogItemApi {
   isSuccess: boolean;
   reason: string;
   createAt: Date;
+}
+
+export type LogPageIsSuccessFilter = "all" | "success" | "failed";
+
+export type LogPageRequestTypeFilter = "all" | "get" | "post" | "delete";
+
+export interface LogPageWithFilterApi {
+  cur: number;
+  size: number;
+  urlFilter: string;
+  isSuccessFilter: LogPageIsSuccessFilter;
+  requestTypeFilter: LogPageRequestTypeFilter;
+  createAtSort: SortDirection;
 }
 
 export interface LogPageApi {

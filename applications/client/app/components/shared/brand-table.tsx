@@ -84,7 +84,8 @@ export function BrandTable<TData>({
                   ))}
                 </TableRow>
               ))
-            : empty && (
+            : empty &&
+              !isPending && (
                 <TableRow>
                   <TableCell colSpan={columns.length} className="text-center">
                     {empty}

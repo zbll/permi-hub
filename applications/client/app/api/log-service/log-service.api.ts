@@ -2,23 +2,20 @@ import type {
   LocalLogItem,
   LogItemApi,
   LogPageApi,
-  SortDirection,
+  LogPageWithFilterApi,
 } from "@packages/types";
 import { requestClient } from "../request-client";
 
 export class LogService {
-  static async page(
-    cur: number,
-    size: number,
-    urlFilter: string,
-    createAtSort: SortDirection,
-  ) {
+  static async page(option: LogPageWithFilterApi) {
     const response = await requestClient.get<LogPageApi>("/log/page", {
       params: {
-        cur,
-        size,
-        filter: urlFilter,
-        time: createAtSort,
+        cur: option.cur,
+        size: option.size,
+        filter: option.urlFilter,
+        time: option.createAtSort,
+        success: option.isSuccessFilter,
+        method: option.requestTypeFilter,
       },
     });
     return response.data;

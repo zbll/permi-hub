@@ -4,6 +4,7 @@ import { ResultCodeStatus } from "@packages/types";
 import { Result } from "@packages/types";
 import { toast } from "sonner";
 import { getAuthToken } from "~/lib/utils";
+import { queryClient } from "~/lib/query-client";
 
 export const requestClient = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -27,6 +28,8 @@ requestClient.interceptors.response.use(
     switch (error.status) {
       case ResultCodeStatus.AuthError:
         // 未登录
+        if (error.config?.url === "/user/authenticate") break;
+        queryClient.invalidateQueries({ queryKey: ["auth"] });
         break;
       case ResultCodeStatus.PermissionError:
         // 权限错误

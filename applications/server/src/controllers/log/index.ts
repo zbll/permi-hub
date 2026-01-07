@@ -3,7 +3,12 @@ import { validator } from "hono/validator";
 import { LogService } from "~services/log/LogService.ts";
 import { ServiceUtils } from "~services/ServiceUtils.ts";
 import { useAuth, useCache, useCheckPermission } from "~/easy-middlewares.ts";
-import { Permissions, RequestError } from "@packages/types";
+import {
+  Permissions,
+  RequestError,
+  type LogPageIsSuccessFilter,
+  type LogPageRequestTypeFilter,
+} from "@packages/types";
 import { useRequestValidator } from "@packages/hooks";
 import { i18n, validatorOptions } from "~locale";
 import { Logger } from "~logger";
@@ -36,20 +41,37 @@ router.get(
     const size = optional("size").type("string").toNumberWithDefault(10);
     const createAtSort = fromSort("time", "DESC");
     const filter = optional("filter").type("string").toStringWithDefault("");
+    const isSuccessFilter = optional("success")
+      .type("string")
+      .toStringWithDefault("all") as LogPageIsSuccessFilter;
+    const requestTypeFilter = optional("method")
+      .type("string")
+      .toStringWithDefault("all") as LogPageRequestTypeFilter;
     return {
       current,
       size,
       createAtSort,
       filter,
+      isSuccessFilter,
+      requestTypeFilter,
     };
   }),
   async (ctx) => {
-    const { current, size, createAtSort, filter } = ctx.req.valid("query");
+    const {
+      current,
+      size,
+      createAtSort,
+      filter,
+      isSuccessFilter,
+      requestTypeFilter,
+    } = ctx.req.valid("query");
     const [success, data, error] = await LogService.page(
       current,
       size,
       filter,
       createAtSort,
+      isSuccessFilter,
+      requestTypeFilter,
     );
     if (!success) throw error;
     const [logs, total] = data;

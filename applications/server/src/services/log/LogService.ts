@@ -3,8 +3,12 @@ import { Log } from "~entity/Log.ts";
 import { AppDataSource } from "~data-source";
 import { usePatience, type Patience } from "@packages/hooks";
 import { Result, type ConnectInfoVar } from "@packages/types";
-import { ResultCode } from "@packages/types";
-import { Like, type FindOptionsOrderValue } from "typeorm";
+import {
+  ResultCode,
+  type LogPageIsSuccessFilter,
+  type LogPageRequestTypeFilter,
+} from "@packages/types";
+import { type FindOptionsOrderValue } from "typeorm";
 
 export class LogService {
   private static async getParams(ctx: Context): Promise<string> {
@@ -112,19 +116,36 @@ export class LogService {
     size: number,
     filter: string,
     time?: FindOptionsOrderValue,
+    isSuccessFilter?: LogPageIsSuccessFilter,
+    requestTypeFilter?: LogPageRequestTypeFilter,
   ) {
-    return usePatience(
-      AppDataSource.manager.findAndCount(Log, {
-        skip: (cur - 1) * size,
-        take: size,
-        where: {
-          url: Like(`%${filter}%`),
-        },
-        order: {
-          createAt: time,
-        },
-      }),
-    );
+    const respository = AppDataSource.getRepository(Log);
+    let logs = respository.createQueryBuilder();
+    if (filter) {
+      logs = logs.andWhere("log.url LIKE :url", { url: `%${filter}%` });
+    }
+    if (isSuccessFilter !== "all") {
+      logs = logs.andWhere("log.isSuccess = :isSuccess", {
+        isSuccess: isSuccessFilter === "success" ? 1 : 0,
+      });
+    }
+    if (requestTypeFilter !== "all") {
+      logs = logs.andWhere("log.method = :method", {
+        method: requestTypeFilter?.toUpperCase(),
+      });
+    }
+    if (time) {
+      if (time.toString().toUpperCase() === "ASC") {
+        logs = logs.orderBy("log.createAt", "ASC");
+      } else {
+        logs = logs.orderBy("log.createAt", "DESC");
+      }
+    } else {
+      logs = logs.orderBy("log.createAt", "DESC");
+    }
+    logs = logs.skip((cur - 1) * size).take(size);
+    console.log(logs.getQuery());
+    return usePatience(logs.getManyAndCount());
   }
 
   static async get(id: string): Promise<Patience<Log>> {
