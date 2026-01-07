@@ -3,7 +3,7 @@ import type { LengthSchema } from "./form-schma-builder";
 import { cn } from "~/lib/utils";
 import type React from "react";
 import type { Input } from "~/components/ui/input";
-import { type BaseFormField, doRenderText } from "./form-types";
+import { type BaseFormField, doRenderText, type FieldType } from "./form-types";
 
 export type TextareaField = {
   minLength?: LengthSchema;
@@ -15,7 +15,7 @@ export type TextareaField = {
 
 export interface TextareaFormBuilderProps {
   config: TextareaField;
-  field: any;
+  field: FieldType;
   isInvalid: boolean;
 }
 

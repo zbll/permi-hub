@@ -4,7 +4,7 @@ import { Permission } from "~entity/Permission.ts";
 import { usePatience, type Patience } from "@packages/hooks";
 import { Permissions } from "@packages/types";
 import { PermissionService } from "../permission/PermissionService.ts";
-import { Not } from "typeorm";
+import { In, Not } from "typeorm";
 
 export class RoleService {
   static add(role: string, permissions: Permission[], desc: string) {
@@ -51,6 +51,16 @@ export class RoleService {
     const [success, data, error] = await this.get(id);
     if (!success) return [success, null, error];
     return [true, { data, permissions: data.permissions }, null];
+  }
+
+  static getRolesFromIds(id: number[]) {
+    return usePatience(
+      AppDataSource.manager.find(Role, {
+        where: {
+          id: In(id),
+        },
+      }),
+    );
   }
 
   static #isInit = false;

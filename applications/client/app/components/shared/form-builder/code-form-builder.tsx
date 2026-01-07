@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { BrandInputGroupButton } from "../brand-input-group-button";
 import {
   type BaseFormField,
+  type FieldType,
   type FormType,
   type RenderText,
   doRenderText,
@@ -26,7 +27,7 @@ export type CodeField = {
 export interface CodeFormBuilderProps {
   form: FormType;
   config: CodeField;
-  field: any;
+  field: FieldType;
   isInvalid: boolean;
   getEmail: (form: FormType) => string | undefined;
 }

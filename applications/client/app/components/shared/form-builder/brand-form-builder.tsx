@@ -11,6 +11,7 @@ import { Field } from "~/components/ui/field";
 import { cn } from "~/lib/utils";
 import { BaseLabel } from "./base-label";
 import { BaseFormFooter } from "./base-form-footer";
+import type { SelectFormBuilderOptions } from "./select-from-builder";
 
 type TDV = Record<string, any>;
 
@@ -23,6 +24,7 @@ export type BuilderField =
   | ({ type: "password"; defaultValue: any } & PasswordField)
   | ({ type: "textarea"; defaultValue: any } & TextareaField)
   | ({ type: "custom"; defaultValue: any } & CustomField)
+  | ({ type: "select"; defaultValue: any } & SelectFormBuilderOptions)
   | ({ type: "code"; defaultValue: any } & CodeField);
 
 export type BuilderOptions<TData extends TDV = TDV> = Record<

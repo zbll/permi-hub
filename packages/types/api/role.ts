@@ -1,4 +1,4 @@
-import type { PermissionItemApi } from "./permission";
+import type { PermissionItemApi } from "./permission.ts";
 
 export interface RoleItemApi {
   id: number;

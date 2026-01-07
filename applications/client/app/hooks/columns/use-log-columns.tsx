@@ -31,6 +31,9 @@ export function useLogColumns() {
       tableHelper.accessor("url", {
         id: "url",
         header: () => t(Locale.Log$Table$Url),
+        cell: ({ row }) => {
+          return <p className="max-w-60 text-wrap">{row.getValue("url")}</p>;
+        },
       }),
       tableHelper.accessor("method", {
         id: "method",

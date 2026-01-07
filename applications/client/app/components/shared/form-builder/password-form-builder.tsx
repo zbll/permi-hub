@@ -1,5 +1,5 @@
 import { Input } from "~/components/ui/input";
-import { doRenderText, type BaseFormField } from "./form-types";
+import { doRenderText, type BaseFormField, type FieldType } from "./form-types";
 
 export type PasswordField = {
   type: "password";
@@ -8,7 +8,7 @@ export type PasswordField = {
 
 export interface PasswordFormBuilderProps {
   config: PasswordField;
-  field: any;
+  field: FieldType;
   isInvalid: boolean;
 }
 

@@ -1,18 +1,41 @@
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { PermissionGroup, type PermissionGroupItem } from "./permission-group";
 import { Locale } from "~/locale/declaration";
 import { Permissions } from "@packages/types";
+import { usePermission } from "@packages/hooks";
+import { useUserPermissions } from "~/hooks/query/use-user-permissions";
 
 type PermissionKey = keyof Omit<typeof Permissions, "Admin">;
 
+type PermissionGroupType = {
+  groupKey: PermissionKey;
+  groupTextKey: Locale;
+  items: PermissionGroupItemType[];
+};
+
+type PermissionGroupItemType = {
+  itemKey: PermissionKey;
+  textKey: Locale;
+};
+
 // 权限分组配置
-const permissionGroups = [
+const permissionGroups: PermissionGroupType[] = [
   {
     groupKey: "Logger",
     groupTextKey: Locale.Permission$Logger,
     items: [
       { itemKey: "LoggerGet" as const, textKey: Locale.Permission$Logger$Get },
+    ],
+  },
+  {
+    groupKey: "Locale",
+    groupTextKey: Locale.Permission$Locale,
+    items: [
+      {
+        itemKey: "LocaleLogger" as const,
+        textKey: Locale.Permission$Locale$Logger,
+      },
     ],
   },
   {
@@ -38,12 +61,27 @@ const permissionGroups = [
       },
     ],
   },
+  {
+    groupKey: "User",
+    groupTextKey: Locale.Permission$User,
+    items: [
+      { itemKey: "UserGet" as const, textKey: Locale.Permission$User$Get },
+      { itemKey: "UserAdd" as const, textKey: Locale.Permission$User$Add },
+      { itemKey: "UserEdit" as const, textKey: Locale.Permission$User$Edit },
+      {
+        itemKey: "UserDelete" as const,
+        textKey: Locale.Permission$User$Delete,
+      },
+    ],
+  },
 ];
 
 // 权限标识映射
 const PermissionIdMap: Record<PermissionKey, string> = {
   Logger: "logger",
   LoggerGet: "logger:get",
+  Locale: "locale",
+  LocaleLogger: "locale:get",
   Role: "role",
   RoleAdd: "role:add",
   RoleGet: "role:get",
@@ -51,6 +89,11 @@ const PermissionIdMap: Record<PermissionKey, string> = {
   RoleDelete: "role:delete",
   Permission: "permission",
   PermissionGet: "permission:get",
+  User: "user",
+  UserGet: "user:get",
+  UserAdd: "user:add",
+  UserEdit: "user:edit",
+  UserDelete: "user:delete",
 };
 
 export interface RolePermissionSelectProps {
@@ -63,12 +106,38 @@ export function RolePermissionSelect({
   onChange: externalOnChange,
 }: RolePermissionSelectProps) {
   const { t } = useTranslation();
+  const { data: permissionsData } = useUserPermissions();
+  const { checkPermissions } = usePermission();
+
+  const currentPermissionGroups = useMemo(() => {
+    if (!permissionsData) return [] as PermissionGroupType[];
+    const resultGroups: PermissionGroupType[] = [];
+    permissionGroups.forEach((group) => {
+      let haveItems = false;
+      for (let i = 0, length = group.items.length; i < length; i++) {
+        const itemPermission = PermissionIdMap[group.items[i].itemKey];
+        if (checkPermissions([itemPermission], permissionsData)) {
+          haveItems = true;
+          break;
+        }
+      }
+      if (haveItems) {
+        resultGroups.push({
+          ...group,
+          items: group.items.filter((item) =>
+            checkPermissions([PermissionIdMap[item.itemKey]], permissionsData),
+          ),
+        });
+      }
+    });
+    return resultGroups;
+  }, [permissionsData, checkPermissions]);
 
   // 计算权限状态
   const permissionState = useMemo(() => {
     // 生成每个子项的选中状态
     const itemCheckedMap = new Map<PermissionKey, boolean>();
-    permissionGroups.forEach((group) => {
+    currentPermissionGroups.forEach((group) => {
       group.items.forEach((item) => {
         itemCheckedMap.set(
           item.itemKey,
@@ -79,13 +148,13 @@ export function RolePermissionSelect({
 
     // 生成每个分组的状态（全选/半选/未选）
     const groupStateMap = new Map<
-      (typeof permissionGroups)[number]["groupKey"],
+      (typeof currentPermissionGroups)[number]["groupKey"],
       {
         checked: boolean;
         indeterminate: boolean;
       }
     >();
-    permissionGroups.forEach((group) => {
+    currentPermissionGroups.forEach((group) => {
       const itemKeys = group.items.map((i) => i.itemKey);
       const checkedItems = itemKeys.filter((k) => itemCheckedMap.get(k));
       const checked =
@@ -118,7 +187,9 @@ export function RolePermissionSelect({
     (groupKey: string, checked: boolean, indeterminate: boolean) => {
       if (!externalOnChange) return;
 
-      const group = permissionGroups.find((g) => g.groupKey === groupKey);
+      const group = currentPermissionGroups.find(
+        (g) => g.groupKey === groupKey,
+      );
       if (!group) return;
 
       const groupItemIds = group.items.map((i) => PermissionIdMap[i.itemKey]);
@@ -143,7 +214,7 @@ export function RolePermissionSelect({
 
   return (
     <div className="space-y-4" onClick={(e) => e.stopPropagation()}>
-      {permissionGroups.map((group) => {
+      {currentPermissionGroups.map((group) => {
         const groupState = permissionState.groupStateMap.get(group.groupKey)!;
 
         // 准备分组项的文本和值

@@ -29,9 +29,7 @@ export class RoleService {
   }
 
   static async delete(id: number) {
-    const response = await requestClient.delete<RoleItemApi>(
-      `/role/delete/${id}`,
-    );
+    const response = await requestClient.delete<RoleItemApi>(`/role/${id}`);
     return response.data;
   }
 }

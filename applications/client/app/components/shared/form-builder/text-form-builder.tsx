@@ -1,4 +1,4 @@
-import { doRenderText, type BaseFormField } from "./form-types";
+import { doRenderText, type BaseFormField, type FieldType } from "./form-types";
 import { Input } from "~/components/ui/input";
 import type React from "react";
 import type { LengthSchema } from "./form-schma-builder";
@@ -11,7 +11,7 @@ export type TextField = {
 
 export interface TextFormBuilderProps {
   config: TextField;
-  field: any;
+  field: FieldType;
   isInvalid: boolean;
 }
 

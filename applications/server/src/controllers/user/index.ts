@@ -22,6 +22,8 @@ import {
   RequestError,
 } from "@packages/types";
 import { useCheckPermission } from "../../easy-middlewares.ts";
+import { RoleService } from "~services/role/RoleService.ts";
+import { User } from "~entity/User.ts";
 
 // 创建用户路由实例，定义变量类型
 const router = new Hono<{
@@ -113,6 +115,12 @@ router.post(
       throw new Error(i18n.t("user.register.field.empty"));
     }
 
+    // 检查邮箱是否已存在
+    const [canFind] = await UserService.checkHaveEmail(email);
+    if (canFind) {
+      throw new RequestError(i18n.t("user.register.email.exists"));
+    }
+
     // 验证邮箱验证码
     const isCodeValid = await EmailCodeService.verify(email, emailCode);
     if (!isCodeValid) {
@@ -121,14 +129,66 @@ router.post(
 
     // 获取客户端IP地址
     const ip = ctx.var.connectInfo?.remote.address || "";
+    const user = new User();
+    user.nickname = nickname;
+    user.password = md5(password);
+    user.email = email;
+    user.ip = ip;
+    user.roles = [];
     // 调用用户服务进行注册
-    const result = await UserService.register(
-      ip,
+    const result = await UserService.add(user);
+    // 返回注册结果
+    return ctx.json(result);
+  },
+);
+
+router.post(
+  "/add",
+  useAuth(),
+  useCheckPermission([Permissions.UserAdd]),
+  validator("form", (value) => {
+    const { required } = useRequestValidator(value, validatorOptions);
+    const nickname = required("nickname").type("string").toValue<string>();
+    const email = required("email").type("string").toValue<string>();
+    const emailCode = required("emailCode").type("string").toValue<string>();
+    const password = required("password").type("string").toValue<string>();
+    const role = required("role").toValue<number[]>();
+    return {
       nickname,
       email,
-      md5(password),
-    );
-    // 返回注册结果
+      emailCode,
+      password,
+      role,
+    };
+  }),
+  async (ctx) => {
+    const { nickname, email, emailCode, password, role } =
+      ctx.req.valid("form");
+    const [have] = await UserService.checkHaveEmail(email);
+    if (have) {
+      throw new RequestError(i18n.t("user.register.email.exists"));
+    }
+
+    // 验证邮箱验证码
+    const isCodeValid = await EmailCodeService.verify(email, emailCode);
+    if (!isCodeValid) {
+      throw new RequestError(i18n.t("user.register.code.invalid"));
+    }
+
+    const [canFind, roles] = await RoleService.getRolesFromIds(role);
+    if (!canFind) {
+      throw new RequestError(i18n.t("role.view.error.not.exists"));
+    }
+
+    const ip = ctx.var.connectInfo?.remote.address || "";
+
+    const user = new User();
+    user.nickname = nickname;
+    user.password = md5(password);
+    user.email = email;
+    user.ip = ip;
+    user.roles = roles;
+    const result = await UserService.add(user);
     return ctx.json(result);
   },
 );
@@ -169,6 +229,64 @@ router.get("/permissions", useAuth(), (ctx) => {
   );
   return ctx.json(permissions);
 });
+
+router.get(
+  "/view/:id",
+  useAuth(),
+  useCheckPermission([Permissions.UserGet]),
+  async (ctx) => {
+    const id = ctx.req.param("id");
+    if (!id) throw new RequestError(i18n.t("user.view.field.id.empty"));
+    const [, user] = await UserService.get(id);
+    return ctx.json(user);
+  },
+);
+
+router.post(
+  "/edit/:id",
+  useAuth(),
+  useCheckPermission([Permissions.UserEdit]),
+  validator("form", (value) => {
+    const { required } = useRequestValidator(value, validatorOptions);
+    const nickname = required("nickname").string().toString();
+    const email = required("email").string().email().toString();
+    const role = required("role").toValue<number[]>();
+    return {
+      nickname,
+      email,
+      role,
+    };
+  }),
+  async (ctx) => {
+    const { nickname, email, role } = ctx.req.valid("form");
+    const id = ctx.req.param("id");
+    if (!id) throw new RequestError(i18n.t("user.view.field.id.empty"));
+    const [canFind, user] = await UserService.get(id);
+    if (!canFind) throw new RequestError(i18n.t("user.view.error.not.exists"));
+    const [canFindRoles, roles] = await RoleService.getRolesFromIds(role);
+    if (!canFindRoles)
+      throw new RequestError(i18n.t("role.view.error.not.exists"));
+    user.nickname = nickname;
+    user.email = email;
+    user.roles = roles;
+    const [success, data] = await UserService.edit(user);
+    if (!success) throw new RequestError(i18n.t("user.edit.error"));
+    return ctx.json(data);
+  },
+);
+
+router.delete(
+  "/:id",
+  useAuth(),
+  useCheckPermission([Permissions.UserDelete]),
+  async (ctx) => {
+    const id = ctx.req.param("id");
+    const [canFind] = await UserService.get(id);
+    if (!canFind) throw new RequestError(i18n.t("user.view.error.not.exists"));
+    const [success] = await UserService.delete(id);
+    return ctx.json(success);
+  },
+);
 
 // 导出路由实例
 export default router;

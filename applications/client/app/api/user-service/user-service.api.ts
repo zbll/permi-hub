@@ -39,4 +39,22 @@ export class UserService {
     const response = await requestClient.get<string[]>("/user/permissions");
     return response.data;
   }
+
+  static async deleteUser(id: string) {
+    const response = await requestClient.delete(`/user/${id}`);
+    return response.data;
+  }
+
+  static async get(id: string) {
+    const response = await requestClient.get<UserItemApi>(`/user/view/${id}`);
+    return response.data;
+  }
+
+  static async add(userData: FormData) {
+    const response = await requestClient.post<UserItemApi>(
+      "/user/add",
+      userData,
+    );
+    return response.data;
+  }
 }

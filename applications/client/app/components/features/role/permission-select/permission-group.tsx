@@ -7,15 +7,18 @@ import { PermissionItem } from "./permission-item";
 
 type PermissionKey = keyof Omit<typeof Permissions, "Admin">;
 
+export interface PermissionGroupType {
+  groupKey: string;
+  groupText: string;
+  items: PermissionGroupItem[];
+}
+
 export interface PermissionGroupItem {
   itemKey: PermissionKey;
   text: string;
 }
 
-export interface PermissionGroupProps {
-  groupKey: string;
-  groupText: string;
-  items: PermissionGroupItem[];
+export type PermissionGroupProps = {
   checked: boolean;
   indeterminate: boolean;
   itemValues: Record<PermissionKey, boolean>;
@@ -25,7 +28,7 @@ export interface PermissionGroupProps {
     indeterminate: boolean,
   ) => void;
   onItemChange?: (itemKey: PermissionKey, checked: boolean) => void;
-}
+} & PermissionGroupType;
 
 export function PermissionGroup({
   groupKey,

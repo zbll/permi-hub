@@ -1,18 +1,25 @@
-import type { BuilderOptions } from "~/components/shared/form-builder/brand-form-builder";
+import type {
+  BuilderField,
+  BuilderOptions,
+} from "~/components/shared/form-builder/brand-form-builder";
 import { Locale } from "~/locale/declaration";
 import { MailService } from "~/api/mail-service/mail-service.api";
 import { toast } from "sonner";
+import type { UserAddApi } from "@packages/types";
+import type { SelectFormOption } from "~/components/shared/form-builder/select-from-builder";
 
 export type UserBuilderOptionsProps = {
   nickname?: string;
   email?: string;
   password?: string;
+  roles?: SelectFormOption[];
+  roleOptions: SelectFormOption[];
 };
 
 export function createUserBuilderOptions(
   t: (key: string) => string,
   options?: UserBuilderOptionsProps,
-): BuilderOptions {
+): BuilderOptions<UserAddApi> & { submit: BuilderField } {
   return {
     nickname: {
       type: "text",
@@ -62,7 +69,6 @@ export function createUserBuilderOptions(
     password: {
       type: "password",
       required: true,
-      isNewPassword: true,
       defaultValue: options?.password ?? "",
       error: () => t(Locale.User$Add$Form$Password$Empty),
       label: () => t(Locale.User$Add$Form$Password),
@@ -70,10 +76,17 @@ export function createUserBuilderOptions(
     confirmPassword: {
       type: "password",
       required: true,
-      isNewPassword: true,
       defaultValue: options?.password ?? "",
+      isNewPassword: true,
       error: () => t(Locale.User$Add$Form$ConfirmPassword$Empty),
       label: () => t(Locale.User$Add$Form$ConfirmPassword),
+    },
+    roles: {
+      type: "select",
+      defaultValue: options?.roles ?? [],
+      options: options?.roleOptions ?? [],
+      multiple: true,
+      label: () => t(Locale.User$Add$Form$Roles),
     },
     submit: {
       type: "submit",

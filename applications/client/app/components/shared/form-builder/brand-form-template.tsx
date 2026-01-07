@@ -3,6 +3,7 @@ import { CodeFormBuilder } from "./code-form-builder";
 import { CustomFormBuilder } from "./custom-form-builder";
 import type { FormType } from "./form-types";
 import { PasswordFormBuilder } from "./password-form-builder";
+import { SelectFormBuilder } from "./select-from-builder";
 import { TextFormBuilder } from "./text-form-builder";
 import { TextareaFormBuilder } from "./textarea-form-builder";
 
@@ -43,6 +44,11 @@ export function BrandFormTemplate({
         isInvalid={isInvalid}
         getEmail={value.getEmail}
       />
+    );
+  }
+  if (value.type === "select") {
+    return (
+      <SelectFormBuilder config={value} field={field} isInvalid={isInvalid} />
     );
   }
   if (value.type === "custom") {

@@ -7,6 +7,7 @@ export interface UserInfoApi {
   nickname: string;
   email: string;
   createAt: Date;
+  lastLoginAt?: Date;
 }
 
 export interface UserItemApi {
@@ -19,6 +20,7 @@ export interface UserItemApi {
     role: string;
   }>;
   createAt: Date;
+  lastLoginAt?: Date;
 }
 
 export interface UserAddApi {
@@ -27,4 +29,5 @@ export interface UserAddApi {
   password: string;
   confirmPassword: string;
   emailCode: string;
+  roles: number[];
 }

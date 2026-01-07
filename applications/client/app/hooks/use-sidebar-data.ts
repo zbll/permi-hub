@@ -57,41 +57,49 @@ export function useSidebarData() {
   }
 
   if (checkPermissions([Permissions.RoleGet], userPermissions)) {
-    navMain.push({
+    const roleMenu = {
       title: t(Locale.Role$Nav$Name),
       url: "/role",
       icon: IdCardLanyard,
       isActive: false,
-      items: [
-        {
-          title: t(Locale.Role$Nav$List$Name),
-          url: "/role",
-        },
-        {
-          title: t(Locale.Role$Nav$Add$Name),
-          url: "/role/add",
-        },
-      ],
-    });
+      items: [] as any[],
+    };
+    if (checkPermissions([Permissions.RoleGet], userPermissions)) {
+      roleMenu.items.push({
+        title: t(Locale.Role$Nav$List$Name),
+        url: "/role",
+      });
+    }
+    if (checkPermissions([Permissions.RoleAdd], userPermissions)) {
+      roleMenu.items.push({
+        title: t(Locale.Role$Nav$Add$Name),
+        url: "/role/add",
+      });
+    }
+    navMain.push(roleMenu);
   }
 
   if (checkPermissions([Permissions.UserGet], userPermissions)) {
-    navMain.push({
+    const userMenu = {
       title: t(Locale.User$Nav$Name),
       url: "/user",
       icon: User,
       isActive: false,
-      items: [
-        {
-          title: t(Locale.User$Nav$List$Name),
-          url: "/user",
-        },
-        {
-          title: t(Locale.User$Nav$Add$Name),
-          url: "/user/add",
-        },
-      ],
-    });
+      items: [] as any[],
+    };
+    if (checkPermissions([Permissions.UserGet], userPermissions)) {
+      userMenu.items.push({
+        title: t(Locale.User$Nav$List$Name),
+        url: "/user",
+      });
+    }
+    if (checkPermissions([Permissions.UserAdd], userPermissions)) {
+      userMenu.items.push({
+        title: t(Locale.User$Nav$Add$Name),
+        url: "/user/add",
+      });
+    }
+    navMain.push(userMenu);
   }
 
   const teams = [

@@ -69,7 +69,7 @@ router.get(
 // 删除角色接口
 // 需要认证和角色删除权限
 router.delete(
-  "/delete/:id", // 根据ID删除角色
+  "/:id", // 根据ID删除角色
   useAuth(), // 认证中间件
   useCheckPermission([Permissions.RoleDelete]), // 权限检查中间件
   async (ctx) => {

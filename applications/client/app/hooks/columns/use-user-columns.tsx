@@ -1,10 +1,8 @@
-import { Permissions, type RoleItemApi } from "@packages/types";
+import { Permissions, type UserItemApi } from "@packages/types";
 import { createColumnHelper } from "@tanstack/react-table";
 import { useTranslation } from "react-i18next";
-import { Badge } from "~/components/ui/badge";
 import { Locale } from "~/locale/declaration";
-import { useMediaConfig } from "../use-media-config";
-import { MediaConfig } from "~/lib/utils";
+import dayjs from "dayjs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,64 +13,42 @@ import {
 import { Button } from "~/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
 import { useNavigate } from "react-router";
-import dayjs from "dayjs";
 import { PermissionView } from "~/components/features/permission-view";
 
-export interface RoleColumnsProps {
-  onDelete: (roleId: number) => void;
+export interface UserColumnsProps {
+  onDelete: (userId: string) => void;
 }
 
-export function useRoleColumns({ onDelete }: RoleColumnsProps) {
+export function useUserColumns({ onDelete }: UserColumnsProps) {
   const { t } = useTranslation();
-  const tableHelper = createColumnHelper<RoleItemApi>();
-  const { currentValue } = useMediaConfig(MediaConfig.RolePermssion);
+  const tableHelper = createColumnHelper<UserItemApi>();
   const navigate = useNavigate();
 
   return {
     columns: [
-      tableHelper.accessor("role", {
-        id: "role",
-        header: () => t(Locale.Role$Table$Role),
+      tableHelper.accessor("nickname", {
+        id: "nickname",
+        header: () => t(Locale.User$Table$Nickname),
       }),
-      tableHelper.accessor("permissions", {
-        id: "permissions",
-        header: () => t(Locale.Role$Table$Permissions),
+      tableHelper.accessor("email", {
+        id: "email",
+        header: () => t(Locale.User$Table$Email),
+      }),
+      tableHelper.accessor("ip", {
+        id: "ip",
+        header: () => t(Locale.User$Table$LastLoginIp),
+      }),
+      tableHelper.accessor("roles", {
+        id: "roles",
+        header: () => t(Locale.User$Table$Roles),
         cell: ({ row }) => {
-          const list: { id: number; text: string }[] = [];
-          for (
-            let i = 0,
-              length =
-                row.original.permissions.length > currentValue
-                  ? currentValue
-                  : row.original.permissions.length;
-            i < length;
-            i++
-          ) {
-            list.push({
-              id: row.original.permissions[i].id,
-              text: row.original.permissions[i].permission,
-            });
-          }
-          if (row.original.permissions.length > currentValue) {
-            list.push({
-              id: Math.random(),
-              text: `+${row.original.permissions.length - currentValue}`,
-            });
-          }
-          return (
-            <div className="flex gap-1">
-              {list.map((value) => (
-                <Badge variant="secondary" key={value.id}>
-                  {value.text}
-                </Badge>
-              ))}
-            </div>
-          );
+          const roles = row.original.roles;
+          return roles.map((role: any) => role.role).join(", ");
         },
       }),
       tableHelper.accessor("createAt", {
         id: "createAt",
-        header: () => t(Locale.Text$CreateAt),
+        header: () => t(Locale.User$Table$CreateAt),
         cell: ({ row }) => {
           return dayjs(row.original.createAt).format(
             t(Locale.Template$Full$Date),
@@ -94,18 +70,18 @@ export function useRoleColumns({ onDelete }: RoleColumnsProps) {
               <DropdownMenuContent align="end">
                 <DropdownMenuLabel>{t(Locale.Text$Actions)}</DropdownMenuLabel>
                 <DropdownMenuItem
-                  onClick={() => navigate(`/role/view/${row.original.id}`)}
+                  onClick={() => navigate(`/user/view/${row.original.id}`)}
                 >
                   {t(Locale.Text$View)}
                 </DropdownMenuItem>
-                <PermissionView permissions={[Permissions.RoleEdit]}>
+                <PermissionView permissions={[Permissions.UserEdit]}>
                   <DropdownMenuItem
-                    onClick={() => navigate(`/role/edit/${row.original.id}`)}
+                    onClick={() => navigate(`/user/edit/${row.original.id}`)}
                   >
                     {t(Locale.Text$Edit)}
                   </DropdownMenuItem>
                 </PermissionView>
-                <PermissionView permissions={[Permissions.RoleDelete]}>
+                <PermissionView permissions={[Permissions.UserDelete]}>
                   <DropdownMenuItem
                     className="text-red-500 data-highlighted:text-red-500"
                     onClick={() => onDelete(row.original.id)}

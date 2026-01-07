@@ -44,31 +44,24 @@ export class UserService {
    * @param email 要检查的邮箱地址
    * @returns 用户实体对象（如果存在）
    */
-  private static has(email: string) {
-    return AppDataSource.manager.findOneOrFail(User, {
-      where: {
-        email,
-      },
-    });
+  static checkHaveEmail(email: string) {
+    return usePatience(
+      AppDataSource.manager.findOneOrFail(User, {
+        where: {
+          email,
+        },
+      }),
+    );
   }
 
   /**
-   * 更新用户 IP 地址（私有方法）
+   * 更新用户信息（私有方法）
    *
-   * @param id 用户ID
-   * @param ip 新的IP地址
+   * @param user 用户实体对象
    * @returns 数据库更新操作结果
    */
-  private static updateIp(id: string, ip: string) {
-    return AppDataSource.manager.update(
-      User,
-      {
-        id,
-      },
-      {
-        ip,
-      },
-    );
+  private static update(user: User) {
+    return AppDataSource.manager.save(user);
   }
 
   /**
@@ -128,8 +121,14 @@ export class UserService {
 
     // 如果提供了IP地址，则更新用户IP
     if (ip) {
-      await this.updateIp(user.id, ip);
+      user.ip = ip;
     }
+
+    // 更新用户最后登录时间
+    user.lastLoginAt = new Date();
+
+    const [successUpdate] = await usePatience(this.update(user));
+    if (!successUpdate) throw new RequestError(i18n.t("user.login.error"));
 
     const token = await createToken(user.id);
 
@@ -141,38 +140,13 @@ export class UserService {
   }
 
   /**
-   * 用户注册
+   * 添加用户
    *
-   * @param ip 用户IP地址
-   * @param nickname 用户昵称
-   * @param email 用户邮箱
-   * @param password 用户密码
-   * @returns 注册成功返回 true
-   * @throws 如果邮箱已被注册则抛出异常
+   * @param user 用户实体对象
+   * @returns 保存后的用户实体对象
    */
-  static async register(
-    ip: string,
-    nickname: string,
-    email: string,
-    password: string,
-  ) {
-    // 检查邮箱是否已存在
-    const [, check] = await usePatience(this.has(email));
-    if (check) throw new RequestError(i18n.t("user.register.email.exists"));
-
-    // 生成用户ID并创建用户对象
-    const user = new User();
-    user.nickname = nickname;
-    user.email = email;
-    user.password = password;
-    user.ip = ip;
-    user.roles = [];
-
-    // 保存用户到数据库
-    await AppDataSource.manager.save(user);
-
-    // 注册成功
-    return true;
+  static add(user: User) {
+    return AppDataSource.manager.save(user);
   }
 
   /**
@@ -252,5 +226,31 @@ export class UserService {
       },
     });
     return users;
+  }
+
+  static get(id: string) {
+    return usePatience(
+      AppDataSource.manager.findOneOrFail(User, {
+        where: {
+          id,
+        },
+        relations: {
+          roles: {
+            permissions: true,
+          },
+        },
+      }),
+    );
+  }
+
+  static edit(user: User) {
+    return usePatience(AppDataSource.manager.save(user));
+  }
+
+  static delete(id: string) {
+    if (id === this.#Admin.id) {
+      throw new RequestError(i18n.t("user.delete.error.admin"));
+    }
+    return usePatience(AppDataSource.manager.delete(User, { id }));
   }
 }

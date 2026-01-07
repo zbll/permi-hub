@@ -371,3 +371,625 @@
 {"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T11:28:23.165Z"}
 {"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T11:28:25.259Z"}
 {"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T11:28:26.750Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T11:39:52.036Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T11:39:55.504Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T11:40:01.776Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T11:40:01.817Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T11:40:01.820Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T11:40:07.021Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T11:40:08.858Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:45:42.693Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:45:44.970Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T12:45:45.018Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T12:45:45.023Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:45:50.152Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T12:45:50.180Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T12:45:50.181Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:50:24.516Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:50:25.812Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T12:50:25.849Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T12:50:25.851Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:53:29.412Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:53:54.913Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:53:56.137Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T12:53:56.174Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T12:53:56.176Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T12:57:38.894Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:05:35.124Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:05:35.159Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:05:35.161Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:08:48.132Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:08:52.818Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:08:52.849Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:08:52.850Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:08:58.425Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:09:35.336Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:09:37.129Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T13:09:39.671Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:09:45.047Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:09:45.080Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:09:45.081Z"}
+{"level":"info","message":"http://localhost:8080/log/page?cur=1&size=10&filter=&time=DESC GET -> 200","timestamp":"2026-01-06T13:09:49.878Z"}
+{"level":"info","message":"http://localhost:8080/log/locale/logger/list?cur=1&size=10 GET -> 200","timestamp":"2026-01-06T13:09:50.002Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:10:00.833Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:14:14.912Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:14:53.673Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:14:53.720Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:15:44.730Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:15:44.860Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:15:44.861Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:15:44.862Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:15:44.873Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:15:44.900Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:15:44.902Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:15:44.904Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:15:44.907Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:15:44.909Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:15:44.987Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T13:19:00.196Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T13:19:08.573Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:19:08.608Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:19:08.646Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:19:08.651Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:19:08.717Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:19:38.346Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:19:38.348Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:19:55.392Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:19:55.395Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:19:58.769Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:19:58.774Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:20:40.011Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:21:30.590Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:21:30.628Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:21:30.629Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:21:30.695Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 404","timestamp":"2026-01-06T13:21:35.384Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 404","timestamp":"2026-01-06T13:21:36.425Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 404","timestamp":"2026-01-06T13:21:36.581Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 404","timestamp":"2026-01-06T13:21:36.723Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:24:11.863Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:24:11.867Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:24:56.906Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:24:57.006Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:24:57.007Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:24:57.008Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:24:57.015Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:24:57.037Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:24:57.039Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:24:57.041Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:24:57.044Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:24:57.046Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:24:57.059Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:25:23.725Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:25:23.805Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:25:23.806Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:25:23.807Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:25:23.812Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:25:23.831Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:25:23.840Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:25:23.842Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:25:23.843Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:25:23.845Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:25:23.852Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:25:43.634Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:25:43.732Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:25:43.733Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:25:43.734Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:25:43.739Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:25:43.756Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:25:43.757Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:25:43.758Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:25:43.760Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:25:43.762Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:25:43.774Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:25:51.800Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:25:51.914Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:25:51.914Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:25:51.915Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:25:51.926Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:25:51.947Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:25:51.950Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:25:51.951Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:25:51.954Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:25:51.955Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:25:51.978Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 401","timestamp":"2026-01-06T13:26:25.165Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T13:26:25.170Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T13:27:28.654Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:27:28.684Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:27:28.752Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:27:28.754Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:27:28.783Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:27:33.669Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:27:33.672Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:27:54.920Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:27:54.952Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:27:54.953Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:27:55.017Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:28:39.386Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:28:39.472Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:28:39.473Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:28:39.474Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:28:39.481Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:28:39.513Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:28:39.518Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:28:39.521Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:28:39.525Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:28:39.529Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:28:39.582Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T13:28:39.894Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T13:28:44.324Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:28:44.338Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:28:44.372Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:28:44.377Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:28:44.452Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:32:08.636Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:32:30.271Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:33:17.977Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:33:18.011Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:33:18.013Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:33:18.073Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:34:02.739Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:34:24.550Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:34:54.011Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:35:12.613Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:35:17.427Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:35:45.229Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:35:54.674Z"}
+{"level":"info","message":"http://localhost:8080/user/view/967b43aa-b6d3-4b51-a456-677d9fbd5d17 GET -> 200","timestamp":"2026-01-06T13:36:08.051Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T13:36:17.204Z"}
+{"level":"info","message":"http://localhost:8080/role/data/7 GET -> 200","timestamp":"2026-01-06T13:36:20.494Z"}
+{"level":"info","message":"http://localhost:8080/role/data/7 GET -> 200","timestamp":"2026-01-06T13:39:19.967Z"}
+{"level":"info","message":"http://localhost:8080/role/data/7 GET -> 200","timestamp":"2026-01-06T13:39:43.774Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:40:02.049Z"}
+{"level":"info","message":"http://localhost:8080/user/view/fbd076a4-81ef-48a5-8863-d96ea2fd39c8 GET -> 200","timestamp":"2026-01-06T13:40:04.472Z"}
+{"level":"info","message":"http://localhost:8080/user/view/fbd076a4-81ef-48a5-8863-d96ea2fd39c8 GET -> 200","timestamp":"2026-01-06T13:40:40.736Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:40:42.375Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:40:42.409Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:40:42.411Z"}
+{"level":"info","message":"http://localhost:8080/user/view/fbd076a4-81ef-48a5-8863-d96ea2fd39c8 GET -> 200","timestamp":"2026-01-06T13:40:42.479Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:40:44.183Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:41:45.457Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:41:45.529Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:41:45.530Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:41:45.531Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:41:45.538Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:41:45.557Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:41:45.559Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:41:45.561Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:41:45.563Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:41:45.565Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:41:45.578Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:45:47.923Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:45:48.017Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:45:48.018Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:45:48.019Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:45:48.027Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:45:48.049Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:45:48.058Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:45:48.060Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:45:48.062Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:45:48.064Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:45:48.082Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 401","timestamp":"2026-01-06T13:45:48.608Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 401","timestamp":"2026-01-06T13:45:50.618Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T13:46:11.548Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T13:46:19.062Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T13:46:19.080Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T13:46:19.108Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T13:46:19.123Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T13:46:19.191Z"}
+{"level":"info","message":"http://localhost:8080/role/data/7 GET -> 200","timestamp":"2026-01-06T13:46:27.608Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:46:31.176Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T13:46:35.696Z"}
+{"level":"info","message":"http://localhost:8080/user/fbd076a4-81ef-48a5-8863-d96ea2fd39c8 DELETE -> 404","timestamp":"2026-01-06T13:46:38.792Z"}
+{"level":"info","message":"http://localhost:8080/user/view/fbd076a4-81ef-48a5-8863-d96ea2fd39c8 GET -> 200","timestamp":"2026-01-06T13:46:49.444Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:48:54.830Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:48:54.915Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:48:54.916Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:48:54.917Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:48:54.924Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:48:54.947Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:48:54.950Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:48:54.951Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:48:54.954Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:48:54.956Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:48:54.973Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:50:20.028Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:50:20.103Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:50:20.104Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:50:20.105Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:50:20.112Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:50:20.133Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:50:20.135Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:50:20.137Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:50:20.139Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:50:20.141Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:50:20.154Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:50:29.102Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:50:29.187Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:50:29.188Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:50:29.189Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:50:29.195Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:50:29.212Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:50:29.214Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:50:29.216Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:50:29.218Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:50:29.220Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:50:29.232Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:51:10.358Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:51:10.435Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:51:10.436Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:51:10.437Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:51:10.444Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:51:10.477Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:51:10.480Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:51:10.481Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:51:10.484Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:51:10.485Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:51:10.498Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:51:16.087Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:51:16.151Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:51:16.152Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:51:16.153Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:51:16.159Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:51:16.178Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:51:16.180Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:51:16.181Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:51:16.183Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:51:16.185Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:51:16.200Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:51:17.650Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:51:17.716Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:51:17.717Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:51:17.717Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:51:17.722Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:51:17.735Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:51:17.751Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:51:17.752Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:51:17.754Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:51:17.755Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:51:17.763Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:53:23.251Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:53:23.327Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:53:23.328Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:53:23.329Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:53:23.335Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:53:23.358Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:53:23.360Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:53:23.362Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:53:23.365Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:53:23.367Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:53:23.384Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:54:11.344Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:54:11.406Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:54:11.407Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:54:11.408Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:54:11.414Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:54:11.436Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:54:11.449Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:54:11.450Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:54:11.453Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:54:11.454Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:54:11.479Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:57:40.016Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:57:40.080Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:57:40.081Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:57:40.082Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:57:40.088Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:57:40.109Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:57:40.111Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:57:40.112Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:57:40.114Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:57:40.116Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:57:40.130Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:58:05.413Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:58:05.479Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:58:05.480Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:58:05.481Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:58:05.487Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:58:05.506Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:58:05.508Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:58:05.510Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:58:05.512Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:58:05.514Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:58:05.533Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:58:49.697Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:58:49.846Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:58:49.846Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:58:49.847Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:58:49.854Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:58:49.875Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:58:49.877Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:58:49.878Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:58:49.881Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:58:49.882Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:58:49.894Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:59:08.153Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:59:08.231Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:59:08.232Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:59:08.232Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:59:08.238Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:59:08.259Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:59:08.261Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:59:08.263Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:59:08.265Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:59:08.267Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:59:08.282Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:59:15.926Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:59:15.995Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:59:15.996Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:59:15.997Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:59:16.003Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:59:16.020Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:59:16.030Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:59:16.031Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:59:16.032Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:59:16.034Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:59:16.040Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:59:20.884Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:59:20.950Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:59:20.951Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:59:20.952Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:59:20.957Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:59:20.970Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:59:20.971Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:59:20.972Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:59:20.974Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:59:20.975Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:59:20.991Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T13:59:31.754Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T13:59:31.873Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T13:59:31.874Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T13:59:31.875Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T13:59:31.882Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T13:59:31.900Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T13:59:31.922Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T13:59:31.923Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T13:59:31.926Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T13:59:31.927Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T13:59:31.934Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:00:22.898Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:00:22.963Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:00:22.964Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:00:22.965Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:00:22.972Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:00:22.992Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:00:23.003Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:00:23.005Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:00:23.007Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:00:23.008Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:00:23.023Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:02:03.196Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:02:03.330Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:02:03.331Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:02:03.333Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:02:03.340Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:02:03.360Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:02:03.370Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:02:03.372Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:02:03.374Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:02:03.376Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:02:03.381Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:04:44.592Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:04:44.657Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:04:44.658Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:04:44.659Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:04:44.665Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:04:44.685Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:04:44.686Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:04:44.688Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:04:44.690Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:04:44.691Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:04:44.703Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:04:47.756Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:04:47.822Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:04:47.823Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:04:47.824Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:04:47.829Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:04:47.842Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:04:47.844Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:04:47.845Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:04:47.847Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:04:47.848Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:04:47.861Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:06:24.334Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:06:24.404Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:06:24.405Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:06:24.406Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:06:24.413Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:06:24.434Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:06:24.444Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:06:24.446Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:06:24.449Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:06:24.450Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:06:24.459Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:06:29.544Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:06:29.603Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:06:29.604Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:06:29.605Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:06:29.610Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:06:29.623Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:06:29.634Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:06:29.635Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:06:29.637Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:06:29.638Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:06:29.645Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:25:12.416Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:25:12.482Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:25:12.483Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:25:12.485Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:25:12.492Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:25:12.514Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:25:12.516Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:25:12.518Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:25:12.520Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:25:12.522Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:25:12.536Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T14:25:23.648Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T14:25:28.635Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:25:28.652Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:25:28.681Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:25:28.682Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:25:31.468Z"}
+{"level":"info","message":"http://localhost:8080/user/fbd076a4-81ef-48a5-8863-d96ea2fd39c8 DELETE -> 404","timestamp":"2026-01-06T14:25:36.408Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:26:00.821Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:26:00.877Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:26:00.878Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:26:00.879Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:26:00.886Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:26:00.903Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:26:00.914Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:26:00.915Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:26:00.918Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:26:00.919Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:26:00.925Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T14:26:01.851Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T14:26:04.721Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:26:04.739Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:26:04.768Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:26:04.773Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:26:04.834Z"}
+{"level":"info","message":"http://localhost:8080/user/fbd076a4-81ef-48a5-8863-d96ea2fd39c8 DELETE -> 200","timestamp":"2026-01-06T14:26:07.604Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:26:09.355Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:26:09.385Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:26:09.387Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:26:09.448Z"}
+{"level":"info","message":"验证码已生成：2253697330@qq.com -> KR5WJO","timestamp":"2026-01-06T14:27:06.789Z"}
+{"level":"success","message":"验证码已发送：2253697330@qq.com (<d62cee69-9ea4-386f-d54c-e64326c45738@qq.com>)","timestamp":"2026-01-06T14:27:08.406Z"}
+{"level":"info","message":"http://localhost:8080/mail/send-code POST -> 200","timestamp":"2026-01-06T14:27:08.407Z"}
+{"level":"success","message":"验证码验证成功：2253697330@qq.com","timestamp":"2026-01-06T14:27:27.950Z"}
+{"level":"info","message":"http://localhost:8080/user/register POST -> 200","timestamp":"2026-01-06T14:27:27.953Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:27:28.013Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 200","timestamp":"2026-01-06T14:27:33.836Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:27:33.851Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:27:33.853Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:27:33.857Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:27:35.418Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:27:35.450Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:27:35.450Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:27:35.510Z"}
+{"level":"info","message":"http://localhost:8080/user/231969f6-bbbf-4d3d-bf60-c1a1f1644bf5 DELETE -> 200","timestamp":"2026-01-06T14:27:39.053Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:27:39.067Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:27:39.067Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:27:39.069Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:28:26.778Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:28:26.830Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:28:26.831Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:28:26.832Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:28:26.838Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:28:26.857Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:28:26.859Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:28:26.860Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:28:26.862Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:28:26.864Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:28:26.876Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:28:34.691Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:28:34.753Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:28:34.754Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:28:34.755Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:28:34.760Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:28:34.777Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:28:34.779Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:28:34.781Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:28:34.782Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:28:34.784Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:28:34.797Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:28:38.556Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:28:38.617Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:28:38.618Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:28:38.619Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:28:38.624Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:28:38.636Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:28:38.638Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:28:38.639Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:28:38.641Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:28:38.642Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:28:38.654Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T14:28:39.985Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T14:28:43.827Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:28:43.843Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:28:43.879Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:28:43.883Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:28:43.958Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:46.120Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:48.349Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:48.462Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:48.643Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:48.752Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:48.894Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:49.037Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:49.192Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:49.317Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:49.465Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:28:59.792Z"}
+{"level":"info","message":"http://localhost:8080/user/967b43aa-b6d3-4b51-a456-677d9fbd5d17 DELETE -> 400","timestamp":"2026-01-06T14:29:28.494Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T14:29:50.803Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T14:29:52.792Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:31:13.536Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:31:58.086Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:32:48.357Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:34:26.525Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:39:25.051Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:39:25.084Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:39:25.086Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T14:42:55.300Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:42:56.146Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:42:56.177Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:42:56.178Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T14:42:56.251Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:44:18.506Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T14:44:18.509Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T14:44:28.767Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T14:44:28.806Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T14:44:28.807Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T14:44:28.882Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T14:44:48.733Z"}
+{"level":"success","message":"Redis已连接","timestamp":"2026-01-06T14:46:42.215Z"}
+{"level":"success","message":"数据库连接成功","timestamp":"2026-01-06T14:46:42.284Z"}
+{"level":"info","message":"Server is running on host: http://localhost:8080","timestamp":"2026-01-06T14:46:42.285Z"}
+{"level":"info","message":"初始化Admin用户中...","timestamp":"2026-01-06T14:46:42.286Z"}
+{"level":"success","message":"已注册路由 role","timestamp":"2026-01-06T14:46:42.293Z"}
+{"level":"success","message":"已注册路由 mail","timestamp":"2026-01-06T14:46:42.313Z"}
+{"level":"success","message":"已注册路由 user","timestamp":"2026-01-06T14:46:42.316Z"}
+{"level":"success","message":"已注册路由 safety","timestamp":"2026-01-06T14:46:42.317Z"}
+{"level":"success","message":"已注册路由 log","timestamp":"2026-01-06T14:46:42.320Z"}
+{"level":"success","message":"已注册路由 permission","timestamp":"2026-01-06T14:46:42.322Z"}
+{"level":"info","message":"Admin用户已存在, ID: 967b43aa-b6d3-4b51-a456-677d9fbd5d17, 邮箱: admin@example.com, 密码: e10adc3949ba59abbe56e057f20f883e","timestamp":"2026-01-06T14:46:42.334Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T15:00:27.849Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 401","timestamp":"2026-01-06T15:01:17.451Z"}
+{"level":"info","message":"http://localhost:8080/user/login POST -> 200","timestamp":"2026-01-06T15:01:21.303Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:01:21.327Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T15:01:21.381Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T15:01:21.388Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T15:01:21.480Z"}
+{"level":"info","message":"验证码已生成：2253697330@qq.com -> S8XON2","timestamp":"2026-01-06T15:01:28.897Z"}
+{"level":"success","message":"验证码已发送：2253697330@qq.com (<d03fd331-70aa-f32c-1517-8f6ef60047ab@qq.com>)","timestamp":"2026-01-06T15:01:30.739Z"}
+{"level":"info","message":"http://localhost:8080/mail/send-code POST -> 200","timestamp":"2026-01-06T15:01:30.740Z"}
+{"level":"info","message":"http://localhost:8080/user/add POST -> 400","timestamp":"2026-01-06T15:01:50.203Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T15:02:09.742Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T15:02:10.979Z"}
+{"level":"info","message":"http://localhost:8080/user/add POST -> 400","timestamp":"2026-01-06T15:02:14.406Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:05:30.738Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T15:05:30.741Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:05:40.312Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T15:05:40.314Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:05:42.191Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T15:05:42.192Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:05:44.492Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T15:05:44.495Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:05:51.938Z"}
+{"level":"info","message":"http://localhost:8080/user/list GET -> 200","timestamp":"2026-01-06T15:05:51.940Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T15:05:51.948Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:06:20.213Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T15:06:20.244Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T15:06:20.247Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T15:06:20.340Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:08:26.469Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T15:08:26.503Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T15:08:26.504Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T15:08:26.579Z"}
+{"level":"info","message":"http://localhost:8080/user/authenticate GET -> 200","timestamp":"2026-01-06T15:12:07.836Z"}
+{"level":"info","message":"http://localhost:8080/user/info GET -> 200","timestamp":"2026-01-06T15:12:08.011Z"}
+{"level":"info","message":"http://localhost:8080/user/permissions GET -> 200","timestamp":"2026-01-06T15:12:08.046Z"}
+{"level":"info","message":"http://localhost:8080/role/list GET -> 200","timestamp":"2026-01-06T15:12:08.630Z"}

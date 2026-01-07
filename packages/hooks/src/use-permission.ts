@@ -20,6 +20,12 @@ export function checkPermission(
 }
 
 export function usePermission() {
+  /**
+   * 检查用户是否有足够的权限
+   * @param needPermissions 需要的权限列表
+   * @param permissions 用户权限列表
+   * @returns 是否有足够的权限
+   */
   const checkPermissions = (
     needPermissions: string[],
     permissions: string[],
@@ -35,6 +41,12 @@ export function usePermission() {
     return true;
   };
 
+  /**
+   * 获取用户缺少的权限
+   * @param needPermissions 需要的权限列表
+   * @param permissions 用户权限列表
+   * @returns 用户缺少的权限字符串
+   */
   const getNeedPermissions = (
     needPermissions: string[],
     permissions: string[],

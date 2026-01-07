@@ -5,7 +5,7 @@ import {
   index,
 } from "@react-router/dev/routes";
 
-export default [
+const router = [
   layout("routes/root-layout.tsx", [
     index("routes/home.tsx"),
     route("log", "routes/log.tsx", [
@@ -17,6 +17,11 @@ export default [
       route("view/:id", "routes/role-view.tsx"),
       route("edit/:id", "routes/role-edit.tsx"),
     ]),
-    route("user", "routes/user.tsx", [route("add", "routes/user-add.tsx")]),
+    route("user", "routes/user.tsx", [
+      route("add", "routes/user-add.tsx"),
+      route("view/:id", "routes/user-view.tsx"),
+    ]),
   ]),
 ] satisfies RouteConfig;
+
+export default router;

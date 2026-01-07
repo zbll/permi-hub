@@ -27,4 +27,7 @@ export class User {
 
   @Column({ comment: "创建时间" })
   createAt: Date = new Date();
+
+  @Column({ comment: "最后登录时间", nullable: true })
+  lastLoginAt?: Date;
 }

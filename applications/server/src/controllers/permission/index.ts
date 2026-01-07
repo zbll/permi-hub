@@ -1,10 +1,16 @@
 import { Hono } from "hono";
-import { useAuth, useCheckPermission } from "../../easy-middlewares.ts";
+import {
+  useAuth,
+  useCheckPermission,
+  type AuthVar,
+} from "../../easy-middlewares.ts";
 import { Permissions, RequestError } from "@packages/types";
 import { PermissionService } from "~services/permission/PermissionService.ts";
 import { i18n } from "~locale";
 
-const router = new Hono();
+const router = new Hono<{
+  Variables: AuthVar;
+}>();
 
 router.get(
   "/list",
