@@ -20,6 +20,7 @@ const router = [
     route("user", "routes/user.tsx", [
       route("add", "routes/user-add.tsx"),
       route("view/:id", "routes/user-view.tsx"),
+      route("edit/:id", "routes/user-edit.tsx"),
     ]),
     route("account", "routes/account.tsx"),
   ]),

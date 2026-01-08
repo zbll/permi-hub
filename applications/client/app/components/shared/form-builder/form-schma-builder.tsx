@@ -1,6 +1,6 @@
 import z, { ZodString } from "zod";
 import type { BuilderOptions } from "./brand-form-builder";
-import type { RenderText } from "./form-types";
+import { checkIsRequired, type RenderText } from "./form-types";
 import type { TextField } from "./text-form-builder";
 import type { TextareaField } from "./textarea-form-builder";
 import type { CodeField } from "./code-form-builder";
@@ -39,7 +39,7 @@ export function getFormSchema<
     }
     // 处理邮箱字段
     if (value.type === "email") {
-      schema[key] = getEmailSchema();
+      schema[key] = getEmailSchema(value);
     }
     // 处理文本域字段
     if (value.type === "textarea") {
@@ -59,7 +59,7 @@ function getTextSchema(value: TextField) {
   // 初始化字符串验证器，自动去除首尾空格
   let result: ZodString = z.string().trim();
   // 如果字段不是必需的，直接返回基本字符串验证器
-  if (!value.required) return result;
+  if (!checkIsRequired(value.required)) return result;
   // 如果设置了最小长度，添加最小长度验证
   if (value.minLength) {
     result = result.min(value.minLength.value, {
@@ -79,8 +79,12 @@ function getTextSchema(value: TextField) {
   return result;
 }
 
-function getEmailSchema() {
-  return z.email();
+function getEmailSchema(value: TextField) {
+  let result = z.string().trim();
+  if (checkIsRequired(value.required)) {
+    result = result.email();
+  }
+  return result;
 }
 
 function getCodeSchema(value: CodeField) {
@@ -102,7 +106,7 @@ function getTextareaSchema(value: TextareaField) {
   // 初始化字符串验证器，自动去除首尾空格
   let result: ZodString = z.string().trim();
   // 如果字段不是必需的，直接返回基本字符串验证器
-  if (!value.required) return result;
+  if (!checkIsRequired(value.required)) return result;
   // 如果设置了最小长度，添加最小长度验证
   if (value.minLength) {
     result = result.min(value.minLength.value, {

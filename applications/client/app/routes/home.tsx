@@ -6,5 +6,5 @@ export function meta() {
 }
 
 export default function Home() {
-  return <div>123</div>;
+  return <div>home</div>;
 }

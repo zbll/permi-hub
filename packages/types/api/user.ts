@@ -36,3 +36,10 @@ export interface CurrentUserEditApi {
   nickname: string;
   email: string;
 }
+
+export interface UserEditApi {
+  nickname: string;
+  email: string;
+  emailCode: string;
+  roles: number[];
+}

@@ -3,7 +3,7 @@ import type { useForm } from "@tanstack/react-form";
 export type RenderText = string | (() => string);
 
 export type BaseFormField = {
-  required?: boolean;
+  required?: boolean | (() => boolean);
   error?: RenderText;
   label: RenderText;
   placeholder?: RenderText;
@@ -27,4 +27,11 @@ export function doRenderText(text?: RenderText): string {
     return text();
   }
   return text || "";
+}
+
+export function checkIsRequired(required?: boolean | (() => boolean)): boolean {
+  if (typeof required === "function") {
+    return required();
+  }
+  return required || false;
 }

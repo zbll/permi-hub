@@ -43,6 +43,7 @@
   "route.routes/user-add.name": "Add User",
   "route.routes/user-view.name": "View User",
   "route.routes/account.name": "Account",
+  "route.routes/user-edit.name": "Edit User",
   "log.nav.name": "Log",
   "log.table.url": "URL",
   "log.table.method": "Method",
