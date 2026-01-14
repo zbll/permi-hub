@@ -283,7 +283,7 @@ router.post(
 router.delete(
   "/:id",
   useAuth(),
-  useCheckPermissionById("user-get"),
+  useCheckPermissionById("user-delete"),
   async (ctx) => {
     const id = ctx.req.param("id");
     const [canFind] = await UserService.get(id, false, false);
