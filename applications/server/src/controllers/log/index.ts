@@ -2,9 +2,12 @@ import { Hono } from "hono";
 import { validator } from "hono/validator";
 import { LogService } from "~services/log/LogService.ts";
 import { ServiceUtils } from "~services/ServiceUtils.ts";
-import { useAuth, useCache, useCheckPermission } from "~/easy-middlewares.ts";
 import {
-  Permissions,
+  useAuth,
+  useCache,
+  useCheckPermissionById,
+} from "~/easy-middlewares.ts";
+import {
   RequestError,
   type LogPageIsSuccessFilter,
   type LogPageRequestTypeFilter,
@@ -18,7 +21,7 @@ const router = new Hono();
 router.get(
   "/list",
   useAuth(),
-  useCheckPermission([Permissions.LoggerGet]),
+  useCheckPermissionById("logger-get"),
   async (ctx) => {
     const sort_createAt = ctx.req.query("sort_createAt");
     const createAtSort = ServiceUtils.getSortParam(sort_createAt);
@@ -31,7 +34,7 @@ router.get(
 router.get(
   "/page",
   useAuth(),
-  useCheckPermission([Permissions.LoggerGet]),
+  useCheckPermissionById("logger-get"),
   validator("query", (value) => {
     const { required, optional, fromSort } = useRequestValidator(
       value,
@@ -86,7 +89,7 @@ router.get(
   "/:id",
   useAuth(),
   useCache(),
-  useCheckPermission([Permissions.LoggerGet]),
+  useCheckPermissionById("logger-get"),
   async (ctx) => {
     const id = ctx.req.param("id");
     if (!id) throw new RequestError(i18n.t("log.view.field.id.empty"));
@@ -99,7 +102,7 @@ router.get(
 router.get(
   "/locale/logger/list",
   useAuth(),
-  useCheckPermission([Permissions.LocaleLogger]),
+  useCheckPermissionById("local-logger-get"),
   validator("query", (value) => {
     const { optional } = useRequestValidator(value, validatorOptions);
     const current = optional("cur").type("string").toNumberWithDefault(1);

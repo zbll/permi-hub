@@ -11,9 +11,18 @@ export enum Permissions {
   RoleDelete = "role:delete",
   Permission = "permission",
   PermissionGet = "permission:get",
+  PermissionAdd = "permission:add",
+  PermissionDelete = "permission:delete",
   User = "user",
   UserGet = "user:get",
   UserAdd = "user:add",
   UserEdit = "user:edit",
   UserDelete = "user:delete",
 }
+
+export type PermissionData = {
+  required: Permissions[];
+  optional?: Permissions[];
+};
+
+export type PermissionJson = Record<string, PermissionData>;

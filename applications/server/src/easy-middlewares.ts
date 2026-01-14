@@ -5,15 +5,17 @@ import {
   type ConnectInfoVar,
 } from "@packages/types";
 import { env } from "~env";
-import { UserService } from "./services/user/UserService.ts";
+import { UserService } from "~services/user/UserService.ts";
 import type { User } from "~entity/User.ts";
 import type { Context, Next } from "hono";
 import { cache } from "hono/cache";
-import { usePatience, usePermission } from "@packages/hooks";
+import { usePatience, usePermission, usePermissionJson } from "@packages/hooks";
 import { verifyToken } from "@packages/token";
 import { i18n } from "~locale";
 import type { MiddlewareHandler } from "hono";
 import { getConnInfo } from "hono/deno";
+import type { PermissionJson, Permissions } from "@packages/types";
+import { permissionJson } from "./utils/permission-json.ts";
 
 export type ConnInfo = ReturnType<typeof getConnInfo>;
 
@@ -71,7 +73,7 @@ export function useCache(sec: number = 24 * 60 * 60) {
 export function useCheckPermission(
   needPermissions: string[],
 ): MiddlewareHandler {
-  const { checkPermissions, getNeedPermissions } = usePermission();
+  const { checkPermissions, fetchPermissionsMissingByUser } = usePermission();
   return async (ctx: Context<{ Variables: AuthVar }>, next) => {
     const user = ctx.var.user;
     const { roles } = user;
@@ -81,10 +83,52 @@ export function useCheckPermission(
       throw new PermissionError(
         i18n.t("permission.invalid", {
           permissions:
-            "[" + getNeedPermissions(needPermissions, permissions) + "]",
+            "[" +
+            fetchPermissionsMissingByUser(needPermissions, permissions) +
+            "]",
         }),
       );
     }
+    await next();
+  };
+}
+
+export type PermissionVar = {
+  permission: {
+    optional: Record<string, boolean>;
+  };
+};
+
+export function useCheckPermissionById<T extends typeof permissionJson>(
+  id: keyof T,
+): MiddlewareHandler {
+  const { checkPermissionById, getNeedPermission } = usePermissionJson(
+    permissionJson as unknown as PermissionJson,
+  );
+  const { fetchPermissionsMissingByUser } = usePermission();
+  return async (ctx: Context<{ Variables: AuthVar & PermissionVar }>, next) => {
+    const user = ctx.var.user;
+    const { roles } = user;
+    const list = roles.map((u) => u.permissions);
+    const permissions = list.flatMap((u) =>
+      u.map((u) => u.permission as Permissions),
+    );
+    const checked = checkPermissionById(id as string, permissions);
+    if (!checked.required) {
+      const needPermissions = getNeedPermission(id as string);
+      throw new PermissionError(
+        i18n.t("permission.invalid", {
+          permissions:
+            "[" +
+            fetchPermissionsMissingByUser(
+              needPermissions.required,
+              permissions,
+            ) +
+            "]",
+        }),
+      );
+    }
+    ctx.set("permission", checked);
     await next();
   };
 }

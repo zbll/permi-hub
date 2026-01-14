@@ -99,7 +99,6 @@
   "permission.user.delete": "删除用户",
   "permission.permission": "权限管理",
   "permission.permission.get": "获取权限列表",
-  
   "user.nav.name": "用户管理",
   "user.nav.list.name": "用户列表",
   "user.nav.add.name": "添加用户",

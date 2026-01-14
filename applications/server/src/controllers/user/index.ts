@@ -1,12 +1,14 @@
 // 导入必要的模块
 import { Hono } from "hono";
-import { UserService } from "../../services/user/UserService.ts";
-import { EmailCodeService } from "../../services/user/EmailCodeService.ts";
+import { UserService } from "~services/user/UserService.ts";
+import { EmailCodeService } from "~services/user/EmailCodeService.ts";
 import { env } from "~env";
 import {
   useAuth,
+  useCheckPermissionById,
   type AuthVar,
   type ConnInfo,
+  type PermissionVar,
 } from "../../easy-middlewares.ts";
 
 import { md5 } from "@packages/encryption";
@@ -21,13 +23,12 @@ import {
   ServerError,
   RequestError,
 } from "@packages/types";
-import { useCheckPermission } from "../../easy-middlewares.ts";
 import { RoleService } from "~services/role/RoleService.ts";
 import { User } from "~entity/User.ts";
 
 // 创建用户路由实例，定义变量类型
 const router = new Hono<{
-  Variables: ConnectInfoVar<ConnInfo> & AuthVar;
+  Variables: ConnectInfoVar<ConnInfo> & AuthVar & PermissionVar;
 }>();
 
 // 发送邮箱验证码接口
@@ -51,7 +52,7 @@ router.post(
 router.get(
   "/list",
   useAuth(),
-  useCheckPermission([Permissions.UserGet]),
+  useCheckPermissionById("user-get"),
   async (ctx) => {
     // 从数据库获取所有用户
     const list = await UserService.list();
@@ -145,7 +146,7 @@ router.post(
 router.post(
   "/add",
   useAuth(),
-  useCheckPermission([Permissions.UserAdd]),
+  useCheckPermissionById("user-add"),
   validator("form", (value) => {
     const { required } = useRequestValidator(value, validatorOptions);
     const nickname = required("nickname").type("string").toValue<string>();
@@ -233,11 +234,15 @@ router.get("/permissions", useAuth(), (ctx) => {
 router.get(
   "/view/:id",
   useAuth(),
-  useCheckPermission([Permissions.UserGet]),
+  useCheckPermissionById("user-get"),
   async (ctx) => {
     const id = ctx.req.param("id");
     if (!id) throw new RequestError(i18n.t("user.view.field.id.empty"));
-    const [, user] = await UserService.get(id);
+    const [, user] = await UserService.get(
+      id,
+      ctx.var.permission.optional[Permissions.RoleGet],
+      ctx.var.permission.optional[Permissions.PermissionGet],
+    );
     return ctx.json(user);
   },
 );
@@ -245,7 +250,7 @@ router.get(
 router.post(
   "/edit/:id",
   useAuth(),
-  useCheckPermission([Permissions.UserEdit]),
+  useCheckPermissionById("user-edit"),
   validator("form", (value) => {
     const { required } = useRequestValidator(value, validatorOptions);
     const nickname = required("nickname").string().toString();
@@ -261,7 +266,7 @@ router.post(
     const { nickname, email, role } = ctx.req.valid("form");
     const id = ctx.req.param("id");
     if (!id) throw new RequestError(i18n.t("user.view.field.id.empty"));
-    const [canFind, user] = await UserService.get(id);
+    const [canFind, user] = await UserService.get(id, false, false);
     if (!canFind) throw new RequestError(i18n.t("user.view.error.not.exists"));
     const [canFindRoles, roles] = await RoleService.getRolesFromIds(role);
     if (!canFindRoles)
@@ -278,10 +283,10 @@ router.post(
 router.delete(
   "/:id",
   useAuth(),
-  useCheckPermission([Permissions.UserDelete]),
+  useCheckPermissionById("user-get"),
   async (ctx) => {
     const id = ctx.req.param("id");
-    const [canFind] = await UserService.get(id);
+    const [canFind] = await UserService.get(id, false, false);
     if (!canFind) throw new RequestError(i18n.t("user.view.error.not.exists"));
     const [success] = await UserService.delete(id);
     return ctx.json(success);
@@ -291,7 +296,7 @@ router.delete(
 router.post(
   "/edit",
   useAuth(),
-  useCheckPermission([Permissions.UserEdit]),
+  useCheckPermissionById("user-edit-myself"),
   validator("form", (value) => {
     const { required } = useRequestValidator(value, validatorOptions);
     const nickname = required("nickname").string().toString();

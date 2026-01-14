@@ -228,7 +228,7 @@ export class UserService {
     return users;
   }
 
-  static get(id: string) {
+  static get(id: string, needRole: boolean, needPermissions: boolean) {
     return usePatience(
       AppDataSource.manager.findOneOrFail(User, {
         where: {

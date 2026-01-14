@@ -27,7 +27,7 @@ export function PermissionAdapter({
 }: React.PropsWithChildren<PermissionAdapterProps>) {
   const { isFetching, data, isPending, isError, error, refetch } =
     useUserPermissions();
-  const { checkPermissions, getNeedPermissions } = usePermission();
+  const { checkPermissions, fetchPermissionsMissingByUser } = usePermission();
   const { t } = useTranslation();
 
   if (isFetching || isPending) {
@@ -49,7 +49,7 @@ export function PermissionAdapter({
           </EmptyMedia>
           <EmptyTitle>
             {t(Locale.Text$NeedPermission, {
-              permissions: getNeedPermissions(permissions, data),
+              permissions: fetchPermissionsMissingByUser(permissions, data),
             })}
           </EmptyTitle>
           <EmptyDescription>

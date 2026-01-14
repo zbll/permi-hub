@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { useAuth, useCheckPermission } from "../../easy-middlewares.ts";
+import { useAuth, useCheckPermissionById } from "../../easy-middlewares.ts";
 import { Permissions, RequestError } from "@packages/types";
 import { validator } from "hono/validator";
 import { useRequestValidator } from "@packages/hooks";
@@ -15,7 +15,7 @@ const router = new Hono();
 router.post(
   "/add",
   useAuth(), // 认证中间件
-  useCheckPermission([Permissions.RoleAdd]), // 权限检查中间件
+  useCheckPermissionById("role-add"), // 权限检查中间件
   // 请求参数验证
   validator("form", (value) => {
     const { required } = useRequestValidator(value, validatorOptions);
@@ -57,7 +57,7 @@ router.post(
 router.get(
   "/data/:id", // 根据ID获取角色
   useAuth(), // 认证中间件
-  useCheckPermission([Permissions.RoleGet]), // 权限检查中间件
+  useCheckPermissionById("role-get"), // 权限检查中间件
   async (ctx) => {
     const id = ctx.req.param("id"); // 获取路径参数中的角色ID
     const [success, role] = await RoleService.get(Number(id));
@@ -71,7 +71,7 @@ router.get(
 router.delete(
   "/:id", // 根据ID删除角色
   useAuth(), // 认证中间件
-  useCheckPermission([Permissions.RoleDelete]), // 权限检查中间件
+  useCheckPermissionById("role-delete"),
   async (ctx) => {
     const id = ctx.req.param("id"); // 获取路径参数中的角色ID
     const [success, role] = await RoleService.delete(Number(id));
@@ -86,7 +86,7 @@ router.delete(
 router.post(
   "/edit/:id", // 根据ID编辑角色
   useAuth(), // 认证中间件
-  useCheckPermission([Permissions.RoleEdit]), // 权限检查中间件
+  useCheckPermissionById("role-edit"),
   // 请求参数验证
   validator("form", (value) => {
     const { required } = useRequestValidator(value, validatorOptions);
@@ -139,7 +139,7 @@ router.post(
 router.get(
   "/list",
   useAuth(),
-  useCheckPermission([Permissions.RoleGet]),
+  useCheckPermissionById("role-get"),
   async (ctx) => {
     const [success, roles] = await RoleService.list();
     if (!success) throw new RequestError(i18n.t("role.list.error"));
